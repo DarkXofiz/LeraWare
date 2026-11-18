@@ -1,0 +1,18 @@
+{
+ "required": true,
+ "minVersion": "0.8",
+ "package": "neva.ware.injection",
+ "compatibilityLevel": "JAVA_17",
+ "mixins": [],
+ "client": [
+  "MixinHandledScreenInvAnim",
+  "MixinMinecraftClientInvAnim",
+  "MixinDrawContextDimInvAnim",
+  "MixinScreenBgInvAnim",
+  "MixinFakePlayerSkin"
+ ],
+ "server": [],
+ "injectors": {
+  "defaultRequire": 0
+ }
+}

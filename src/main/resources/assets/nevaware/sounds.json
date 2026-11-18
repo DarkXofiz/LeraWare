@@ -1,0 +1,132 @@
+{
+  "keypress": {
+    "sounds": [
+      "nevaware:keypress"
+    ]
+  },
+  "keyrelease": {
+    "sounds": [
+      "nevaware:keyrelease"
+    ]
+  },
+  "uwu": {
+    "sounds": [
+      "nevaware:uwu"
+    ]
+  },
+  "disable": {
+    "sounds": [
+      "nevaware:disable"
+    ]
+  },
+  "enable": {
+    "sounds": [
+      "nevaware:enable"
+    ]
+  },
+  "moan1": {
+    "sounds": [
+      "nevaware:moan1"
+    ]
+  },
+  "moan2": {
+    "sounds": [
+      "nevaware:moan2"
+    ]
+  },
+  "moan3": {
+    "sounds": [
+      "nevaware:moan3"
+    ]
+  },
+  "moan4": {
+    "sounds": [
+      "nevaware:moan4"
+    ]
+  },
+  "skeet": {
+    "sounds": [
+      "nevaware:skeet"
+    ]
+  },
+  "orthodox": {
+    "sounds": [
+      "nevaware:orthodox"
+    ]
+  },
+  "boolean": {
+    "sounds": [
+      "nevaware:boolean"
+    ]
+  },
+  "scroll": {
+    "sounds": [
+      "nevaware:scroll"
+    ]
+  },
+  "swipein": {
+    "sounds": [
+      "nevaware:swipein"
+    ]
+  },
+  "swipeout": {
+    "sounds": [
+      "nevaware:swipeout"
+    ]
+  },
+  "pmsound": {
+    "sounds": [
+      "nevaware:pmsound"
+    ]
+  },
+  "rifk": {
+    "sounds": [
+      "nevaware:rifk"
+    ]
+  },
+  "cutie": {
+    "sounds": [
+      "nevaware:cutie"
+    ]
+  },
+  "newcode_on": {
+    "sounds": [
+      "nevaware:newcode_on"
+    ]
+  },
+  "newcode_off": {
+    "sounds": [
+      "nevaware:newcode_off"
+    ]
+  },
+  "catlavan_on": {
+    "sounds": [
+      "nevaware:catlavan_on"
+    ]
+  },
+  "catlavan_off": {
+    "sounds": [
+      "nevaware:catlavan_off"
+    ]
+  },
+  "celestial_on": {
+    "sounds": [
+      "nevaware:celestial_on"
+    ]
+  },
+  "celestial_off": {
+    "sounds": [
+      "nevaware:celestial_off"
+    ]
+  },
+  "nursultan_on": {
+    "sounds": [
+      "nevaware:nursultan_on"
+    ]
+  },
+  "nursultan_off": {
+    "sounds": [
+      "nevaware:nursultan_off"
+    ]
+  }
+}
