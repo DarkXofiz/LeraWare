@@ -41,7 +41,7 @@ public class Bind {
             }
          }
 
-         return BindNames.normalize(this.key == -1 ? "None" : StringConcatFactory.makeConcatWithConstants<"makeConcatWithConstants","\u0001">(kn).toUpperCase());
+         return BindNames.normalize(this.key == -1 ? "None" : String.valueOf(kn).toUpperCase());
       }
    }
 
