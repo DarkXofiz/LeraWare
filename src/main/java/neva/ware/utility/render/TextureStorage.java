@@ -1,0 +1,54 @@
+package neva.ware.utility.render;
+
+import net.minecraft.class_2960;
+
+public final class TextureStorage {
+   public static final class_2960 crystalTexture2 = class_2960.method_60655("nevaware", "textures/misc/end_crystal2.png");
+   public static final class_2960 skull = class_2960.method_60655("nevaware", "textures/hud/elements/skull.png");
+   public static final class_2960 star = class_2960.method_60655("nevaware", "textures/particles/star.png");
+   public static final class_2960 heart = class_2960.method_60655("nevaware", "textures/particles/heart.png");
+   public static final class_2960 dollar = class_2960.method_60655("nevaware", "textures/particles/dollar.png");
+   public static final class_2960 snowflake = class_2960.method_60655("nevaware", "textures/particles/snowflake.png");
+   public static final class_2960 firefly = class_2960.method_60655("nevaware", "textures/particles/firefly.png");
+   public static final class_2960 arrow = class_2960.method_60655("nevaware", "textures/hud/elements/triangle.png");
+   public static final class_2960 capture = class_2960.method_60655("nevaware", "textures/hud/elements/capture.png");
+   public static final class_2960 bubble = class_2960.method_60655("nevaware", "textures/particles/hitbubble.png");
+   public static final class_2960 default_circle = class_2960.method_60655("nevaware", "textures/particles/circle.png");
+   public static final class_2960 container = class_2960.method_60655("nevaware", "textures/hud/elements/container.png");
+   public static final class_2960 guiArrow = class_2960.method_60655("nevaware", "textures/gui/elements/arrow.png");
+   public static final class_2960 Gear = class_2960.method_60655("nevaware", "textures/gui/headers/client.png");
+   public static final class_2960 candle = class_2960.method_60655("nevaware", "textures/hud/elements/candle.png");
+   public static final class_2960 thTeam = class_2960.method_60655("nevaware", "textures/gui/elements/thteam.png");
+   public static final class_2960 donation = class_2960.method_60655("nevaware", "textures/gui/elements/donationalerts.png");
+   public static final class_2960 chestIcon = class_2960.method_60655("nevaware", "textures/hud/icons/chest.png");
+   public static final class_2960 brokenShield = class_2960.method_60655("nevaware", "textures/hud/elements/broken_shield.png");
+   public static final class_2960 miniLogo = class_2960.method_60655("nevaware", "textures/hud/icons/mini_logo.png");
+   public static final class_2960 playerIcon = class_2960.method_60655("nevaware", "textures/gui/headers/player.png");
+   public static final class_2960 serverIcon = class_2960.method_60655("nevaware", "textures/hud/icons/server.png");
+   public static final class_2960 proxyIcon = class_2960.method_60655("nevaware", "textures/hud/icons/proxy.png");
+   public static final class_2960 waypoint = class_2960.method_60655("nevaware", "textures/hud/elements/waypoint.png");
+   public static final class_2960 configIcon = class_2960.method_60655("nevaware", "textures/gui/elements/configpng.png");
+   public static final class_2960 waypointIcon = class_2960.method_60655("nevaware", "textures/gui/elements/waypointicon.png");
+   public static final class_2960 macrosIcon = class_2960.method_60655("nevaware", "textures/gui/elements/macrosicon.png");
+   public static final class_2960 speedometerIcon = class_2960.method_60655("nevaware", "textures/hud/icons/speedometer.png");
+   public static final class_2960 lagIcon = class_2960.method_60655("nevaware", "textures/hud/elements/lag.png");
+   public static final class_2960 fpsIcon = class_2960.method_60655("nevaware", "textures/hud/icons/fps.png");
+   public static final class_2960 pingIcon = class_2960.method_60655("nevaware", "textures/hud/icons/ping.png");
+   public static final class_2960 swordIcon = class_2960.method_60655("nevaware", "textures/hud/icons/sword.png");
+   public static final class_2960 memoryIcon = class_2960.method_60655("nevaware", "textures/hud/icons/memory.png");
+   public static final class_2960 tpsIcon = class_2960.method_60655("nevaware", "textures/hud/icons/tps.png");
+   public static final class_2960 boykisser = class_2960.method_60655("nevaware", "textures/hud/elements/boykisser.png");
+   public static final class_2960 paimon = class_2960.method_60655("nevaware", "textures/hud/elements/paimon.png");
+   public static final class_2960 baltika = class_2960.method_60655("nevaware", "textures/hud/elements/baltika.png");
+   public static final class_2960 kowk = class_2960.method_60655("nevaware", "textures/hud/elements/kowk.png");
+   public static final class_2960 thLogo = class_2960.method_60655("nevaware", "textures/gui/elements/th.png");
+   public static final class_2960 thudPic = class_2960.method_60655("nevaware", "textures/hud/elements/thud.png");
+   public static final class_2960 coordsIcon = class_2960.method_60655("nevaware", "textures/hud/icons/coords.png");
+   public static final class_2960 sunRiseSkin = class_2960.method_60655("nevaware", "textures/misc/sunskin.png");
+   public static final class_2960 crackedSkin = class_2960.method_60655("nevaware", "textures/gui/elements/cracked.png");
+   public static final class_2960 questionPic = class_2960.method_60655("nevaware", "textures/gui/helper/pic1.png");
+   public static final class_2960 cutie = class_2960.method_60655("nevaware", "textures/gui/images/cutie.png");
+   public static final class_2960 customWatermark = class_2960.method_60655("nevaware", "textures/hud/elements/watermark.jpg");
+   public static final class_2960 Amogusik = class_2960.method_60655("nevaware", "textures/models/amogus.png");
+   public static final class_2960 rabbitTexture = class_2960.method_60655("nevaware", "textures/models/rabbit.png");
+}
