@@ -8,3 +8,4 @@ out/
 *.class
 decompiled/
 original/
+mappings/identity-named.jar

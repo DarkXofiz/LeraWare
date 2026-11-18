@@ -15,7 +15,7 @@ repositories {
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     // Source is in intermediary names (class_xxx), so use intermediary as "mappings".
-    mappings "net.fabricmc:intermediary:${project.minecraft_version}:v2"
+    mappings files("mappings/identity-named.jar")
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     implementation "meteordevelopment:orbit:${project.orbit_version}"
