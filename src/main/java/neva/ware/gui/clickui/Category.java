@@ -69,7 +69,7 @@ public class Category extends AbstractCategory {
    }
 
    private List<ModuleButton> visibleButtons() {
-      ArrayList var1 = new ArrayList();
+      ArrayList<ModuleButton> var1 = new ArrayList<>();
       String var2 = this.searchable ? ClickGUI.searchQuery() : "";
 
       for (AbstractButton var4 : this.buttons) {
@@ -154,7 +154,7 @@ public class Category extends AbstractCategory {
       float var12 = this.width - 12.0F;
       float var13 = this.height - 26.0F - 5.0F;
       if (!(var13 <= 2.0F)) {
-         List var14 = this.visibleButtons();
+         List<ModuleButton> var14 = this.visibleButtons();
          float var15 = 0.0F;
 
          for (ModuleButton var17 : var14) {

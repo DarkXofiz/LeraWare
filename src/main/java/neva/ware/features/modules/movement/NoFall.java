@@ -246,7 +246,7 @@ public class NoFall extends Module {
    @EventHandler
    public void onPacketSend(PacketEvent.Send e) {
       if (e.getPacket() instanceof class_2828 pac && this.cancelGround) {
-         ((IPlayerMoveC2SPacket)pac).setOnGround(false);
+         ((IPlayerMoveC2SPacket)(Object)pac).setOnGround(false);
       }
    }
 

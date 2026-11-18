@@ -217,7 +217,7 @@ public class ESP extends Module {
                   double y = (double)be.method_11016().method_10264() - mc.method_1561().field_4686.method_19326().method_10214();
                   double z = (double)be.method_11016().method_10260() - mc.method_1561().field_4686.method_19326().method_10215();
                   Render3DEngine.drawBoxOutline(new class_238(be.method_11016()), this.beakonColor.getValue().getColorObject(), 2.0F);
-                  float range = (float)(((IBeaconBlockEntity)bbe).getLevel() * 10 + 11);
+                  float range = (float)(((IBeaconBlockEntity)(Object)bbe).getLevel() * 10 + 11);
                   boolean ky = this.keepY.getValue();
                   stack.method_22903();
                   stack.method_22904(x, ky ? -10.0 : y, z);
@@ -596,7 +596,7 @@ public class ESP extends Module {
    }
 
    private int getAreaCloudColor(class_1295 ent) {
-      return ent.method_5600() instanceof class_9381 effect ? ((IAreaEffectCloudEntity)ent).getPotionContentsComponent().method_8064() : -1;
+      return ent.method_5600() instanceof class_9381 effect ? ((IAreaEffectCloudEntity)(Object)ent).getPotionContentsComponent().method_8064() : -1;
    }
 
    public static float getRotations(class_241 vec) {

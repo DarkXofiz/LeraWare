@@ -510,7 +510,7 @@ public class AutoCrystal extends Module {
       }
 
       if (this.render.getValue()) {
-         ConcurrentHashMap var2 = new ConcurrentHashMap<>(this.renderPositions);
+         ConcurrentHashMap<class_2338, Long> var2 = new ConcurrentHashMap<>(this.renderPositions);
          var2.forEach((pos, time) -> {
             if (System.currentTimeMillis() - time > 500L) {
                this.renderPositions.remove(pos);

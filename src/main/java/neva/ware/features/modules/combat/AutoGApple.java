@@ -32,7 +32,7 @@ public final class AutoGApple extends Module {
                && this.useDelay.passedMs((long)this.Delay.getValue().intValue())) {
                this.isActive = true;
                if (mc.field_1755 != null && !mc.field_1724.method_6115()) {
-                  ((IMinecraftClient)mc).idoItemUse();
+                  ((IMinecraftClient)(Object)mc).idoItemUse();
                } else {
                   mc.field_1690.field_1904.method_23481(true);
                }

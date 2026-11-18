@@ -249,7 +249,7 @@ public final class InteractionUtility {
 
    public static void sendSequencedPacket(class_7204 packetCreator) {
       if (Module.mc.method_1562() != null && Module.mc.field_1687 != null) {
-         class_7202 pendingUpdateManager = ((IClientWorldMixin)Module.mc.field_1687).getPendingUpdateManager().method_41937();
+         class_7202 pendingUpdateManager = ((IClientWorldMixin)(Object)Module.mc.field_1687).getPendingUpdateManager().method_41937();
 
          try {
             int i = pendingUpdateManager.method_41942();

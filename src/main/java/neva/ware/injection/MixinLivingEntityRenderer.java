@@ -62,9 +62,9 @@ public abstract class MixinLivingEntityRenderer<T extends class_1309, M extends 
             this.originalPrevHeadYaw = livingEntity.field_6259;
             this.originalPrevHeadPitch = livingEntity.field_6004;
             this.originalHeadPitch = livingEntity.method_36455();
-            livingEntity.method_36457(((IClientPlayerEntity)class_310.method_1551().field_1724).getLastPitch());
+            livingEntity.method_36457(((IClientPlayerEntity)(Object)class_310.method_1551().field_1724).getLastPitch());
             livingEntity.field_6004 = Managers.PLAYER.lastPitch;
-            livingEntity.field_6241 = ((IClientPlayerEntity)class_310.method_1551().field_1724).getLastYaw();
+            livingEntity.field_6241 = ((IClientPlayerEntity)(Object)class_310.method_1551().field_1724).getLastYaw();
             livingEntity.field_6283 = Render2DEngine.interpolateFloat(
                Managers.PLAYER.prevBodyYaw, Managers.PLAYER.bodyYaw, (double)Render3DEngine.getTickDelta()
             );

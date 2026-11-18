@@ -77,8 +77,8 @@ public final class Criticals extends Module {
                mc.field_1724.method_23317(),
                mc.field_1724.method_23318() + yDelta,
                mc.field_1724.method_23321(),
-               ((IClientPlayerEntity)mc.field_1724).getLastYaw(),
-               ((IClientPlayerEntity)mc.field_1724).getLastPitch(),
+               ((IClientPlayerEntity)(Object)mc.field_1724).getLastYaw(),
+               ((IClientPlayerEntity)(Object)mc.field_1724).getLastPitch(),
                false
             )
          );

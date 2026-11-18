@@ -65,8 +65,8 @@ public class PlayerManager implements IManager {
       if (!Module.fullNullCheck()) {
          this.yaw = mc.field_1724.method_36454();
          this.pitch = mc.field_1724.method_36455();
-         this.lastYaw = ((IClientPlayerEntity)mc.field_1724).getLastYaw();
-         this.lastPitch = ((IClientPlayerEntity)mc.field_1724).getLastPitch();
+         this.lastYaw = ((IClientPlayerEntity)(Object)mc.field_1724).getLastYaw();
+         this.lastPitch = ((IClientPlayerEntity)(Object)mc.field_1724).getLastPitch();
          if (mc.field_1755 == null) {
             this.inInventory = false;
          }
@@ -167,17 +167,17 @@ public class PlayerManager implements IManager {
       }
 
       if (mc.field_1724.field_6251 > 0.0F) {
-         offset = ((IClientPlayerEntity)class_310.method_1551().field_1724).getLastYaw();
+         offset = ((IClientPlayerEntity)(Object)class_310.method_1551().field_1724).getLastYaw();
       }
 
       float deltaBodyYaw = class_3532.method_15363(
          class_3532.method_15393(
-            ((IClientPlayerEntity)class_310.method_1551().field_1724).getLastYaw() - (this.bodyYaw + class_3532.method_15393(offset - this.bodyYaw) * 0.3F)
+            ((IClientPlayerEntity)(Object)class_310.method_1551().field_1724).getLastYaw() - (this.bodyYaw + class_3532.method_15393(offset - this.bodyYaw) * 0.3F)
          ),
          -45.0F,
          75.0F
       );
-      return (deltaBodyYaw > 50.0F ? deltaBodyYaw * 0.2F : 0.0F) + ((IClientPlayerEntity)class_310.method_1551().field_1724).getLastYaw() - deltaBodyYaw;
+      return (deltaBodyYaw > 50.0F ? deltaBodyYaw * 0.2F : 0.0F) + ((IClientPlayerEntity)(Object)class_310.method_1551().field_1724).getLastYaw() - deltaBodyYaw;
    }
 
    public boolean checkRtx(float yaw, float pitch, float distance, float wallDistance, Aura.RayTrace rt) {

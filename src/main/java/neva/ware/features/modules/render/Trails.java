@@ -110,7 +110,7 @@ public class Trails extends Module {
          for (class_1657 entity : mc.field_1687.method_18456()) {
             if (entity == mc.field_1724 || !this.onlySelf.getValue()) {
                float alpha = (float)this.color.getValue().getAlpha() / 255.0F;
-               if (!((IEntity)entity).getTrails().isEmpty()) {
+               if (!((IEntity)(Object)entity).getTrails().isEmpty()) {
                   stack.method_22903();
                   RenderSystem.disableCull();
                   RenderSystem.enableBlend();
@@ -120,15 +120,15 @@ public class Trails extends Module {
                   RenderSystem.setShader(class_757::method_34540);
                   class_287 bufferBuilder = class_289.method_1348().method_60827(class_5596.field_27380, class_290.field_1576);
 
-                  for (int i = 0; i < ((IEntity)entity).getTrails().size(); i++) {
-                     Trails.Trail ctx = ((IEntity)entity).getTrails().get(i);
+                  for (int i = 0; i < ((IEntity)(Object)entity).getTrails().size(); i++) {
+                     Trails.Trail ctx = ((IEntity)(Object)entity).getTrails().get(i);
                      class_243 pos = ctx.interpolate(Render3DEngine.getTickDelta());
                      bufferBuilder.method_22918(
                            stack.method_23760().method_23761(), (float)pos.field_1352, (float)pos.field_1351 + this.down.getValue(), (float)pos.field_1350
                         )
                         .method_39415(
                            Render2DEngine.injectAlpha(
-                                 ((IEntity)entity).getTrails().get(i).color(), (int)((double)alpha * ctx.animation(Render3DEngine.getTickDelta()) * 255.0)
+                                 ((IEntity)(Object)entity).getTrails().get(i).color(), (int)((double)alpha * ctx.animation(Render3DEngine.getTickDelta()) * 255.0)
                               )
                               .getRGB()
                         );
@@ -140,7 +140,7 @@ public class Trails extends Module {
                         )
                         .method_39415(
                            Render2DEngine.injectAlpha(
-                                 ((IEntity)entity).getTrails().get(i).color(), (int)((double)alpha * ctx.animation(Render3DEngine.getTickDelta()) * 255.0)
+                                 ((IEntity)(Object)entity).getTrails().get(i).color(), (int)((double)alpha * ctx.animation(Render3DEngine.getTickDelta()) * 255.0)
                               )
                               .getRGB()
                         );
@@ -167,10 +167,10 @@ public class Trails extends Module {
                RenderSystem.depthMask(false);
                RenderSystem.setShader(class_757::method_34543);
                class_287 bufferBuilder = class_289.method_1348().method_60827(class_5596.field_27382, class_290.field_1575);
-               int size = ((IEntity)entityx).getTrails().size();
-               if (!((IEntity)entityx).getTrails().isEmpty()) {
+               int size = ((IEntity)(Object)entityx).getTrails().size();
+               if (!((IEntity)(Object)entityx).getTrails().isEmpty()) {
                   for (int i = 0; i < size; i++) {
-                     Trails.Trail ctx = ((IEntity)entityx).getTrails().get(i);
+                     Trails.Trail ctx = ((IEntity)(Object)entityx).getTrails().get(i);
                      class_4587 matrices = new class_4587();
                      matrices.method_22907(class_7833.field_40714.rotationDegrees(camera.method_19329()));
                      matrices.method_22907(class_7833.field_40716.rotationDegrees(camera.method_19330() + 180.0F));
@@ -211,7 +211,7 @@ public class Trails extends Module {
          for (class_1657 entityxx : mc.field_1687.method_18456()) {
             if (entityxx == mc.field_1724 || !this.onlySelf.getValue()) {
                float alpha = (float)this.color.getValue().getAlpha() / 255.0F;
-               if (!((IEntity)entityxx).getTrails().isEmpty()) {
+               if (!((IEntity)(Object)entityxx).getTrails().isEmpty()) {
                   stack.method_22903();
                   RenderSystem.disableCull();
                   RenderSystem.enableBlend();
@@ -222,8 +222,8 @@ public class Trails extends Module {
                   RenderSystem.setShader(class_757::method_34540);
                   class_287 bufferBuilder = class_289.method_1348().method_60827(class_5596.field_27380, class_290.field_1576);
 
-                  for (int i = 0; i < ((IEntity)entityxx).getTrails().size(); i++) {
-                     Trails.Trail ctx = ((IEntity)entityxx).getTrails().get(i);
+                  for (int i = 0; i < ((IEntity)(Object)entityxx).getTrails().size(); i++) {
+                     Trails.Trail ctx = ((IEntity)(Object)entityxx).getTrails().get(i);
                      class_243 pos = ctx.interpolate(Render3DEngine.getTickDelta());
                      bufferBuilder.method_22918(stack.method_23760().method_23761(), (float)pos.field_1352, (float)pos.field_1351, (float)pos.field_1350)
                         .method_39415(
@@ -241,8 +241,8 @@ public class Trails extends Module {
                   RenderSystem.setShader(class_757::method_34540);
                   bufferBuilder = class_289.method_1348().method_60827(class_5596.field_27380, class_290.field_1576);
 
-                  for (int i = 0; i < ((IEntity)entityxx).getTrails().size(); i++) {
-                     Trails.Trail ctx = ((IEntity)entityxx).getTrails().get(i);
+                  for (int i = 0; i < ((IEntity)(Object)entityxx).getTrails().size(); i++) {
+                     Trails.Trail ctx = ((IEntity)(Object)entityxx).getTrails().get(i);
                      class_243 pos = ctx.interpolate(Render3DEngine.getTickDelta());
                      bufferBuilder.method_22918(stack.method_23760().method_23761(), (float)pos.field_1352, (float)pos.field_1351 + step, (float)pos.field_1350)
                         .method_39415(
@@ -262,8 +262,8 @@ public class Trails extends Module {
                   RenderSystem.setShader(class_757::method_34540);
                   bufferBuilder = class_289.method_1348().method_60827(class_5596.field_27380, class_290.field_1576);
 
-                  for (int i = 0; i < ((IEntity)entityxx).getTrails().size(); i++) {
-                     Trails.Trail ctx = ((IEntity)entityxx).getTrails().get(i);
+                  for (int i = 0; i < ((IEntity)(Object)entityxx).getTrails().size(); i++) {
+                     Trails.Trail ctx = ((IEntity)(Object)entityxx).getTrails().get(i);
                      class_243 pos = ctx.interpolate(Render3DEngine.getTickDelta());
                      bufferBuilder.method_22918(
                            stack.method_23760().method_23761(), (float)pos.field_1352, (float)pos.field_1351 + step * 2.0F, (float)pos.field_1350
@@ -285,8 +285,8 @@ public class Trails extends Module {
                   RenderSystem.setShader(class_757::method_34540);
                   bufferBuilder = class_289.method_1348().method_60827(class_5596.field_27380, class_290.field_1576);
 
-                  for (int i = 0; i < ((IEntity)entityxx).getTrails().size(); i++) {
-                     Trails.Trail ctx = ((IEntity)entityxx).getTrails().get(i);
+                  for (int i = 0; i < ((IEntity)(Object)entityxx).getTrails().size(); i++) {
+                     Trails.Trail ctx = ((IEntity)(Object)entityxx).getTrails().get(i);
                      class_243 pos = ctx.interpolate(Render3DEngine.getTickDelta());
                      bufferBuilder.method_22918(
                            stack.method_23760().method_23761(), (float)pos.field_1352, (float)pos.field_1351 + step * 3.0F, (float)pos.field_1350
@@ -308,8 +308,8 @@ public class Trails extends Module {
                   RenderSystem.setShader(class_757::method_34540);
                   bufferBuilder = class_289.method_1348().method_60827(class_5596.field_27380, class_290.field_1576);
 
-                  for (int i = 0; i < ((IEntity)entityxx).getTrails().size(); i++) {
-                     Trails.Trail ctx = ((IEntity)entityxx).getTrails().get(i);
+                  for (int i = 0; i < ((IEntity)(Object)entityxx).getTrails().size(); i++) {
+                     Trails.Trail ctx = ((IEntity)(Object)entityxx).getTrails().get(i);
                      class_243 pos = ctx.interpolate(Render3DEngine.getTickDelta());
                      bufferBuilder.method_22918(
                            stack.method_23760().method_23761(), (float)pos.field_1352, (float)pos.field_1351 + step * 4.0F, (float)pos.field_1350
@@ -377,7 +377,7 @@ public class Trails extends Module {
       for (class_1657 player : mc.field_1687.method_18456()) {
          if (player.method_19538().method_10215() != player.field_5969
             || player.method_19538().method_10216() != player.field_6014 && !this.onlySelf.getValue()) {
-            ((IEntity)player)
+            ((IEntity)(Object)player)
                .getTrails()
                .add(new Trails.Trail(new class_243(player.field_6014, player.field_6036, player.field_5969), player.method_19538(), c));
             if (this.players.is(Trails.Players.Particles)) {
@@ -395,7 +395,7 @@ public class Trails extends Module {
             }
          }
 
-         ((IEntity)player).getTrails().removeIf(Trails.Trail::update);
+         ((IEntity)(Object)player).getTrails().removeIf(Trails.Trail::update);
       }
 
       for (class_1297 en : Managers.ASYNC.getAsyncEntities()) {
@@ -413,7 +413,7 @@ public class Trails extends Module {
       }
 
       if (Managers.PLAYER.currentPlayerSpeed != 0.0F) {
-         ((IEntity)mc.field_1724)
+         ((IEntity)(Object)mc.field_1724)
             .getTrails()
             .add(new Trails.Trail(new class_243(mc.field_1724.field_6014, mc.field_1724.field_6036, mc.field_1724.field_5969), mc.field_1724.method_19538(), c));
          if (this.players.is(Trails.Players.Particles)) {

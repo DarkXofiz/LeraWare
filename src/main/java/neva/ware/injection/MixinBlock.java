@@ -41,11 +41,11 @@ public abstract class MixinBlock {
    )
    public void getVelocityMultiplierHook(CallbackInfoReturnable<Float> cir) {
       if (ModuleManager.noSlow.isEnabled()) {
-         if (ModuleManager.noSlow.soulSand.getValue() && this == class_2246.field_10114) {
+         if (ModuleManager.noSlow.soulSand.getValue() && (Object)this == class_2246.field_10114) {
             cir.setReturnValue(class_2246.field_10566.method_23349());
          }
 
-         if (ModuleManager.noSlow.honey.getValue() && this == class_2246.field_21211) {
+         if (ModuleManager.noSlow.honey.getValue() && (Object)this == class_2246.field_21211) {
             cir.setReturnValue(class_2246.field_10566.method_23349());
          }
       }
@@ -58,12 +58,12 @@ public abstract class MixinBlock {
    )
    public void getSlipperinessHook(CallbackInfoReturnable<Float> cir) {
       if (ModuleManager.noSlow.isEnabled()) {
-         if (ModuleManager.noSlow.slime.getValue() && this == class_2246.field_10030) {
+         if (ModuleManager.noSlow.slime.getValue() && (Object)this == class_2246.field_10030) {
             cir.setReturnValue(class_2246.field_10566.method_9499());
          }
 
          if (ModuleManager.noSlow.ice.getValue()
-            && (this == class_2246.field_10295 || this == class_2246.field_10225 || this == class_2246.field_10384 || this == class_2246.field_10110)
+            && ((Object)this == class_2246.field_10295 || (Object)this == class_2246.field_10225 || (Object)this == class_2246.field_10384 || (Object)this == class_2246.field_10110)
             && !IManager.mc.field_1690.field_1903.method_1434()) {
             cir.setReturnValue(class_2246.field_10566.method_9499());
          }

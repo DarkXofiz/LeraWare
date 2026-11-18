@@ -110,7 +110,7 @@ public final class ResettableManagedShaderEffect extends ResettableManagedShader
    }
 
    protected boolean setupUniform(ManagedUniformBase uniform, class_279 shader) {
-      return uniform.findUniformTargets(((AccessiblePassesShaderEffect)shader).getPasses());
+      return uniform.findUniformTargets(((AccessiblePassesShaderEffect)(Object)shader).getPasses());
    }
 
    @Override

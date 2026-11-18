@@ -34,11 +34,11 @@ public class MixinShaderEffect implements IShaderEffect {
          if (previousFramebuffer != null) {
             for (class_283 pass : this.field_1497) {
                if (pass.field_1536 == previousFramebuffer) {
-                  ((IPostProcessShader)pass).setInput(buffer);
+                  ((IPostProcessShader)(Object)pass).setInput(buffer);
                }
 
                if (pass.field_1538 == previousFramebuffer) {
-                  ((IPostProcessShader)pass).setOutput(buffer);
+                  ((IPostProcessShader)(Object)pass).setOutput(buffer);
                }
             }
 

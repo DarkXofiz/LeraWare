@@ -54,11 +54,11 @@ public final class ExplosionUtility {
             explosion = new class_1927(Module.mc.field_1687, Module.mc.field_1724, 1.0, 33.0, 7.0, 6.0F, false, class_4179.field_18687);
          }
 
-         ((IExplosion)explosion).setX(explosionPos.field_1352);
-         ((IExplosion)explosion).setY(explosionPos.field_1351);
-         ((IExplosion)explosion).setZ(explosionPos.field_1350);
-         if (((IExplosion)explosion).getWorld() != Module.mc.field_1687) {
-            ((IExplosion)explosion).setWorld(Module.mc.field_1687);
+         ((IExplosion)(Object)explosion).setX(explosionPos.field_1352);
+         ((IExplosion)(Object)explosion).setY(explosionPos.field_1351);
+         ((IExplosion)(Object)explosion).setZ(explosionPos.field_1350);
+         if (((IExplosion)(Object)explosion).getWorld() != Module.mc.field_1687) {
+            ((IExplosion)(Object)explosion).setWorld(Module.mc.field_1687);
          }
 
          if (!new class_238(
@@ -89,7 +89,7 @@ public final class ExplosionUtility {
                   toDamage = class_1280.method_5496(
                      target,
                      toDamage,
-                     ((IExplosion)explosion).getDamageSource(),
+                     ((IExplosion)(Object)explosion).getDamageSource(),
                      (float)target.method_6096(),
                      (float)target.method_5996(class_5134.field_23725).method_6194()
                   );
@@ -127,11 +127,11 @@ public final class ExplosionUtility {
             explosion = new class_1927(Module.mc.field_1687, Module.mc.field_1724, 1.0, 33.0, 7.0, 6.0F, false, class_4179.field_18687);
          }
 
-         ((IExplosion)explosion).setX(explosionPos.field_1352);
-         ((IExplosion)explosion).setY(explosionPos.field_1351);
-         ((IExplosion)explosion).setZ(explosionPos.field_1350);
-         if (((IExplosion)explosion).getWorld() != Module.mc.field_1687) {
-            ((IExplosion)explosion).setWorld(Module.mc.field_1687);
+         ((IExplosion)(Object)explosion).setX(explosionPos.field_1352);
+         ((IExplosion)(Object)explosion).setY(explosionPos.field_1351);
+         ((IExplosion)(Object)explosion).setZ(explosionPos.field_1350);
+         if (((IExplosion)(Object)explosion).getWorld() != Module.mc.field_1687) {
+            ((IExplosion)(Object)explosion).setWorld(Module.mc.field_1687);
          }
 
          if (!new class_238(
@@ -162,7 +162,7 @@ public final class ExplosionUtility {
                   toDamage = class_1280.method_5496(
                      target,
                      toDamage,
-                     ((IExplosion)explosion).getDamageSource(),
+                     ((IExplosion)(Object)explosion).getDamageSource(),
                      (float)target.method_6096(),
                      (float)Objects.requireNonNull(target.method_5996(class_5134.field_23725)).method_6194()
                   );
@@ -234,11 +234,11 @@ public final class ExplosionUtility {
             explosion = new class_1927(Module.mc.field_1687, Module.mc.field_1724, 1.0, 33.0, 7.0, 6.0F, false, class_4179.field_18687);
          }
 
-         ((IExplosion)explosion).setX(explosionPos.field_1352);
-         ((IExplosion)explosion).setY(explosionPos.field_1351);
-         ((IExplosion)explosion).setZ(explosionPos.field_1350);
-         if (((IExplosion)explosion).getWorld() != Module.mc.field_1687) {
-            ((IExplosion)explosion).setWorld(Module.mc.field_1687);
+         ((IExplosion)(Object)explosion).setX(explosionPos.field_1352);
+         ((IExplosion)(Object)explosion).setY(explosionPos.field_1351);
+         ((IExplosion)(Object)explosion).setZ(explosionPos.field_1350);
+         if (((IExplosion)(Object)explosion).getWorld() != Module.mc.field_1687) {
+            ((IExplosion)(Object)explosion).setWorld(Module.mc.field_1687);
          }
 
          double maxDist = 12.0;
@@ -270,7 +270,7 @@ public final class ExplosionUtility {
                   toDamage = class_1280.method_5496(
                      target,
                      toDamage,
-                     ((IExplosion)explosion).getDamageSource(),
+                     ((IExplosion)(Object)explosion).getDamageSource(),
                      (float)target.method_6096(),
                      (float)target.method_5996(class_5134.field_23725).method_6194()
                   );

@@ -106,7 +106,7 @@ public class LegacyHud extends Module {
 
          int i = mc.field_1755 instanceof class_408 && this.renderingUp.getValue() ? 13 : (this.renderingUp.getValue() ? -2 : 0);
          if (this.potions.getValue()) {
-            for (class_1293 potionEffect : new ArrayList(mc.field_1724.method_6026())) {
+            for (class_1293 potionEffect : new ArrayList<>(mc.field_1724.method_6026())) {
                class_1291 potion = (class_1291)potionEffect.method_5579().comp_349();
                String power = "";
                switch (potionEffect.method_5578()) {

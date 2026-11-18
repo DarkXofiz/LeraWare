@@ -28,7 +28,7 @@ public class HitBubbles extends Module {
    public void onHit(EventAttack e) {
       class_243 point = Managers.PLAYER
          .getRtxPoint(
-            ((IClientPlayerEntity)mc.field_1724).getLastYaw(), ((IClientPlayerEntity)mc.field_1724).getLastPitch(), ModuleManager.aura.attackRange.getValue()
+            ((IClientPlayerEntity)(Object)mc.field_1724).getLastYaw(), ((IClientPlayerEntity)(Object)mc.field_1724).getLastPitch(), ModuleManager.aura.attackRange.getValue()
          );
       if (point != null && !e.isPre()) {
          this.bubbles
@@ -37,8 +37,8 @@ public class HitBubbles extends Module {
                   (float)point.field_1352,
                   (float)point.field_1351,
                   (float)point.field_1350,
-                  -((IClientPlayerEntity)mc.field_1724).getLastYaw(),
-                  ((IClientPlayerEntity)mc.field_1724).getLastPitch(),
+                  -((IClientPlayerEntity)(Object)mc.field_1724).getLastYaw(),
+                  ((IClientPlayerEntity)(Object)mc.field_1724).getLastPitch(),
                   new Timer()
                )
             );

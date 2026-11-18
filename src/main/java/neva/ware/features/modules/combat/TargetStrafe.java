@@ -307,9 +307,9 @@ public class TargetStrafe extends Module {
 
          oldSpeed = (vX + vZ) / (double)(this.velReduction.getValue() * 1000.0F);
          oldSpeed = Math.min(oldSpeed, (double)this.maxVelocitySpeed.getValue().floatValue());
-         ((ISPacketEntityVelocity)velocity).setMotionX(0);
-         ((ISPacketEntityVelocity)velocity).setMotionY(0);
-         ((ISPacketEntityVelocity)velocity).setMotionZ(0);
+         ((ISPacketEntityVelocity)(Object)velocity).setMotionX(0);
+         ((ISPacketEntityVelocity)(Object)velocity).setMotionY(0);
+         ((ISPacketEntityVelocity)(Object)velocity).setMotionZ(0);
       }
    }
 

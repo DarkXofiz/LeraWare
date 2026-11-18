@@ -29,7 +29,7 @@ public class MixinOtherClientPlayerEntity extends class_742 implements IOtherCli
 
    @Override
    public void resolve(Aura.Resolver mode) {
-      if (this == FakePlayer.fakePlayer) {
+      if ((Object)this == FakePlayer.fakePlayer) {
          this.backUpY = -999.0;
       } else {
          this.backUpX = this.method_23317();
@@ -49,7 +49,7 @@ public class MixinOtherClientPlayerEntity extends class_742 implements IOtherCli
 
             if (bestPos != null) {
                this.method_5814(bestPos.getX(), bestPos.getY(), bestPos.getZ());
-               if (Aura.target == this) {
+               if (Aura.target == (Object)this) {
                   ModuleManager.aura.resolvedBox = this.method_5829();
                }
             }
@@ -68,7 +68,7 @@ public class MixinOtherClientPlayerEntity extends class_742 implements IOtherCli
                this.method_5814(to.field_1352, to.field_1351, to.field_1350);
             }
 
-            if (Aura.target == this) {
+            if (Aura.target == (Object)this) {
                ModuleManager.aura.resolvedBox = this.method_5829();
             }
          }

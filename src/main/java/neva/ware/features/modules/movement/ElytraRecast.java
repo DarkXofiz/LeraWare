@@ -102,7 +102,7 @@ public class ElytraRecast extends Module {
       }
 
       this.jitter = 20.0F * MathUtility.sin((float)(System.currentTimeMillis() - NevaWare.initTime) / 50.0F);
-      ((ILivingEntity)mc.field_1724).setLastJumpCooldown(0);
+      ((ILivingEntity)(Object)mc.field_1724).setLastJumpCooldown(0);
    }
 
    public boolean castElytra() {

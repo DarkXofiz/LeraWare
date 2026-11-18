@@ -15,6 +15,6 @@ public abstract class BuiltChunkMixin {
       at = {@At("TAIL")}
    )
    private void chunkanimator$setOrigin(int x, int y, int z, CallbackInfo ci) {
-      ChunkAnimator.animationHandler().setOrigin((class_851)this, new class_2338(x, y, z));
+      ChunkAnimator.animationHandler().setOrigin((class_851)(Object)this, new class_2338(x, y, z));
    }
 }

@@ -56,7 +56,7 @@ public class HitColor extends Module {
    public void onUpdate() {
       if (!fullNullCheck() && mc.field_1687 != null) {
          long var1 = System.currentTimeMillis();
-         HashMap var3 = new HashMap();
+         HashMap<Integer, Integer> var3 = new HashMap<>();
 
          for (class_1297 var5 : mc.field_1687.method_18112()) {
             if (var5 instanceof class_1309) {

@@ -144,7 +144,7 @@ public class ClickGUI extends class_437 {
 
    protected void method_25426() {
       if (this.firstOpen) {
-         ArrayList var1 = new ArrayList<>(Managers.MODULE.getCategories());
+         ArrayList<Module.Category> var1 = new ArrayList<>(Managers.MODULE.getCategories());
          var1.removeIf(var0 -> var0 == Module.Category.HUD);
          var1.sort((var0, var1x) -> Integer.compare(order(var0), order(var1x)));
 
@@ -452,7 +452,7 @@ public class ClickGUI extends class_437 {
       this.tipAnim = NwDraw.approach(this.tipAnim, var8 ? 1.0F : 0.0F, var8 ? 14.0F : 22.0F);
       if (!(this.tipAnim < 0.02F) && this.tipModule != null && currentDescription != null && !currentDescription.isEmpty()) {
          FontRenderer var9 = NwDraw.smallFont();
-         List var10 = wrap(var9, currentDescription, 170.0F);
+         List<String> var10 = wrap(var9, currentDescription, 170.0F);
          float var11 = 0.0F;
 
          for (String var13 : var10) {
@@ -491,7 +491,7 @@ public class ClickGUI extends class_437 {
    }
 
    private static List<String> wrap(FontRenderer var0, String var1, float var2) {
-      ArrayList var3 = new ArrayList();
+      ArrayList<String> var3 = new ArrayList<>();
 
       for (String var7 : var1.split("\n")) {
          StringBuilder var8 = new StringBuilder();

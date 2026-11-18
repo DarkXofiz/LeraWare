@@ -116,7 +116,7 @@ public class Speed extends Module {
       if (this.mode.getValue() == Speed.Mode.GrimEntity && !e.isPre() && NevaWare.core.getSetBackTime() > 1000L) {
          for (class_1657 ent : Managers.ASYNC.getAsyncPlayers()) {
             if (ent != mc.field_1724 && mc.field_1724.method_5858(ent) <= 2.25) {
-               float p = mc.field_1687.method_8320(((IEntity)mc.field_1724).thunderHack_Recode$getVelocityBP()).method_26204().method_9499();
+               float p = mc.field_1687.method_8320(((IEntity)(Object)mc.field_1724).thunderHack_Recode$getVelocityBP()).method_26204().method_9499();
                float f = mc.field_1724.method_24828() ? p * 0.91F : 0.91F;
                float f2 = mc.field_1724.method_24828() ? p : 0.99F;
                mc.field_1724
@@ -153,7 +153,7 @@ public class Speed extends Module {
    @EventHandler
    public void onTick(EventTick e) {
       if ((this.mode.is(Speed.Mode.GrimIce) || this.mode.is(Speed.Mode.GrimCombo)) && mc.field_1724.method_24828()) {
-         class_2338 pos = ((IEntity)mc.field_1724).thunderHack_Recode$getVelocityBP();
+         class_2338 pos = ((IEntity)(Object)mc.field_1724).thunderHack_Recode$getVelocityBP();
          SearchInvResult result = InventoryUtility.findBlockInHotBar(class_2246.field_10295, class_2246.field_10225, class_2246.field_10384);
          if (mc.field_1687.method_22347(pos) || !result.found() || !mc.field_1690.field_1903.method_1434()) {
             return;
@@ -192,7 +192,7 @@ public class Speed extends Module {
    public void onPostTick(EventPostTick e) {
       if ((this.mode.is(Speed.Mode.GrimIce) || this.mode.is(Speed.Mode.GrimCombo)) && this.prevSlot != -1) {
          mc.field_1724.method_31548().field_7545 = this.prevSlot;
-         ((IInteractionManager)mc.field_1761).syncSlot();
+         ((IInteractionManager)(Object)mc.field_1761).syncSlot();
          this.prevSlot = -1;
       }
    }

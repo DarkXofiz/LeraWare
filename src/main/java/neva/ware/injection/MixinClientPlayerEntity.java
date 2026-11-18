@@ -124,9 +124,9 @@ public abstract class MixinClientPlayerEntity extends class_742 {
          NevaWare.EVENT_BUS.post(new EventAfterRotate());
          if (e.getSprintState() != Module.mc.field_1724.field_3919) {
             if (e.getSprintState()) {
-               Module.mc.field_1724.field_3944.method_52787(new class_2848(this, class_2849.field_12981));
+               Module.mc.field_1724.field_3944.method_52787(new class_2848((class_1297)(Object)this, class_2849.field_12981));
             } else {
-               Module.mc.field_1724.field_3944.method_52787(new class_2848(this, class_2849.field_12985));
+               Module.mc.field_1724.field_3944.method_52787(new class_2848((class_1297)(Object)this, class_2849.field_12985));
             }
 
             Module.mc.field_1724.field_3919 = e.getSprintState();

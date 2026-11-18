@@ -20,8 +20,8 @@ public class FastUse extends Module {
 
    @Override
    public void onUpdate() {
-      if (this.check(mc.field_1724.method_6047().method_7909()) && ((IMinecraftClient)mc).getUseCooldown() > this.delay.getValue()) {
-         ((IMinecraftClient)mc).setUseCooldown(this.delay.getValue());
+      if (this.check(mc.field_1724.method_6047().method_7909()) && ((IMinecraftClient)(Object)mc).getUseCooldown() > this.delay.getValue()) {
+         ((IMinecraftClient)(Object)mc).setUseCooldown(this.delay.getValue());
       }
    }
 

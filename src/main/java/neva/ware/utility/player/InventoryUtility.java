@@ -402,7 +402,7 @@ public final class InventoryUtility {
       if (Module.mc.field_1724 != null && Module.mc.method_1562() != null) {
          if (Module.mc.field_1724.method_31548().field_7545 != slot || Managers.PLAYER.serverSideSlot != slot) {
             Module.mc.field_1724.method_31548().field_7545 = slot;
-            ((IInteractionManager)Module.mc.field_1761).syncSlot();
+            ((IInteractionManager)(Object)Module.mc.field_1761).syncSlot();
          }
       }
    }
@@ -411,7 +411,7 @@ public final class InventoryUtility {
       if (Module.mc.field_1724 != null && Module.mc.method_1562() != null) {
          if (Module.mc.field_1724.method_31548().field_7545 != slot || Managers.PLAYER.serverSideSlot != slot) {
             Module.mc.field_1724.method_31548().field_7545 = slot;
-            ((IInteractionManager)Module.mc.field_1761).syncSlot();
+            ((IInteractionManager)(Object)Module.mc.field_1761).syncSlot();
          }
       }
    }

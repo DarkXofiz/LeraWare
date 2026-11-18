@@ -69,7 +69,7 @@ public class HandOutline extends Module {
          Matrix4f var9 = var1.method_23760().method_23761();
          Managers.SHADER
             .renderShader(
-               () -> ((IGameRenderer)var2.field_1773).irenderHand(var2.field_1773.method_19418(), Render3DEngine.getTickDelta(), var9),
+               () -> ((IGameRenderer)(Object)var2.field_1773).irenderHand(var2.field_1773.method_19418(), Render3DEngine.getTickDelta(), var9),
                ShaderManager.Shader.Default
             );
       }

@@ -936,7 +936,7 @@ public final class ParticleFx {
    private static void tickPlasma(int var0) {
       lastCount = var0;
       int var1 = Math.max(3, Math.min(22, var0 / 18));
-      ArrayList var2 = new ArrayList();
+      ArrayList<ParticleFx.P> var2 = new ArrayList<>();
       Iterator var3 = L.iterator();
 
       while (var3.hasNext()) {

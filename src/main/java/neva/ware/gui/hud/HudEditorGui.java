@@ -81,7 +81,7 @@ public class HudEditorGui extends class_437 {
    }
 
    private List<HudElement> elements() {
-      ArrayList var1 = new ArrayList();
+      ArrayList<HudElement> var1 = new ArrayList<>();
 
       try {
          for (Module var3 : Managers.MODULE.getEnabledModules()) {

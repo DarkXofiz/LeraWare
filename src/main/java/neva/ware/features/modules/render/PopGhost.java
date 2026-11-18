@@ -122,8 +122,8 @@ public class PopGhost extends Module {
 
    private static void partFields() {
       if (partFloatFields == null) {
-         ArrayList var0 = new ArrayList();
-         ArrayList var1 = new ArrayList();
+         ArrayList<Field> var0 = new ArrayList<>();
+         ArrayList<Field> var1 = new ArrayList<>();
 
          for (Field var5 : class_630.class.getDeclaredFields()) {
             if (!Modifier.isStatic(var5.getModifiers())) {
@@ -148,7 +148,7 @@ public class PopGhost extends Module {
       if (var2 != null) {
          return var2;
       } else {
-         ArrayList var3 = new ArrayList();
+         ArrayList<Field> var3 = new ArrayList<>();
 
          for (Class var4 = var1; var4 != null && var4 != Object.class; var4 = var4.getSuperclass()) {
             for (Field var8 : var4.getDeclaredFields()) {

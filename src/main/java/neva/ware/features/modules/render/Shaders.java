@@ -101,7 +101,7 @@ public class Shaders extends Module {
       if (this.hands.getValue()) {
          Managers.SHADER
             .renderShader(
-               () -> ((IGameRenderer)mc.field_1773)
+               () -> ((IGameRenderer)(Object)mc.field_1773)
                      .irenderHand(mc.field_1773.method_19418(), Render3DEngine.getTickDelta(), matrices.method_23760().method_23761()),
                this.handsMode.getValue()
             );

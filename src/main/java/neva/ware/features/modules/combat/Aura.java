@@ -602,7 +602,7 @@ public class Aura extends Module {
 
    public float getAttackCooldown() {
       return class_3532.method_15363(
-         ((float)((ILivingEntity)mc.field_1724).getLastAttackedTicks() + this.attackBaseTime.getValue()) / this.getAttackCooldownProgressPerTick(), 0.0F, 1.0F
+         ((float)((ILivingEntity)(Object)mc.field_1724).getLastAttackedTicks() + this.attackBaseTime.getValue()) / this.getAttackCooldownProgressPerTick(), 0.0F, 1.0F
       );
    }
 

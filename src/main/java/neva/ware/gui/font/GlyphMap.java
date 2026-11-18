@@ -131,7 +131,7 @@ class GlyphMap {
          int ow = bi.getWidth();
          int oh = bi.getHeight();
          class_1011 image = new class_1011(class_1012.field_4997, ow, oh, false);
-         long ptr = ((INativeImage)image).getPointer();
+         long ptr = ((INativeImage)(Object)image).getPointer();
          IntBuffer backingBuffer = MemoryUtil.memIntBuffer(ptr, image.method_4307() * image.method_4323());
          int off = 0;
          WritableRaster _ra = bi.getRaster();

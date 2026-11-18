@@ -55,7 +55,7 @@ public abstract class MixinEntity implements IEntity {
       )
    )
    public void pushAwayFromHook(Args args) {
-      if (this == Module.mc.field_1724 && ModuleManager.noPush.isEnabled() && ModuleManager.noPush.players.getValue()) {
+      if ((Object)this == Module.mc.field_1724 && ModuleManager.noPush.isEnabled() && ModuleManager.noPush.players.getValue()) {
          args.set(0, 0.0);
          args.set(1, 0.0);
          args.set(2, 0.0);
@@ -69,7 +69,7 @@ public abstract class MixinEntity implements IEntity {
    )
    public void updateVelocityHook(float speed, class_243 movementInput, CallbackInfo ci) {
       if (!Module.fullNullCheck()) {
-         if (this == Module.mc.field_1724) {
+         if ((Object)this == Module.mc.field_1724) {
             ci.cancel();
             EventFixVelocity event = new EventFixVelocity(
                movementInput, speed, Module.mc.field_1724.method_36454(), movementInputToVelocityC(movementInput, speed, Module.mc.field_1724.method_36454())
@@ -104,7 +104,7 @@ public abstract class MixinEntity implements IEntity {
       if (ModuleManager.hitBox.isEnabled()
          && Module.mc != null
          && Module.mc.field_1724 != null
-         && ((class_1297)this).method_5628() != Module.mc.field_1724.method_5628()
+         && ((class_1297)(Object)this).method_5628() != Module.mc.field_1724.method_5628()
          && (ModuleManager.aura.isDisabled() || HitBox.affectToAura.getValue())) {
          cir.setReturnValue(
             new class_238(
@@ -127,7 +127,7 @@ public abstract class MixinEntity implements IEntity {
    public void isGlowingHook(CallbackInfoReturnable<Boolean> cir) {
       Shaders shaders = ModuleManager.shaders;
       if (shaders.isEnabled()) {
-         cir.setReturnValue(shaders.shouldRender((class_1297)this));
+         cir.setReturnValue(shaders.shouldRender((class_1297)(Object)this));
       }
    }
 
@@ -161,7 +161,7 @@ public abstract class MixinEntity implements IEntity {
    public void isInLavaHook(CallbackInfoReturnable<Boolean> cir) {
       if ((ModuleManager.jesus.isEnabled() || ModuleManager.noWaterCollision.isEnabled())
          && Module.mc.field_1724 != null
-         && ((class_1297)this).method_5628() == Module.mc.field_1724.method_5628()) {
+         && ((class_1297)(Object)this).method_5628() == Module.mc.field_1724.method_5628()) {
          cir.setReturnValue(false);
       }
    }
@@ -174,7 +174,7 @@ public abstract class MixinEntity implements IEntity {
    public void isTouchingWaterHook(CallbackInfoReturnable<Boolean> cir) {
       if ((ModuleManager.jesus.isEnabled() || ModuleManager.noWaterCollision.isEnabled())
          && Module.mc.field_1724 != null
-         && ((class_1297)this).method_5628() == Module.mc.field_1724.method_5628()) {
+         && ((class_1297)(Object)this).method_5628() == Module.mc.field_1724.method_5628()) {
          cir.setReturnValue(false);
       }
    }
@@ -188,7 +188,7 @@ public abstract class MixinEntity implements IEntity {
       if ((ModuleManager.jesus.isEnabled() || ModuleManager.noWaterCollision.isEnabled())
          && swimming
          && Module.mc.field_1724 != null
-         && ((class_1297)this).method_5628() == Module.mc.field_1724.method_5628()) {
+         && ((class_1297)(Object)this).method_5628() == Module.mc.field_1724.method_5628()) {
          ci.cancel();
       }
    }

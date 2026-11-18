@@ -55,7 +55,7 @@ public class WaterMark extends HudElement {
       class_4587 var2 = var1.method_51448();
       float var3 = this.getPosX();
       float var4 = this.getPosY();
-      ArrayList var5 = new ArrayList();
+      ArrayList<NwHud.Seg> var5 = new ArrayList<>();
       var5.add(new NwHud.Seg(NwHud.Icon.LOGO, "NevaWare", null, true));
       if (this.nwNick.getValue()) {
          var5.add(new NwHud.Seg(NwHud.Icon.USER, nick(), null, false));
@@ -71,7 +71,7 @@ public class WaterMark extends HudElement {
 
       float var6 = NwHud.segBar(var2, var3, var4, var5, this.w1);
       float var7 = 15.0F;
-      ArrayList var8 = new ArrayList();
+      ArrayList<NwHud.Seg> var8 = new ArrayList<>();
       if (this.infoRow.getValue()) {
          class_746 var9 = mc.field_1724;
          if (this.nwCoords.getValue() && var9 != null) {

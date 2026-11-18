@@ -44,7 +44,7 @@ public class LoginCommand extends Command {
    }
 
    public void setSession(class_320 session) {
-      IMinecraftClient mca = (IMinecraftClient)mc;
+      IMinecraftClient mca = (IMinecraftClient)(Object)mc;
       mca.setSessionT(session);
       mc.method_53462().getProperties().clear();
       UserApiService apiService = UserApiService.OFFLINE;

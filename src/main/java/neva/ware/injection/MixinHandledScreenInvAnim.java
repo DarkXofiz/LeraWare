@@ -19,7 +19,7 @@ public class MixinHandledScreenInvAnim {
       remap = false
    )
    private void invAnimHead(class_332 var1, int var2, int var3, float var4, CallbackInfo var5) {
-      InvAnimBg.head(var1, (class_437)this, var2, var3, var4);
+      InvAnimBg.head(var1, (class_437)(Object)this, var2, var3, var4);
    }
 
    @Inject(

@@ -111,7 +111,7 @@ public class MixinEntityLiving implements IEntityLiving {
    )
    public void travelHook(class_243 movementInput, CallbackInfo ci) {
       if (!Module.fullNullCheck()) {
-         if ((class_1309)this == Module.mc.field_1724) {
+         if ((class_1309)(Object)(Object)this == Module.mc.field_1724) {
             EventTravel event = new EventTravel(Module.mc.field_1724.method_18798(), true);
             NevaWare.EVENT_BUS.post(event);
             if (event.isCancelled()) {
@@ -129,7 +129,7 @@ public class MixinEntityLiving implements IEntityLiving {
    )
    public void travelPostHook(class_243 movementInput, CallbackInfo ci) {
       if (!Module.fullNullCheck()) {
-         if ((class_1309)this == Module.mc.field_1724) {
+         if ((class_1309)(Object)(Object)this == Module.mc.field_1724) {
             EventTravel event = new EventTravel(movementInput, false);
             NevaWare.EVENT_BUS.post(event);
             if (event.isCancelled()) {

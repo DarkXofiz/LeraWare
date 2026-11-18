@@ -280,7 +280,7 @@ public class ElytraTarget extends Module {
          if (mc.field_1724.method_6128()) {
             if (event.getPacket() instanceof class_2828 packet) {
                if (this.grimBypass.getValue()) {
-                  ((IPlayerMoveC2SPacket)packet).setOnGround(false);
+                  ((IPlayerMoveC2SPacket)(Object)packet).setOnGround(false);
                }
 
                if (this.grimBypass.getValue() && packet instanceof class_2829 posPacket) {
@@ -288,9 +288,9 @@ public class ElytraTarget extends Module {
                   double maxAllowedPerTick = (double)this.speedLimit.getValue().floatValue() / 20.0;
                   if (currentSpeedPerTick > maxAllowedPerTick) {
                      class_243 clampedVel = mc.field_1724.method_18798().method_1029().method_1021(maxAllowedPerTick);
-                     ((IPlayerMoveC2SPacket)packet).setX(mc.field_1724.method_23317() + clampedVel.field_1352);
-                     ((IPlayerMoveC2SPacket)packet).setY(mc.field_1724.method_23318() + clampedVel.field_1351);
-                     ((IPlayerMoveC2SPacket)packet).setZ(mc.field_1724.method_23321() + clampedVel.field_1350);
+                     ((IPlayerMoveC2SPacket)(Object)packet).setX(mc.field_1724.method_23317() + clampedVel.field_1352);
+                     ((IPlayerMoveC2SPacket)(Object)packet).setY(mc.field_1724.method_23318() + clampedVel.field_1351);
+                     ((IPlayerMoveC2SPacket)(Object)packet).setZ(mc.field_1724.method_23321() + clampedVel.field_1350);
                   }
                }
             }

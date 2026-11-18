@@ -29,7 +29,7 @@ public class ArmorHud extends HudElement {
          float var8 = var7 * 2.0F + var6 * 4.0F + 9.0F;
          float var9 = 30.0F;
          NwHud.plate(var3, var4, var5, var8, var9);
-         List var10 = var2.method_31548().field_7548.reversed();
+         List<class_1799> var10 = var2.method_31548().field_7548.reversed();
 
          for (int var11 = 0; var11 < 4 && var11 < var10.size(); var11++) {
             class_1799 var12 = (class_1799)var10.get(var11);

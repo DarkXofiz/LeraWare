@@ -571,20 +571,20 @@ public class WaypointWindow extends WindowBase {
                               plate.waypoint.setX(Integer.parseInt(num));
                               return;
                            case Y:
-                              String num = SliderElement.removeLastChar(String.valueOf(plate.waypoint.getY()));
-                              if (num.isEmpty()) {
-                                 num = "0";
+                              String numY = SliderElement.removeLastChar(String.valueOf(plate.waypoint.getY()));
+                              if (numY.isEmpty()) {
+                                 numY = "0";
                               }
 
-                              plate.waypoint.setY(Integer.parseInt(num));
+                              plate.waypoint.setY(Integer.parseInt(numY));
                               return;
                            case Z:
-                              String num = SliderElement.removeLastChar(String.valueOf(plate.waypoint.getZ()));
-                              if (num.isEmpty()) {
-                                 num = "0";
+                              String numZ = SliderElement.removeLastChar(String.valueOf(plate.waypoint.getZ()));
+                              if (numZ.isEmpty()) {
+                                 numZ = "0";
                               }
 
-                              plate.waypoint.setZ(Integer.parseInt(num));
+                              plate.waypoint.setZ(Integer.parseInt(numZ));
                               return;
                            case Server:
                               plate.waypoint.setServer(SliderElement.removeLastChar(plate.waypoint.getServer()));

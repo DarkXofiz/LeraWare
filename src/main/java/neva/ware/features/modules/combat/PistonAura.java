@@ -430,7 +430,7 @@ public final class PistonAura extends Module {
                   float prevYaw = mc.field_1724.method_36454();
                   mc.field_1724.method_36456(angle2);
                   mc.field_1724.field_5982 = angle2;
-                  ((IClientPlayerEntity)mc.field_1724).setLastYaw(angle2);
+                  ((IClientPlayerEntity)(Object)mc.field_1724).setLastYaw(angle2);
                   int prevSlot = mc.field_1724.method_31548().field_7545;
                   InteractionUtility.placeBlock(
                      this.pistonPos, InteractionUtility.Rotate.None, this.interact.getValue(), this.placeMode.getValue(), piston_slot, false, false

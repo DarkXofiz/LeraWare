@@ -91,7 +91,7 @@ public final class AutoTotem extends Module {
          && mc.field_1724.method_6047().method_7909() instanceof class_1829
          && mc.field_1690.field_1904.method_1434()
          && !mc.field_1724.method_6115()) {
-         ((IMinecraftClient)mc).idoItemUse();
+         ((IMinecraftClient)(Object)mc).idoItemUse();
       }
 
       this.delay--;

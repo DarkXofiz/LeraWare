@@ -49,7 +49,7 @@ public class ModuleList extends HudElement {
    public void onRender2D(class_332 var1) {
       super.onRender2D(var1);
       class_4587 var2 = var1.method_51448();
-      ArrayList var3 = new ArrayList();
+      ArrayList<Module> var3 = new ArrayList<>();
 
       for (Module var5 : Managers.MODULE.getEnabledModules()) {
          if (this.shouldRender(var5)) {
@@ -80,9 +80,9 @@ public class ModuleList extends HudElement {
 
       float var35 = var6 ? var31 + var9 : var31;
       float var36 = var34;
-      ArrayList var12 = new ArrayList(var3);
+      ArrayList<Module> var12 = new ArrayList<>(var3);
 
-      for (Map.Entry var14 : this.entries.entrySet()) {
+      for (Map.Entry<Module, ModuleList.Entry> var14 : this.entries.entrySet()) {
          if (!((ModuleList.Entry)var14.getValue()).alive) {
             var12.add((Module)var14.getKey());
          }

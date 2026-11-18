@@ -32,7 +32,7 @@ public final class WindowLayout {
    }
 
    private static void doArrange(List<WindowBase> var0) {
-      ArrayList var1 = new ArrayList();
+      ArrayList<WindowBase> var1 = new ArrayList<>();
 
       for (WindowBase var3 : var0) {
          if (var3 != null && var3.isVisible()) {

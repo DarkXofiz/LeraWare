@@ -33,16 +33,16 @@ public class PotionHud extends HudElement {
       super.onRender2D(var1);
       class_4587 var2 = var1.method_51448();
       class_746 var3 = mc.field_1724;
-      ArrayList var4 = new ArrayList();
+      ArrayList<class_1293> var4 = new ArrayList<>();
       if (var3 != null) {
-         Collection var5 = var3.method_6026();
+         Collection<class_1293> var5 = var3.method_6026();
          if (var5 != null) {
             var4.addAll(var5);
          }
       }
 
       float var22 = 0.0F;
-      ArrayList var6 = new ArrayList();
+      ArrayList<String> var6 = new ArrayList<>();
 
       for (class_1293 var8 : var4) {
          String var9;

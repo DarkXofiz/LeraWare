@@ -51,14 +51,14 @@ public class Animations extends Module {
    @Override
    public void onUpdate() {
       if (!fullNullCheck()) {
-         if (this.oldAnimationsM.getValue() && ((IHeldItemRenderer)mc.method_1561().method_43336()).getEquippedProgressMainHand() <= 1.0F) {
-            ((IHeldItemRenderer)mc.method_1561().method_43336()).setEquippedProgressMainHand(1.0F);
-            ((IHeldItemRenderer)mc.method_1561().method_43336()).setItemStackMainHand(mc.field_1724.method_6047());
+         if (this.oldAnimationsM.getValue() && ((IHeldItemRenderer)(Object)mc.method_1561().method_43336()).getEquippedProgressMainHand() <= 1.0F) {
+            ((IHeldItemRenderer)(Object)mc.method_1561().method_43336()).setEquippedProgressMainHand(1.0F);
+            ((IHeldItemRenderer)(Object)mc.method_1561().method_43336()).setItemStackMainHand(mc.field_1724.method_6047());
          }
 
-         if (this.oldAnimationsOff.getValue() && ((IHeldItemRenderer)mc.method_1561().method_43336()).getEquippedProgressOffHand() <= 1.0F) {
-            ((IHeldItemRenderer)mc.method_1561().method_43336()).setEquippedProgressOffHand(1.0F);
-            ((IHeldItemRenderer)mc.method_1561().method_43336()).setItemStackOffHand(mc.field_1724.method_6079());
+         if (this.oldAnimationsOff.getValue() && ((IHeldItemRenderer)(Object)mc.method_1561().method_43336()).getEquippedProgressOffHand() <= 1.0F) {
+            ((IHeldItemRenderer)(Object)mc.method_1561().method_43336()).setEquippedProgressOffHand(1.0F);
+            ((IHeldItemRenderer)(Object)mc.method_1561().method_43336()).setItemStackOffHand(mc.field_1724.method_6079());
          }
       }
    }

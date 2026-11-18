@@ -67,8 +67,8 @@ public class Velocity extends Module {
                               this.flag = true;
                            } else {
                               this.flag = false;
-                              ((ISPacketEntityVelocity)pac).setMotionX((int)(pac.method_11815() * -0.1));
-                              ((ISPacketEntityVelocity)pac).setMotionZ((int)(pac.method_11819() * -0.1));
+                              ((ISPacketEntityVelocity)(Object)pac).setMotionX((int)(pac.method_11815() * -0.1));
+                              ((ISPacketEntityVelocity)(Object)pac).setMotionZ((int)(pac.method_11819() * -0.1));
                            }
                            break;
                         case Cancel:
@@ -79,25 +79,25 @@ public class Velocity extends Module {
                            this.sendPacket(new class_2829(mc.field_1724.method_23317(), -999.0, mc.field_1724.method_23321(), true));
                            break;
                         case Custom:
-                           ((ISPacketEntityVelocity)pac).setMotionX((int)((float)pac.method_11815() * this.horizontal.getValue() / 100.0F));
-                           ((ISPacketEntityVelocity)pac).setMotionY((int)((float)pac.method_11816() * this.vertical.getValue() / 100.0F));
-                           ((ISPacketEntityVelocity)pac).setMotionZ((int)((float)pac.method_11819() * this.horizontal.getValue() / 100.0F));
+                           ((ISPacketEntityVelocity)(Object)pac).setMotionX((int)((float)pac.method_11815() * this.horizontal.getValue() / 100.0F));
+                           ((ISPacketEntityVelocity)(Object)pac).setMotionY((int)((float)pac.method_11816() * this.vertical.getValue() / 100.0F));
+                           ((ISPacketEntityVelocity)(Object)pac).setMotionZ((int)((float)pac.method_11819() * this.horizontal.getValue() / 100.0F));
                            break;
                         case Redirect:
                            double vX = Math.abs(pac.method_11815());
                            double vZ = Math.abs(pac.method_11819());
                            double[] motion = MovementUtility.forward(vX + vZ);
-                           ((ISPacketEntityVelocity)pac).setMotionX((int)motion[0]);
-                           ((ISPacketEntityVelocity)pac).setMotionY(0);
-                           ((ISPacketEntityVelocity)pac).setMotionZ((int)motion[1]);
+                           ((ISPacketEntityVelocity)(Object)pac).setMotionX((int)motion[0]);
+                           ((ISPacketEntityVelocity)(Object)pac).setMotionY(0);
+                           ((ISPacketEntityVelocity)(Object)pac).setMotionZ((int)motion[1]);
                            break;
                         case OldGrim:
                            e.cancel();
                            this.grimTicks = 6;
                            break;
                         case Jump:
-                           ((ISPacketEntityVelocity)pac).setMotionX((int)((float)pac.method_11815() * this.horizontal.getValue() / 100.0F));
-                           ((ISPacketEntityVelocity)pac).setMotionZ((int)((float)pac.method_11819() * this.horizontal.getValue() / 100.0F));
+                           ((ISPacketEntityVelocity)(Object)pac).setMotionX((int)((float)pac.method_11815() * this.horizontal.getValue() / 100.0F));
+                           ((ISPacketEntityVelocity)(Object)pac).setMotionZ((int)((float)pac.method_11819() * this.horizontal.getValue() / 100.0F));
                            break;
                         case GrimNew:
                            e.cancel();
@@ -108,19 +108,19 @@ public class Velocity extends Module {
                   if (e.getPacket() instanceof class_2664 explosion && this.explosions.getValue()) {
                      switch ((Velocity.modeEn)this.mode.getValue()) {
                         case Cancel:
-                           ((IExplosionS2CPacket)explosion).setMotionX(0.0F);
-                           ((IExplosionS2CPacket)explosion).setMotionY(0.0F);
-                           ((IExplosionS2CPacket)explosion).setMotionZ(0.0F);
+                           ((IExplosionS2CPacket)(Object)explosion).setMotionX(0.0F);
+                           ((IExplosionS2CPacket)(Object)explosion).setMotionY(0.0F);
+                           ((IExplosionS2CPacket)(Object)explosion).setMotionZ(0.0F);
                            break;
                         case Custom:
-                           ((IExplosionS2CPacket)explosion).setMotionX(((IExplosionS2CPacket)explosion).getMotionX() * this.horizontal.getValue() / 100.0F);
-                           ((IExplosionS2CPacket)explosion).setMotionZ(((IExplosionS2CPacket)explosion).getMotionZ() * this.horizontal.getValue() / 100.0F);
-                           ((IExplosionS2CPacket)explosion).setMotionY(((IExplosionS2CPacket)explosion).getMotionY() * this.vertical.getValue() / 100.0F);
+                           ((IExplosionS2CPacket)(Object)explosion).setMotionX(((IExplosionS2CPacket)(Object)explosion).getMotionX() * this.horizontal.getValue() / 100.0F);
+                           ((IExplosionS2CPacket)(Object)explosion).setMotionZ(((IExplosionS2CPacket)(Object)explosion).getMotionZ() * this.horizontal.getValue() / 100.0F);
+                           ((IExplosionS2CPacket)(Object)explosion).setMotionY(((IExplosionS2CPacket)(Object)explosion).getMotionY() * this.vertical.getValue() / 100.0F);
                            break;
                         case GrimNew:
-                           ((IExplosionS2CPacket)explosion).setMotionX(0.0F);
-                           ((IExplosionS2CPacket)explosion).setMotionY(0.0F);
-                           ((IExplosionS2CPacket)explosion).setMotionZ(0.0F);
+                           ((IExplosionS2CPacket)(Object)explosion).setMotionX(0.0F);
+                           ((IExplosionS2CPacket)(Object)explosion).setMotionY(0.0F);
+                           ((IExplosionS2CPacket)(Object)explosion).setMotionZ(0.0F);
                            this.flag = true;
                      }
                   }
@@ -213,8 +213,8 @@ public class Velocity extends Module {
                            mc.field_1724.method_23317(),
                            mc.field_1724.method_23318(),
                            mc.field_1724.method_23321(),
-                           ((IClientPlayerEntity)mc.field_1724).getLastYaw(),
-                           ((IClientPlayerEntity)mc.field_1724).getLastPitch(),
+                           ((IClientPlayerEntity)(Object)mc.field_1724).getLastYaw(),
+                           ((IClientPlayerEntity)(Object)mc.field_1724).getLastPitch(),
                            mc.field_1724.method_24828()
                         )
                      );

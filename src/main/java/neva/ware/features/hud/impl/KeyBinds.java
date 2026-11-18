@@ -44,7 +44,7 @@ public class KeyBinds extends HudElement {
    public void onRender2D(class_332 var1) {
       super.onRender2D(var1);
       class_4587 var2 = var1.method_51448();
-      ArrayList var3 = new ArrayList();
+      ArrayList<Module> var3 = new ArrayList<>();
 
       for (Module var5 : Managers.MODULE.modules) {
          if (var5 != ModuleManager.clickGui) {

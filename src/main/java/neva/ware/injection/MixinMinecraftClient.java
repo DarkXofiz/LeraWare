@@ -106,7 +106,7 @@ public abstract class MixinMinecraftClient {
       at = {@At("TAIL")}
    )
    private void captureResize(CallbackInfo ci) {
-      ((WindowResizeCallback)WindowResizeCallback.EVENT.invoker()).onResized((class_310)this, this.field_1704);
+      ((WindowResizeCallback)WindowResizeCallback.EVENT.invoker()).onResized((class_310)(Object)this, this.field_1704);
    }
 
    @Inject(

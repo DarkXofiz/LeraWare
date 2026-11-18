@@ -127,8 +127,8 @@ public final class SpeedMine extends Module {
    public void onUpdate() {
       if (!fullNullCheck() && !mc.field_1724.method_31549().field_7477) {
          if (!PlayerUtility.isEating() || !this.pauseEat.getValue()) {
-            if (this.mode.getValue() == SpeedMine.Mode.Damage && ((IInteractionManager)mc.field_1761).getCurBlockDamageMP() < this.speed.getValue()) {
-               ((IInteractionManager)mc.field_1761).setCurBlockDamageMP(this.speed.getValue());
+            if (this.mode.getValue() == SpeedMine.Mode.Damage && ((IInteractionManager)(Object)mc.field_1761).getCurBlockDamageMP() < this.speed.getValue()) {
+               ((IInteractionManager)(Object)mc.field_1761).setCurBlockDamageMP(this.speed.getValue());
             }
 
             this.actions.removeIf(SpeedMine.MineAction::update);
