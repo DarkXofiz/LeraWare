@@ -31,3 +31,6 @@ or decompile via Loom's `genSources` workflow and replace names manually.
 
 ## License
 GPL-3.0-or-later for NevaWare; bundled/derived MIT components keep their notices (`THIRD_PARTY_NOTICES.md`).
+
+## Status
+Sources are decompiled from the original release jar and are **not yet buildable as-is** (about 100 decompiler artefacts remain, mostly generics and mixin casts). Contributions that fix them without changing behaviour are welcome.
