@@ -11,30 +11,30 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin({class_1927.class})
 public interface IExplosion {
    @Mutable
-   @Accessor("x")
+   @Accessor("field_9195")
    void setX(double var1);
 
    @Mutable
-   @Accessor("y")
+   @Accessor("field_9192")
    void setY(double var1);
 
    @Mutable
-   @Accessor("z")
+   @Accessor("field_9189")
    void setZ(double var1);
 
    @Mutable
-   @Accessor("entity")
+   @Accessor("field_9185")
    void setEntity(class_1297 var1);
 
    @Mutable
-   @Accessor("world")
+   @Accessor("field_9187")
    void setWorld(class_1937 var1);
 
    @Mutable
-   @Accessor("world")
+   @Accessor("field_9187")
    class_1937 getWorld();
 
    @Mutable
-   @Accessor("damageSource")
+   @Accessor("field_9193")
    class_1282 getDamageSource();
 }

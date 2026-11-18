@@ -30,7 +30,7 @@ public abstract class MixinPlayerEntityRenderer extends class_922<class_742, cla
    }
 
    @Inject(
-      method = {"<init>"},
+      method = {"Lnet/minecraft/class_1007;<init>(Lnet/minecraft/class_5617$class_5618;Z)V"},
       at = {@At("RETURN")}
    )
    private void initCustomModels(class_5618 ctx, boolean slim, CallbackInfo ci) {
@@ -38,7 +38,7 @@ public abstract class MixinPlayerEntityRenderer extends class_922<class_742, cla
    }
 
    @Inject(
-      method = {"render(Lnet/minecraft/client/network/AbstractClientPlayerEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V"},
+      method = {"Lnet/minecraft/class_1007;method_4215(Lnet/minecraft/class_742;FFLnet/minecraft/class_4587;Lnet/minecraft/class_4597;I)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

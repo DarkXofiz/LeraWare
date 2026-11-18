@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin({class_2480.class})
 public class MixinShulkerBoxBlock {
    @Inject(
-      method = {"appendTooltip"},
+      method = {"Lnet/minecraft/class_2480;method_9568(Lnet/minecraft/class_1799;Lnet/minecraft/class_1792$class_9635;Ljava/util/List;Lnet/minecraft/class_1836;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin({class_1747.class})
 public class MixinBlockItem {
    @Inject(
-      method = {"place(Lnet/minecraft/item/ItemPlacementContext;Lnet/minecraft/block/BlockState;)Z"},
+      method = {"Lnet/minecraft/class_1747;method_7708(Lnet/minecraft/class_1750;Lnet/minecraft/class_2680;)Z"},
       at = {@At("RETURN")}
    )
    private void onPlace(@NotNull class_1750 context, class_2680 state, CallbackInfoReturnable<Boolean> info) {

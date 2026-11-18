@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin({class_638.class})
 public class MixinClientWorld {
    @Inject(
-      method = {"addEntity"},
+      method = {"Lnet/minecraft/class_638;method_53875(Lnet/minecraft/class_1297;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -38,7 +38,7 @@ public class MixinClientWorld {
    }
 
    @Inject(
-      method = {"addEntity"},
+      method = {"Lnet/minecraft/class_638;method_53875(Lnet/minecraft/class_1297;)V"},
       at = {@At("RETURN")},
       cancellable = true
    )
@@ -53,7 +53,7 @@ public class MixinClientWorld {
    }
 
    @Inject(
-      method = {"removeEntity"},
+      method = {"Lnet/minecraft/class_638;method_2945(ILnet/minecraft/class_1297$class_5529;)V"},
       at = {@At("HEAD")}
    )
    public void removeEntityHook(int entityId, class_5529 removalReason, CallbackInfo ci) {
@@ -64,7 +64,7 @@ public class MixinClientWorld {
    }
 
    @Inject(
-      method = {"getSkyColor"},
+      method = {"Lnet/minecraft/class_638;method_23777(Lnet/minecraft/class_243;F)Lnet/minecraft/class_243;"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -76,7 +76,7 @@ public class MixinClientWorld {
    }
 
    @Inject(
-      method = {"playSound(DDDLnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FFZJ)V"},
+      method = {"Lnet/minecraft/class_638;method_43207(DDDLnet/minecraft/class_3414;Lnet/minecraft/class_3419;FFZJ)V"},
       at = {@At("HEAD")}
    )
    private void playSoundHoof(

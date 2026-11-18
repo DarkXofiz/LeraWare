@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin({class_839.class})
 public class MixinMobSpawnerBlockEntityRenderer {
    @Inject(
-      method = {"render(FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/Entity;Lnet/minecraft/client/render/entity/EntityRenderDispatcher;DD)V"},
+      method = {"Lnet/minecraft/class_839;method_55253(FLnet/minecraft/class_4587;Lnet/minecraft/class_4597;ILnet/minecraft/class_1297;Lnet/minecraft/class_898;DD)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

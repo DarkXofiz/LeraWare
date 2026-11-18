@@ -15,10 +15,10 @@ public abstract class JsonEffectGlShaderMixin implements SamplerAccess {
    @WrapOperation(
       at = {@At(
          value = "INVOKE",
-         target = "net/minecraft/util/Identifier.ofVanilla (Ljava/lang/String;)Lnet/minecraft/util/Identifier;",
+         target = "Lnet/minecraft/class_2960;method_60656(Ljava/lang/String;)Lnet/minecraft/class_2960;",
          ordinal = 0
       )},
-      method = {"<init>"}
+      method = {"Lnet/minecraft/class_280;<init>(Lnet/minecraft/class_5912;Ljava/lang/String;)V"}
    )
    class_2960 constructProgramIdentifier(String arg, Operation<class_2960> original, class_5912 unused, String id) {
       if (!id.contains(":")) {
@@ -32,10 +32,10 @@ public abstract class JsonEffectGlShaderMixin implements SamplerAccess {
    @WrapOperation(
       at = {@At(
          value = "INVOKE",
-         target = "net/minecraft/util/Identifier.ofVanilla (Ljava/lang/String;)Lnet/minecraft/util/Identifier;",
+         target = "Lnet/minecraft/class_2960;method_60656(Ljava/lang/String;)Lnet/minecraft/class_2960;",
          ordinal = 0
       )},
-      method = {"loadEffect"}
+      method = {"Lnet/minecraft/class_280;method_16036(Lnet/minecraft/class_5912;Lnet/minecraft/class_281$class_282;Ljava/lang/String;)Lnet/minecraft/class_5937;"}
    )
    private static class_2960 constructProgramIdentifier(String arg, Operation<class_2960> original, class_5912 unused, class_282 shaderType, String id) {
       if (!arg.contains(":")) {

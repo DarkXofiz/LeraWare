@@ -47,7 +47,7 @@ public abstract class MixinLivingEntityRenderer<T extends class_1309, M extends 
    protected List<class_3887<T, M>> field_4738;
 
    @Inject(
-      method = {"render"},
+      method = {"Lnet/minecraft/class_922;method_4054(Lnet/minecraft/class_1309;FFLnet/minecraft/class_4587;Lnet/minecraft/class_4597;I)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -172,7 +172,7 @@ public abstract class MixinLivingEntityRenderer<T extends class_1309, M extends 
    }
 
    @Inject(
-      method = {"render"},
+      method = {"Lnet/minecraft/class_922;method_4054(Lnet/minecraft/class_1309;FFLnet/minecraft/class_4587;Lnet/minecraft/class_4597;I)V"},
       at = {@At("TAIL")}
    )
    public void onRenderPost(T livingEntity, float f, float g, class_4587 matrixStack, class_4597 vertexConsumerProvider, int i, CallbackInfo ci) {
@@ -182,10 +182,10 @@ public abstract class MixinLivingEntityRenderer<T extends class_1309, M extends 
    }
 
    @ModifyArgs(
-      method = {"render"},
+      method = {"Lnet/minecraft/class_922;method_4054(Lnet/minecraft/class_1309;FFLnet/minecraft/class_4587;Lnet/minecraft/class_4597;I)V"},
       at = @At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/render/entity/model/EntityModel;render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;III)V"
+         target = "Lnet/minecraft/class_583;method_2828(Lnet/minecraft/class_4587;Lnet/minecraft/class_4588;III)V"
       )
    )
    private void renderHook(Args args) {

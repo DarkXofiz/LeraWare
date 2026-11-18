@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin({class_2560.class})
 public class MixinCobwebBlock {
    @Inject(
-      method = {"onEntityCollision"},
+      method = {"Lnet/minecraft/class_2560;method_9548(Lnet/minecraft/class_2680;Lnet/minecraft/class_1937;Lnet/minecraft/class_2338;Lnet/minecraft/class_1297;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

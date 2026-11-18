@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin({class_837.class})
 public class MixinSignBlockEntityRenderer {
    @Inject(
-      method = {"renderText"},
+      method = {"Lnet/minecraft/class_837;method_45798(Lnet/minecraft/class_2338;Lnet/minecraft/class_8242;Lnet/minecraft/class_4587;Lnet/minecraft/class_4597;IIIZ)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

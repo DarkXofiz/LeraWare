@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin({class_897.class})
 public abstract class MixinEntityRenderer<T extends class_1297> {
    @Inject(
-      method = {"renderLabelIfPresent"},
+      method = {"Lnet/minecraft/class_897;method_3926(Lnet/minecraft/class_1297;Lnet/minecraft/class_2561;Lnet/minecraft/class_4587;Lnet/minecraft/class_4597;IF)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

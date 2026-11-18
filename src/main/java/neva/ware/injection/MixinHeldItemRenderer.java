@@ -28,10 +28,10 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin({class_759.class})
 public abstract class MixinHeldItemRenderer {
    @Inject(
-      method = {"renderFirstPersonItem"},
+      method = {"Lnet/minecraft/class_759;method_3228(Lnet/minecraft/class_742;FFLnet/minecraft/class_1268;FLnet/minecraft/class_1799;FLnet/minecraft/class_4587;Lnet/minecraft/class_4597;I)V"},
       at = {@At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/render/item/HeldItemRenderer;renderItem(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V"
+         target = "Lnet/minecraft/class_759;method_3233(Lnet/minecraft/class_1309;Lnet/minecraft/class_1799;Lnet/minecraft/class_811;ZLnet/minecraft/class_4587;Lnet/minecraft/class_4597;I)V"
       )}
    )
    private void onRenderItem(
@@ -54,7 +54,7 @@ public abstract class MixinHeldItemRenderer {
    }
 
    @Inject(
-      method = {"renderFirstPersonItem"},
+      method = {"Lnet/minecraft/class_759;method_3228(Lnet/minecraft/class_742;FFLnet/minecraft/class_1268;FLnet/minecraft/class_1799;FLnet/minecraft/class_4587;Lnet/minecraft/class_4597;I)V"},
       at = {@At("RETURN")}
    )
    private void onRenderItemPost(
@@ -76,7 +76,7 @@ public abstract class MixinHeldItemRenderer {
    }
 
    @Inject(
-      method = {"renderFirstPersonItem"},
+      method = {"Lnet/minecraft/class_759;method_3228(Lnet/minecraft/class_742;FFLnet/minecraft/class_1268;FLnet/minecraft/class_1799;FLnet/minecraft/class_4587;Lnet/minecraft/class_4597;I)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -117,7 +117,7 @@ public abstract class MixinHeldItemRenderer {
    }
 
    @Inject(
-      method = {"applyEatOrDrinkTransformation"},
+      method = {"Lnet/minecraft/class_759;method_3218(Lnet/minecraft/class_4587;FLnet/minecraft/class_1306;Lnet/minecraft/class_1799;Lnet/minecraft/class_1657;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -129,10 +129,10 @@ public abstract class MixinHeldItemRenderer {
    }
 
    @ModifyArgs(
-      method = {"renderItem(FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider$Immediate;Lnet/minecraft/client/network/ClientPlayerEntity;I)V"},
+      method = {"Lnet/minecraft/class_759;method_22976(FLnet/minecraft/class_4587;Lnet/minecraft/class_4597$class_4598;Lnet/minecraft/class_746;I)V"},
       at = @At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/render/item/HeldItemRenderer;renderFirstPersonItem(Lnet/minecraft/client/network/AbstractClientPlayerEntity;FFLnet/minecraft/util/Hand;FLnet/minecraft/item/ItemStack;FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V"
+         target = "Lnet/minecraft/class_759;method_3228(Lnet/minecraft/class_742;FFLnet/minecraft/class_1268;FLnet/minecraft/class_1799;FLnet/minecraft/class_4587;Lnet/minecraft/class_4597;I)V"
       )
    )
    private void renderItem(Args args) {

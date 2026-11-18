@@ -20,7 +20,7 @@ public class MixinWorldChunk {
    class_1937 field_12858;
 
    @Inject(
-      method = {"setBlockState"},
+      method = {"Lnet/minecraft/class_2818;method_12010(Lnet/minecraft/class_2338;Lnet/minecraft/class_2680;Z)Lnet/minecraft/class_2680;"},
       at = {@At("RETURN")}
    )
    private void setBlockStateHook(class_2338 pos, class_2680 state, boolean moved, CallbackInfoReturnable<class_2680> cir) {

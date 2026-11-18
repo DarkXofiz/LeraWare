@@ -13,10 +13,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin({class_743.class})
 public class MixinKeyboardInput {
    @Inject(
-      method = {"tick"},
+      method = {"Lnet/minecraft/class_743;method_3129(ZF)V"},
       at = {@At(
          value = "FIELD",
-         target = "Lnet/minecraft/client/input/KeyboardInput;sneaking:Z",
+         target = "Lnet/minecraft/class_743;field_3903:Z",
          shift = Shift.BEFORE
       )},
       cancellable = true

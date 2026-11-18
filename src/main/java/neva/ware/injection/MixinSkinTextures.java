@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin({class_8685.class})
 public class MixinSkinTextures {
    @Inject(
-      method = {"texture"},
+      method = {"Lnet/minecraft/class_8685;comp_1626()Lnet/minecraft/class_2960;"},
       at = {@At("HEAD")},
       cancellable = true
    )

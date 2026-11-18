@@ -7,6 +7,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin({class_2824.class})
 public interface IPlayerInteractEntityC2SPacket {
-   @Invoker("write")
+   @Invoker("method_55976(Lnet/minecraft/class_2540;)V")
    void write(class_2540 var1);
 }

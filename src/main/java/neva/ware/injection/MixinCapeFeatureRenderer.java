@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin({class_972.class})
 public class MixinCapeFeatureRenderer {
    @ModifyVariable(
-      method = {"render"},
+      method = {"Lnet/minecraft/class_972;method_4177(Lnet/minecraft/class_4587;Lnet/minecraft/class_4597;ILnet/minecraft/class_742;FFFFFF)V"},
       at = @At("STORE"),
       ordinal = 6
    )

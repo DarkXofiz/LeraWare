@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin({class_765.class})
 public class MixinLightmapTextureManager {
    @Inject(
-      method = {"getDarknessFactor(F)F"},
+      method = {"Lnet/minecraft/class_765;method_42597(F)F"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -24,7 +24,7 @@ public class MixinLightmapTextureManager {
    }
 
    @Inject(
-      method = {"getBrightness"},
+      method = {"Lnet/minecraft/class_765;method_23284(Lnet/minecraft/class_2874;I)F"},
       at = {@At("HEAD")},
       cancellable = true
    )

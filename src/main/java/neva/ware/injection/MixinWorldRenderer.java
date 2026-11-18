@@ -17,10 +17,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin({class_761.class})
 public abstract class MixinWorldRenderer {
    @ModifyArg(
-      method = {"render"},
+      method = {"Lnet/minecraft/class_761;method_22710(Lnet/minecraft/class_9779;ZLnet/minecraft/class_4184;Lnet/minecraft/class_757;Lnet/minecraft/class_765;Lorg/joml/Matrix4f;Lorg/joml/Matrix4f;)V"},
       at = @At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/render/WorldRenderer;setupTerrain(Lnet/minecraft/client/render/Camera;Lnet/minecraft/client/render/Frustum;ZZ)V"
+         target = "Lnet/minecraft/class_761;method_3273(Lnet/minecraft/class_4184;Lnet/minecraft/class_4604;ZZ)V"
       ),
       index = 3
    )
@@ -29,10 +29,10 @@ public abstract class MixinWorldRenderer {
    }
 
    @Redirect(
-      method = {"render"},
+      method = {"Lnet/minecraft/class_761;method_22710(Lnet/minecraft/class_9779;ZLnet/minecraft/class_4184;Lnet/minecraft/class_757;Lnet/minecraft/class_765;Lorg/joml/Matrix4f;Lorg/joml/Matrix4f;)V"},
       at = @At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/gl/PostEffectProcessor;render(F)V",
+         target = "Lnet/minecraft/class_279;method_1258(F)V",
          ordinal = 0
       )
    )
@@ -50,7 +50,7 @@ public abstract class MixinWorldRenderer {
    }
 
    @Inject(
-      method = {"renderWeather"},
+      method = {"Lnet/minecraft/class_761;method_22714(Lnet/minecraft/class_765;FDDD)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

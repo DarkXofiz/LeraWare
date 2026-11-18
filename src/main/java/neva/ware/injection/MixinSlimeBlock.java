@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin({class_2490.class})
 public class MixinSlimeBlock {
    @Inject(
-      method = {"onSteppedOn"},
+      method = {"Lnet/minecraft/class_2490;method_9591(Lnet/minecraft/class_1937;Lnet/minecraft/class_2338;Lnet/minecraft/class_2680;Lnet/minecraft/class_1297;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

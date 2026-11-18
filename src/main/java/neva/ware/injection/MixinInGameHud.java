@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinInGameHud {
    @Inject(
       at = {@At("HEAD")},
-      method = {"render"}
+      method = {"Lnet/minecraft/class_329;method_1753(Lnet/minecraft/class_332;Lnet/minecraft/class_9779;)V"}
    )
    public void renderHook(class_332 context, class_9779 tickCounter, CallbackInfo ci) {
       if (!Module.fullNullCheck()) {
@@ -31,7 +31,7 @@ public abstract class MixinInGameHud {
 
    @Inject(
       at = {@At("HEAD")},
-      method = {"renderStatusBars"},
+      method = {"Lnet/minecraft/class_329;method_1760(Lnet/minecraft/class_332;)V"},
       cancellable = true
    )
    private void renderStatusBarsHook(class_332 context, CallbackInfo ci) {
@@ -42,7 +42,7 @@ public abstract class MixinInGameHud {
 
    @Inject(
       at = {@At("HEAD")},
-      method = {"renderHotbar"},
+      method = {"Lnet/minecraft/class_329;method_1759(Lnet/minecraft/class_332;Lnet/minecraft/class_9779;)V"},
       cancellable = true
    )
    public void renderHotbarCustom(class_332 context, class_9779 tickCounter, CallbackInfo ci) {
@@ -58,7 +58,7 @@ public abstract class MixinInGameHud {
 
    @Inject(
       at = {@At("HEAD")},
-      method = {"renderHeldItemTooltip"},
+      method = {"Lnet/minecraft/class_329;method_1749(Lnet/minecraft/class_332;)V"},
       cancellable = true
    )
    public void renderHeldItemTooltipHook(class_332 context, CallbackInfo ci) {
@@ -69,7 +69,7 @@ public abstract class MixinInGameHud {
 
    @Inject(
       at = {@At("HEAD")},
-      method = {"renderStatusEffectOverlay"},
+      method = {"Lnet/minecraft/class_329;method_1765(Lnet/minecraft/class_332;Lnet/minecraft/class_9779;)V"},
       cancellable = true
    )
    public void renderStatusEffectOverlayHook(class_332 context, class_9779 tickCounter, CallbackInfo ci) {
@@ -79,7 +79,7 @@ public abstract class MixinInGameHud {
    }
 
    @Inject(
-      method = {"renderExperienceBar"},
+      method = {"Lnet/minecraft/class_329;method_1754(Lnet/minecraft/class_332;I)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -95,7 +95,7 @@ public abstract class MixinInGameHud {
    }
 
    @Inject(
-      method = {"renderScoreboardSidebar(Lnet/minecraft/client/gui/DrawContext;Lnet/minecraft/scoreboard/ScoreboardObjective;)V"},
+      method = {"Lnet/minecraft/class_329;method_1757(Lnet/minecraft/class_332;Lnet/minecraft/class_266;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -106,7 +106,7 @@ public abstract class MixinInGameHud {
    }
 
    @Inject(
-      method = {"renderVignetteOverlay"},
+      method = {"Lnet/minecraft/class_329;method_1735(Lnet/minecraft/class_332;Lnet/minecraft/class_1297;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -117,7 +117,7 @@ public abstract class MixinInGameHud {
    }
 
    @Inject(
-      method = {"renderPortalOverlay"},
+      method = {"Lnet/minecraft/class_329;method_1746(Lnet/minecraft/class_332;F)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -128,7 +128,7 @@ public abstract class MixinInGameHud {
    }
 
    @Inject(
-      method = {"renderCrosshair"},
+      method = {"Lnet/minecraft/class_329;method_1736(Lnet/minecraft/class_332;Lnet/minecraft/class_9779;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

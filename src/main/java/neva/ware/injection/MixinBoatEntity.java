@@ -18,7 +18,7 @@ public class MixinBoatEntity {
    private float prevHeadYaw;
 
    @Inject(
-      method = {"updatePassengerPosition"},
+      method = {"Lnet/minecraft/class_1690;method_5865(Lnet/minecraft/class_1297;Lnet/minecraft/class_1297$class_4738;)V"},
       at = {@At("HEAD")}
    )
    protected void updatePassengerPositionHookPre(class_1297 passenger, class_4738 positionUpdater, CallbackInfo ci) {
@@ -29,7 +29,7 @@ public class MixinBoatEntity {
    }
 
    @Inject(
-      method = {"updatePassengerPosition"},
+      method = {"Lnet/minecraft/class_1690;method_5865(Lnet/minecraft/class_1297;Lnet/minecraft/class_1297$class_4738;)V"},
       at = {@At("RETURN")}
    )
    protected void updatePassengerPositionHookPost(class_1297 passenger, class_4738 positionUpdater, CallbackInfo ci) {

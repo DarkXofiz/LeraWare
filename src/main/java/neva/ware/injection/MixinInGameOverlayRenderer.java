@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin({class_4603.class})
 public class MixinInGameOverlayRenderer {
    @Inject(
-      method = {"renderFireOverlay"},
+      method = {"Lnet/minecraft/class_4603;method_23070(Lnet/minecraft/class_310;Lnet/minecraft/class_4587;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -24,7 +24,7 @@ public class MixinInGameOverlayRenderer {
    }
 
    @Inject(
-      method = {"renderUnderwaterOverlay"},
+      method = {"Lnet/minecraft/class_4603;method_23069(Lnet/minecraft/class_310;Lnet/minecraft/class_4587;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -35,7 +35,7 @@ public class MixinInGameOverlayRenderer {
    }
 
    @Inject(
-      method = {"renderInWallOverlay"},
+      method = {"Lnet/minecraft/class_4603;method_23068(Lnet/minecraft/class_1058;Lnet/minecraft/class_4587;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

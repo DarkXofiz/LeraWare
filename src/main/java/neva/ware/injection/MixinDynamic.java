@@ -22,7 +22,7 @@ public class MixinDynamic {
    private float field_51964;
 
    @Inject(
-      method = {"Lnet/minecraft/client/render/RenderTickCounter$Dynamic;beginRenderTick(J)I"},
+      method = {"Lnet/minecraft/class_9779$class_9781;method_60639(J)I"},
       at = {@At("HEAD")},
       cancellable = true
    )

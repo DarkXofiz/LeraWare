@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin({class_1835.class})
 public abstract class MixinTridentItem {
    @Inject(
-      method = {"onStoppedUsing"},
+      method = {"Lnet/minecraft/class_1835;method_7840(Lnet/minecraft/class_1799;Lnet/minecraft/class_1937;Lnet/minecraft/class_1309;I)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -35,7 +35,7 @@ public abstract class MixinTridentItem {
    }
 
    @Inject(
-      method = {"use"},
+      method = {"Lnet/minecraft/class_1835;method_7836(Lnet/minecraft/class_1937;Lnet/minecraft/class_1657;Lnet/minecraft/class_1268;)Lnet/minecraft/class_1271;"},
       at = {@At("HEAD")},
       cancellable = true
    )

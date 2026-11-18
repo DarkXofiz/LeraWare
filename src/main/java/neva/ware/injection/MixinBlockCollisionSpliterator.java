@@ -17,10 +17,10 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 )
 public abstract class MixinBlockCollisionSpliterator {
    @Redirect(
-      method = {"computeNext"},
+      method = {"Lnet/minecraft/class_5329;computeNext()Ljava/lang/Object;"},
       at = @At(
          value = "INVOKE",
-         target = "Lnet/minecraft/world/BlockView;getBlockState(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/BlockState;"
+         target = "Lnet/minecraft/class_1922;method_8320(Lnet/minecraft/class_2338;)Lnet/minecraft/class_2680;"
       )
    )
    private class_2680 computeNextHook(class_1922 instance, class_2338 blockPos) {

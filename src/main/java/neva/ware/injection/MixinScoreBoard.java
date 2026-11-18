@@ -17,7 +17,7 @@ public abstract class MixinScoreBoard {
    private Object2ObjectMap<String, class_268> field_1427;
 
    @Inject(
-      method = {"removeScoreHolderFromTeam"},
+      method = {"Lnet/minecraft/class_269;method_1157(Ljava/lang/String;Lnet/minecraft/class_268;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

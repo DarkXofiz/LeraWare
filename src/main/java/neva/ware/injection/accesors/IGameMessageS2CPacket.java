@@ -9,6 +9,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin({class_7439.class})
 public interface IGameMessageS2CPacket {
    @Mutable
-   @Accessor("content")
+   @Accessor("comp_763:Lnet/minecraft/class_2561;")
    void setContent(class_2561 var1);
 }

@@ -52,7 +52,7 @@ public class MixinShaderEffect implements IShaderEffect {
    }
 
    @Inject(
-      method = {"close"},
+      method = {"Lnet/minecraft/class_279;close()V"},
       at = {@At("HEAD")}
    )
    void deleteFakeBuffersHook(CallbackInfo ci) {

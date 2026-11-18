@@ -20,11 +20,11 @@ public abstract class MixinCoreShader implements SamplerAccess {
       return this.field_29487.containsKey(name);
    }
 
-   @Accessor("samplerNames")
+   @Accessor("field_29488")
    @Override
    public abstract List<String> getSamplerNames();
 
-   @Accessor("loadedSamplerIds")
+   @Accessor("field_29489")
    @Override
    public abstract List<Integer> getSamplerShaderLocs();
 }

@@ -48,10 +48,10 @@ public abstract class MixinEntity implements IEntity {
    }
 
    @ModifyArgs(
-      method = {"pushAwayFrom"},
+      method = {"Lnet/minecraft/class_1297;method_5697(Lnet/minecraft/class_1297;)V"},
       at = @At(
          value = "INVOKE",
-         target = "Lnet/minecraft/entity/Entity;addVelocity(DDD)V"
+         target = "Lnet/minecraft/class_1297;method_5762(DDD)V"
       )
    )
    public void pushAwayFromHook(Args args) {
@@ -63,7 +63,7 @@ public abstract class MixinEntity implements IEntity {
    }
 
    @Inject(
-      method = {"updateVelocity"},
+      method = {"Lnet/minecraft/class_1297;method_5724(FLnet/minecraft/class_243;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -96,7 +96,7 @@ public abstract class MixinEntity implements IEntity {
    }
 
    @Inject(
-      method = {"getBoundingBox"},
+      method = {"Lnet/minecraft/class_1297;method_5829()Lnet/minecraft/class_238;"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -120,7 +120,7 @@ public abstract class MixinEntity implements IEntity {
    }
 
    @Inject(
-      method = {"isGlowing"},
+      method = {"Lnet/minecraft/class_1297;method_5851()Z"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -132,7 +132,7 @@ public abstract class MixinEntity implements IEntity {
    }
 
    @Inject(
-      method = {"isOnFire"},
+      method = {"Lnet/minecraft/class_1297;method_5809()Z"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -143,7 +143,7 @@ public abstract class MixinEntity implements IEntity {
    }
 
    @Inject(
-      method = {"isInvisibleTo"},
+      method = {"Lnet/minecraft/class_1297;method_5756(Lnet/minecraft/class_1657;)Z"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -154,7 +154,7 @@ public abstract class MixinEntity implements IEntity {
    }
 
    @Inject(
-      method = {"isInLava"},
+      method = {"Lnet/minecraft/class_1297;method_5771()Z"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -167,7 +167,7 @@ public abstract class MixinEntity implements IEntity {
    }
 
    @Inject(
-      method = {"isTouchingWater"},
+      method = {"Lnet/minecraft/class_1297;method_5799()Z"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -180,7 +180,7 @@ public abstract class MixinEntity implements IEntity {
    }
 
    @Inject(
-      method = {"setSwimming"},
+      method = {"Lnet/minecraft/class_1297;method_5796(Z)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -194,7 +194,7 @@ public abstract class MixinEntity implements IEntity {
    }
 
    @ModifyVariable(
-      method = {"changeLookDirection"},
+      method = {"Lnet/minecraft/class_1297;method_5872(DD)V"},
       at = @At("HEAD"),
       ordinal = 0,
       argsOnly = true
@@ -204,7 +204,7 @@ public abstract class MixinEntity implements IEntity {
    }
 
    @ModifyVariable(
-      method = {"changeLookDirection"},
+      method = {"Lnet/minecraft/class_1297;method_5872(DD)V"},
       at = @At("HEAD"),
       ordinal = 1,
       argsOnly = true

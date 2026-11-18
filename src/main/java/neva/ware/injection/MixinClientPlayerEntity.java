@@ -52,7 +52,7 @@ public abstract class MixinClientPlayerEntity extends class_742 {
    }
 
    @Inject(
-      method = {"tick"},
+      method = {"Lnet/minecraft/class_746;method_5773()V"},
       at = {@At("HEAD")}
    )
    public void tickHook(CallbackInfo info) {
@@ -62,10 +62,10 @@ public abstract class MixinClientPlayerEntity extends class_742 {
    }
 
    @Redirect(
-      method = {"tickMovement"},
+      method = {"Lnet/minecraft/class_746;method_6007()V"},
       at = @At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z"
+         target = "Lnet/minecraft/class_746;method_6115()Z"
       ),
       require = 0
    )
@@ -74,7 +74,7 @@ public abstract class MixinClientPlayerEntity extends class_742 {
    }
 
    @Inject(
-      method = {"shouldSlowDown"},
+      method = {"Lnet/minecraft/class_746;method_20303()Z"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -91,10 +91,10 @@ public abstract class MixinClientPlayerEntity extends class_742 {
    }
 
    @Inject(
-      method = {"move"},
+      method = {"Lnet/minecraft/class_746;method_5784(Lnet/minecraft/class_1313;Lnet/minecraft/class_243;)V"},
       at = {@At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;move(Lnet/minecraft/entity/MovementType;Lnet/minecraft/util/math/Vec3d;)V"
+         target = "Lnet/minecraft/class_742;method_5784(Lnet/minecraft/class_1313;Lnet/minecraft/class_243;)V"
       )},
       cancellable = true
    )
@@ -110,7 +110,7 @@ public abstract class MixinClientPlayerEntity extends class_742 {
    }
 
    @Inject(
-      method = {"sendMovementPackets"},
+      method = {"Lnet/minecraft/class_746;method_3136()V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -141,7 +141,7 @@ public abstract class MixinClientPlayerEntity extends class_742 {
    }
 
    @Inject(
-      method = {"sendMovementPackets"},
+      method = {"Lnet/minecraft/class_746;method_3136()V"},
       at = {@At("RETURN")},
       cancellable = true
    )
@@ -163,10 +163,10 @@ public abstract class MixinClientPlayerEntity extends class_742 {
    }
 
    @Inject(
-      method = {"tick"},
+      method = {"Lnet/minecraft/class_746;method_5773()V"},
       at = {@At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/network/ClientPlayerEntity;sendMovementPackets()V",
+         target = "Lnet/minecraft/class_746;method_3136()V",
          ordinal = 0,
          shift = Shift.AFTER
       )},
@@ -193,7 +193,7 @@ public abstract class MixinClientPlayerEntity extends class_742 {
    }
 
    @Inject(
-      method = {"pushOutOfBlocks"},
+      method = {"Lnet/minecraft/class_746;method_30673(DD)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -204,7 +204,7 @@ public abstract class MixinClientPlayerEntity extends class_742 {
    }
 
    @Inject(
-      method = {"tickNausea"},
+      method = {"Lnet/minecraft/class_746;method_60887(Z)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

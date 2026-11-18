@@ -25,7 +25,7 @@ public abstract class MixinMultiplayerScreen extends class_437 {
    }
 
    @Inject(
-      method = {"init"},
+      method = {"Lnet/minecraft/class_500;method_25426()V"},
       at = {@At("RETURN")}
    )
    private void initHook(CallbackInfo ci) {

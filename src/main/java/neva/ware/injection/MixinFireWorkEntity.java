@@ -21,10 +21,10 @@ public class MixinFireWorkEntity {
    private class_1309 field_7616;
 
    @Redirect(
-      method = {"tick"},
+      method = {"Lnet/minecraft/class_1671;method_5773()V"},
       at = @At(
          value = "INVOKE",
-         target = "Lnet/minecraft/entity/LivingEntity;getRotationVector()Lnet/minecraft/util/math/Vec3d;"
+         target = "Lnet/minecraft/class_1309;method_5720()Lnet/minecraft/class_243;"
       )
    )
    private class_243 tickHook(class_1309 instance) {
@@ -38,7 +38,7 @@ public class MixinFireWorkEntity {
    }
 
    @Inject(
-      method = {"tick"},
+      method = {"Lnet/minecraft/class_1671;method_5773()V"},
       at = {@At("TAIL")}
    )
    private void onTickTail(CallbackInfo ci) {

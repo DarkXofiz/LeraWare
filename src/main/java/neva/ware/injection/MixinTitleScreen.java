@@ -27,7 +27,7 @@ public class MixinTitleScreen extends class_437 {
    }
 
    @Inject(
-      method = {"init"},
+      method = {"Lnet/minecraft/class_442;method_25426()V"},
       at = {@At("RETURN")}
    )
    public void postInitHook(CallbackInfo ci) {

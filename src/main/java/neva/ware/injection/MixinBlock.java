@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin({class_2248.class})
 public abstract class MixinBlock {
    @Inject(
-      method = {"shouldDrawSide"},
+      method = {"Lnet/minecraft/class_2248;method_9607(Lnet/minecraft/class_2680;Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;Lnet/minecraft/class_2350;Lnet/minecraft/class_2338;)Z"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -35,7 +35,7 @@ public abstract class MixinBlock {
    }
 
    @Inject(
-      method = {"getVelocityMultiplier"},
+      method = {"Lnet/minecraft/class_2248;method_23349()F"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -52,7 +52,7 @@ public abstract class MixinBlock {
    }
 
    @Inject(
-      method = {"getSlipperiness"},
+      method = {"Lnet/minecraft/class_2248;method_9499()F"},
       at = {@At("HEAD")},
       cancellable = true
    )

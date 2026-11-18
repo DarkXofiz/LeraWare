@@ -26,7 +26,7 @@ public class MixinEndCrystalEntityRenderer {
    private class_630 field_21004;
 
    @Inject(
-      method = {"render(Lnet/minecraft/entity/decoration/EndCrystalEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V"},
+      method = {"Lnet/minecraft/class_892;method_3908(Lnet/minecraft/class_1511;FFLnet/minecraft/class_4587;Lnet/minecraft/class_4597;I)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

@@ -36,7 +36,7 @@ public abstract class MixinChatInputSuggestor {
    protected abstract void method_23937();
 
    @Inject(
-      method = {"refresh"},
+      method = {"Lnet/minecraft/class_4717;method_23934()V"},
       at = {@At(
          value = "INVOKE",
          target = "Lcom/mojang/brigadier/StringReader;canRead()Z",

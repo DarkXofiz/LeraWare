@@ -7,21 +7,21 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin({class_746.class})
 public interface IClientPlayerEntity {
-   @Invoker("sendMovementPackets")
+   @Invoker("method_3136()V")
    void iSendMovementPackets();
 
-   @Accessor("lastYaw")
+   @Accessor("field_3941")
    float getLastYaw();
 
-   @Accessor("lastPitch")
+   @Accessor("field_3925")
    float getLastPitch();
 
-   @Accessor("lastYaw")
+   @Accessor("field_3941")
    void setLastYaw(float var1);
 
-   @Accessor("lastPitch")
+   @Accessor("field_3925")
    void setLastPitch(float var1);
 
-   @Accessor("mountJumpStrength")
+   @Accessor("field_3922")
    void setMountJumpStrength(float var1);
 }

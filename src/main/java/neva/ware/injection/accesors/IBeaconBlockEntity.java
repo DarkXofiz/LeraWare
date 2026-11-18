@@ -6,6 +6,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin({class_2580.class})
 public interface IBeaconBlockEntity {
-   @Accessor("level")
+   @Accessor("field_11803")
    int getLevel();
 }

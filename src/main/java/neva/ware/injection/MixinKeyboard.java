@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin({class_309.class})
 public class MixinKeyboard {
    @Inject(
-      method = {"onKey"},
+      method = {"Lnet/minecraft/class_309;method_1466(JIIII)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

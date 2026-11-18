@@ -55,7 +55,7 @@ public abstract class MixinMinecraftClient {
    public abstract void method_1507(@Nullable class_437 var1);
 
    @Inject(
-      method = {"<init>"},
+      method = {"Lnet/minecraft/class_310;<init>(Lnet/minecraft/class_542;)V"},
       at = {@At("TAIL")}
    )
    void postWindowInit(class_542 args, CallbackInfo ci) {
@@ -82,7 +82,7 @@ public abstract class MixinMinecraftClient {
    }
 
    @Inject(
-      method = {"tick"},
+      method = {"Lnet/minecraft/class_310;method_1574()V"},
       at = {@At("HEAD")}
    )
    void preTickHook(CallbackInfo ci) {
@@ -92,7 +92,7 @@ public abstract class MixinMinecraftClient {
    }
 
    @Inject(
-      method = {"tick"},
+      method = {"Lnet/minecraft/class_310;method_1574()V"},
       at = {@At("RETURN")}
    )
    void postTickHook(CallbackInfo ci) {
@@ -102,7 +102,7 @@ public abstract class MixinMinecraftClient {
    }
 
    @Inject(
-      method = {"onResolutionChanged"},
+      method = {"Lnet/minecraft/class_310;method_15993()V"},
       at = {@At("TAIL")}
    )
    private void captureResize(CallbackInfo ci) {
@@ -110,7 +110,7 @@ public abstract class MixinMinecraftClient {
    }
 
    @Inject(
-      method = {"doItemPick"},
+      method = {"Lnet/minecraft/class_310;method_1511()V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -121,14 +121,14 @@ public abstract class MixinMinecraftClient {
    }
 
    @Inject(
-      method = {"setOverlay"},
+      method = {"Lnet/minecraft/class_310;method_18502(Lnet/minecraft/class_4071;)V"},
       at = {@At("HEAD")}
    )
    public void setOverlay(class_4071 overlay, CallbackInfo ci) {
    }
 
    @Inject(
-      method = {"setScreen"},
+      method = {"Lnet/minecraft/class_310;method_1507(Lnet/minecraft/class_437;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -143,7 +143,7 @@ public abstract class MixinMinecraftClient {
    }
 
    @Inject(
-      method = {"setScreen"},
+      method = {"Lnet/minecraft/class_310;method_1507(Lnet/minecraft/class_437;)V"},
       at = {@At("RETURN")}
    )
    public void setScreenHookPost(class_437 screen, CallbackInfo ci) {
@@ -166,10 +166,10 @@ public abstract class MixinMinecraftClient {
    }
 
    @Redirect(
-      method = {"<init>"},
+      method = {"Lnet/minecraft/class_310;<init>(Lnet/minecraft/class_542;)V"},
       at = @At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/util/Window;setIcon(Lnet/minecraft/resource/ResourcePack;Lnet/minecraft/client/util/Icons;)V"
+         target = "Lnet/minecraft/class_1041;method_4491(Lnet/minecraft/class_3262;Lnet/minecraft/class_8518;)V"
       )
    )
    private void onChangeIcon(class_1041 instance, class_3262 resourcePack, class_8518 icons) throws IOException {
@@ -228,7 +228,7 @@ public abstract class MixinMinecraftClient {
    }
 
    @Inject(
-      method = {"doAttack"},
+      method = {"Lnet/minecraft/class_310;method_1536()Z"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -241,7 +241,7 @@ public abstract class MixinMinecraftClient {
    }
 
    @Inject(
-      method = {"handleBlockBreaking"},
+      method = {"Lnet/minecraft/class_310;method_1590(Z)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

@@ -8,14 +8,14 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin({class_2743.class})
 public interface ISPacketEntityVelocity {
    @Mutable
-   @Accessor("velocityX")
+   @Accessor("field_12563")
    void setMotionX(int var1);
 
    @Mutable
-   @Accessor("velocityY")
+   @Accessor("field_12562")
    void setMotionY(int var1);
 
    @Mutable
-   @Accessor("velocityZ")
+   @Accessor("field_12561")
    void setMotionZ(int var1);
 }

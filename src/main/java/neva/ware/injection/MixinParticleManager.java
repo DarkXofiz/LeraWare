@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinParticleManager {
    @Inject(
       at = {@At("HEAD")},
-      method = {"addParticle(Lnet/minecraft/client/particle/Particle;)V"},
+      method = {"Lnet/minecraft/class_702;method_3058(Lnet/minecraft/class_703;)V"},
       cancellable = true
    )
    public void addParticleHook(class_703 p, CallbackInfo e) {

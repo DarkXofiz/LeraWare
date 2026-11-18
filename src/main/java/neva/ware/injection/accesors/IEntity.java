@@ -10,10 +10,10 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin({class_1297.class})
 public interface IEntity {
    @Mutable
-   @Accessor("pos")
+   @Accessor("field_22467")
    void setPos(class_243 var1);
 
    @Mutable
-   @Accessor("blockPos")
+   @Accessor("field_22468")
    void setBlockPos(class_2338 var1);
 }

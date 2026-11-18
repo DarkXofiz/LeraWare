@@ -45,7 +45,7 @@ public abstract class MixinSplashOverlay {
    private Consumer<Optional<Throwable>> field_18218;
 
    @Inject(
-      method = {"render"},
+      method = {"Lnet/minecraft/class_425;method_25394(Lnet/minecraft/class_332;IIF)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

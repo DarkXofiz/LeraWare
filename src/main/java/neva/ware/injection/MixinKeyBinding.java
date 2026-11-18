@@ -19,7 +19,7 @@ public abstract class MixinKeyBinding {
    public abstract boolean method_1434();
 
    @Inject(
-      method = {"isPressed"},
+      method = {"Lnet/minecraft/class_304;method_1434()Z"},
       at = {@At("HEAD")},
       cancellable = true
    )

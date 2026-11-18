@@ -38,7 +38,7 @@ public class MixinClientPlayerInteractionManager {
    private int field_3716;
 
    @Inject(
-      method = {"interactBlock"},
+      method = {"Lnet/minecraft/class_636;method_2896(Lnet/minecraft/class_746;Lnet/minecraft/class_1268;Lnet/minecraft/class_3965;)Lnet/minecraft/class_1269;"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -77,10 +77,10 @@ public class MixinClientPlayerInteractionManager {
    }
 
    @Redirect(
-      method = {"updateBlockBreakingProgress"},
+      method = {"Lnet/minecraft/class_636;method_2902(Lnet/minecraft/class_2338;Lnet/minecraft/class_2350;)Z"},
       at = @At(
          value = "FIELD",
-         target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;blockBreakingCooldown:I",
+         target = "Lnet/minecraft/class_636;field_3716:I",
          opcode = 180,
          ordinal = 0
       )
@@ -90,7 +90,7 @@ public class MixinClientPlayerInteractionManager {
    }
 
    @Inject(
-      method = {"updateBlockBreakingProgress"},
+      method = {"Lnet/minecraft/class_636;method_2902(Lnet/minecraft/class_2338;Lnet/minecraft/class_2350;)Z"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -101,7 +101,7 @@ public class MixinClientPlayerInteractionManager {
    }
 
    @Inject(
-      method = {"attackBlock"},
+      method = {"Lnet/minecraft/class_636;method_2910(Lnet/minecraft/class_2338;Lnet/minecraft/class_2350;)Z"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -116,7 +116,7 @@ public class MixinClientPlayerInteractionManager {
    }
 
    @Inject(
-      method = {"breakBlock"},
+      method = {"Lnet/minecraft/class_636;method_2899(Lnet/minecraft/class_2338;)Z"},
       at = {@At("RETURN")},
       cancellable = true
    )
@@ -131,7 +131,7 @@ public class MixinClientPlayerInteractionManager {
    }
 
    @Inject(
-      method = {"clickSlot"},
+      method = {"Lnet/minecraft/class_636;method_2906(IIILnet/minecraft/class_1713;Lnet/minecraft/class_1657;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

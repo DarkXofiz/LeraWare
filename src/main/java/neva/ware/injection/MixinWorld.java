@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin({class_1937.class})
 public abstract class MixinWorld {
    @Inject(
-      method = {"getBlockState"},
+      method = {"Lnet/minecraft/class_1937;method_8320(Lnet/minecraft/class_2338;)Lnet/minecraft/class_2680;"},
       at = {@At("HEAD")},
       cancellable = true
    )

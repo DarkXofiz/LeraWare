@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 )
 public class MixinPlayerEntity {
    @Inject(
-      method = {"getAttackCooldownProgressPerTick"},
+      method = {"Lnet/minecraft/class_1657;method_7279()F"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -43,7 +43,7 @@ public class MixinPlayerEntity {
    }
 
    @Inject(
-      method = {"getDisplayName"},
+      method = {"Lnet/minecraft/class_1657;method_5476()Lnet/minecraft/class_2561;"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -54,10 +54,10 @@ public class MixinPlayerEntity {
    }
 
    @Inject(
-      method = {"attack"},
+      method = {"Lnet/minecraft/class_1657;method_7324(Lnet/minecraft/class_1297;)V"},
       at = {@At(
          value = "INVOKE",
-         target = "Lnet/minecraft/entity/player/PlayerEntity;setSprinting(Z)V",
+         target = "Lnet/minecraft/class_1657;method_5728(Z)V",
          shift = Shift.AFTER
       )}
    )
@@ -76,7 +76,7 @@ public class MixinPlayerEntity {
    }
 
    @Inject(
-      method = {"getMovementSpeed"},
+      method = {"Lnet/minecraft/class_1657;method_6029()F"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -87,7 +87,7 @@ public class MixinPlayerEntity {
    }
 
    @Inject(
-      method = {"attack"},
+      method = {"Lnet/minecraft/class_1657;method_7324(Lnet/minecraft/class_1297;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -100,7 +100,7 @@ public class MixinPlayerEntity {
    }
 
    @Inject(
-      method = {"travel"},
+      method = {"Lnet/minecraft/class_1657;method_6091(Lnet/minecraft/class_243;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -116,7 +116,7 @@ public class MixinPlayerEntity {
    }
 
    @Inject(
-      method = {"travel"},
+      method = {"Lnet/minecraft/class_1657;method_6091(Lnet/minecraft/class_243;)V"},
       at = {@At("RETURN")},
       cancellable = true
    )
@@ -132,7 +132,7 @@ public class MixinPlayerEntity {
    }
 
    @Inject(
-      method = {"jump"},
+      method = {"Lnet/minecraft/class_1657;method_6043()V"},
       at = {@At("HEAD")}
    )
    private void onJumpPre(CallbackInfo ci) {
@@ -140,7 +140,7 @@ public class MixinPlayerEntity {
    }
 
    @Inject(
-      method = {"jump"},
+      method = {"Lnet/minecraft/class_1657;method_6043()V"},
       at = {@At("RETURN")}
    )
    private void onJumpPost(CallbackInfo ci) {
@@ -148,7 +148,7 @@ public class MixinPlayerEntity {
    }
 
    @Inject(
-      method = {"eatFood"},
+      method = {"Lnet/minecraft/class_1657;method_18866(Lnet/minecraft/class_1937;Lnet/minecraft/class_1799;Lnet/minecraft/class_4174;)Lnet/minecraft/class_1799;"},
       at = {@At("RETURN")}
    )
    public void eatFoodHook(class_1937 world, class_1799 stack, class_4174 foodComponent, CallbackInfoReturnable<class_1799> cir) {
@@ -156,7 +156,7 @@ public class MixinPlayerEntity {
    }
 
    @Inject(
-      method = {"shouldDismount"},
+      method = {"Lnet/minecraft/class_1657;method_21824()Z"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -167,7 +167,7 @@ public class MixinPlayerEntity {
    }
 
    @Inject(
-      method = {"getBlockInteractionRange"},
+      method = {"Lnet/minecraft/class_1657;method_55754()D"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -182,7 +182,7 @@ public class MixinPlayerEntity {
    }
 
    @Inject(
-      method = {"getEntityInteractionRange"},
+      method = {"Lnet/minecraft/class_1657;method_55755()D"},
       at = {@At("HEAD")},
       cancellable = true
    )

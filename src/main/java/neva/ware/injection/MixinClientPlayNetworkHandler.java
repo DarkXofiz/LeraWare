@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin({class_634.class})
 public class MixinClientPlayNetworkHandler {
    @Inject(
-      method = {"sendChatMessage"},
+      method = {"Lnet/minecraft/class_634;method_45729(Ljava/lang/String;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

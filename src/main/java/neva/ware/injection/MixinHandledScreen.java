@@ -76,7 +76,7 @@ public abstract class MixinHandledScreen<T extends class_1703> extends class_437
    protected abstract void method_2383(class_1735 var1, int var2, int var3, class_1713 var4);
 
    @Inject(
-      method = {"render"},
+      method = {"Lnet/minecraft/class_465;method_25394(Lnet/minecraft/class_332;IIF)V"},
       at = {@At("HEAD")}
    )
    private void drawScreenHook(class_332 context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
@@ -106,7 +106,7 @@ public abstract class MixinHandledScreen<T extends class_1703> extends class_437
    }
 
    @Inject(
-      method = {"render"},
+      method = {"Lnet/minecraft/class_465;method_25394(Lnet/minecraft/class_332;IIF)V"},
       at = {@At("TAIL")}
    )
    private void onRender(class_332 context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
@@ -167,7 +167,7 @@ public abstract class MixinHandledScreen<T extends class_1703> extends class_437
    }
 
    @Inject(
-      method = {"drawSlot(Lnet/minecraft/client/gui/DrawContext;Lnet/minecraft/screen/slot/Slot;)V"},
+      method = {"Lnet/minecraft/class_465;method_2385(Lnet/minecraft/class_332;Lnet/minecraft/class_1735;)V"},
       at = {@At("TAIL")}
    )
    protected void drawSlotHook(class_332 context, class_1735 slot, CallbackInfo ci) {
@@ -201,7 +201,7 @@ public abstract class MixinHandledScreen<T extends class_1703> extends class_437
    }
 
    @Inject(
-      method = {"drawMouseoverTooltip"},
+      method = {"Lnet/minecraft/class_465;method_2380(Lnet/minecraft/class_332;II)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -282,7 +282,7 @@ public abstract class MixinHandledScreen<T extends class_1703> extends class_437
    }
 
    @Inject(
-      method = {"mouseClicked"},
+      method = {"Lnet/minecraft/class_465;method_25402(DDI)Z"},
       at = {@At("HEAD")},
       cancellable = true
    )

@@ -28,7 +28,7 @@ public class MixinEndCrystal implements ICrystal {
    }
 
    @Inject(
-      method = {"tick"},
+      method = {"Lnet/minecraft/class_1511;method_5773()V"},
       at = {@At("HEAD")}
    )
    public void tickHook(CallbackInfo ci) {

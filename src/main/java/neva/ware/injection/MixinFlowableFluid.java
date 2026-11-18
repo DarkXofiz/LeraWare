@@ -21,7 +21,7 @@ public abstract class MixinFlowableFluid {
    protected abstract boolean method_15749(class_1922 var1, class_2338 var2, class_2350 var3);
 
    @Inject(
-      method = {"getVelocity"},
+      method = {"Lnet/minecraft/class_3609;method_15782(Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;Lnet/minecraft/class_3610;)Lnet/minecraft/class_243;"},
       at = {@At("HEAD")},
       cancellable = true
    )

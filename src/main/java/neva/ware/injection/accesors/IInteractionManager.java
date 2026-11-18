@@ -7,12 +7,12 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin({class_636.class})
 public interface IInteractionManager {
-   @Accessor("currentBreakingProgress")
+   @Accessor("field_3715")
    float getCurBlockDamageMP();
 
-   @Accessor("currentBreakingProgress")
+   @Accessor("field_3715")
    void setCurBlockDamageMP(float var1);
 
-   @Invoker("syncSelectedSlot")
+   @Invoker("method_2911()V")
    void syncSlot();
 }

@@ -8,6 +8,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin({class_761.class})
 public interface IWorldRenderer {
-   @Accessor("blockBreakingInfos")
+   @Accessor("field_4058")
    Int2ObjectMap<class_3191> getBlockBreakingInfos();
 }

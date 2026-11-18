@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin({class_758.class})
 public class MixinBackgroundRenderer {
    @Inject(
-      method = {"applyFog"},
+      method = {"Lnet/minecraft/class_758;method_3211(Lnet/minecraft/class_4184;Lnet/minecraft/class_758$class_4596;FZF)V"},
       at = {@At("TAIL")}
    )
    private static void onApplyFog(class_4184 camera, class_4596 fogType, float viewDistance, boolean thickFog, float tickDelta, CallbackInfo info) {
@@ -35,7 +35,7 @@ public class MixinBackgroundRenderer {
    }
 
    @Inject(
-      method = {"getFogModifier(Lnet/minecraft/entity/Entity;F)Lnet/minecraft/client/render/BackgroundRenderer$StatusEffectFogModifier;"},
+      method = {"Lnet/minecraft/class_758;method_42588(Lnet/minecraft/class_1297;F)Lnet/minecraft/class_758$class_7286;"},
       at = {@At("HEAD")},
       cancellable = true
    )

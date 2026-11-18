@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin({class_4970.class})
 public abstract class MixinAbstractBlock {
    @Inject(
-      method = {"calcBlockBreakingDelta"},
+      method = {"Lnet/minecraft/class_4970;method_9594(Lnet/minecraft/class_2680;Lnet/minecraft/class_1657;Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;)F"},
       at = {@At("HEAD")},
       cancellable = true
    )

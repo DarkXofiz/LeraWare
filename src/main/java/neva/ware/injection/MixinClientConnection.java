@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin({class_2535.class})
 public class MixinClientConnection {
    @Inject(
-      method = {"exceptionCaught"},
+      method = {"Lnet/minecraft/class_2535;exceptionCaught(Lio/netty/channel/ChannelHandlerContext;Ljava/lang/Throwable;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -37,7 +37,7 @@ public class MixinClientConnection {
    }
 
    @Inject(
-      method = {"handlePacket"},
+      method = {"Lnet/minecraft/class_2535;method_10759(Lnet/minecraft/class_2596;Lnet/minecraft/class_2547;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -62,7 +62,7 @@ public class MixinClientConnection {
    }
 
    @Inject(
-      method = {"handlePacket"},
+      method = {"Lnet/minecraft/class_2535;method_10759(Lnet/minecraft/class_2596;Lnet/minecraft/class_2547;)V"},
       at = {@At("TAIL")},
       cancellable = true
    )
@@ -87,7 +87,7 @@ public class MixinClientConnection {
    }
 
    @Inject(
-      method = {"send(Lnet/minecraft/network/packet/Packet;)V"},
+      method = {"Lnet/minecraft/class_2535;method_10743(Lnet/minecraft/class_2596;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -106,7 +106,7 @@ public class MixinClientConnection {
    }
 
    @Inject(
-      method = {"send(Lnet/minecraft/network/packet/Packet;)V"},
+      method = {"Lnet/minecraft/class_2535;method_10743(Lnet/minecraft/class_2596;)V"},
       at = {@At("RETURN")},
       cancellable = true
    )
@@ -121,7 +121,7 @@ public class MixinClientConnection {
    }
 
    @Inject(
-      method = {"addHandlers"},
+      method = {"Lnet/minecraft/class_2535;method_48311(Lio/netty/channel/ChannelPipeline;Lnet/minecraft/class_2598;ZLnet/minecraft/class_8762;)V"},
       at = {@At("RETURN")}
    )
    private static void addHandlersHook(ChannelPipeline pipeline, class_2598 side, boolean local, class_8762 packetSizeLogger, CallbackInfo ci) {

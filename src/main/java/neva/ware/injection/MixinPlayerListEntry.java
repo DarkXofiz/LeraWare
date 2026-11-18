@@ -27,7 +27,7 @@ public class MixinPlayerListEntry {
    private class_2960 customCapeTexture;
 
    @Inject(
-      method = {"<init>(Lcom/mojang/authlib/GameProfile;Z)V"},
+      method = {"Lnet/minecraft/class_640;<init>(Lcom/mojang/authlib/GameProfile;Z)V"},
       at = {@At("TAIL")}
    )
    private void initHook(GameProfile profile, boolean secureChatEnforced, CallbackInfo ci) {
@@ -35,7 +35,7 @@ public class MixinPlayerListEntry {
    }
 
    @Inject(
-      method = {"getSkinTextures"},
+      method = {"Lnet/minecraft/class_640;method_52810()Lnet/minecraft/class_8685;"},
       at = {@At("TAIL")},
       cancellable = true
    )

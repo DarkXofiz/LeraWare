@@ -22,10 +22,10 @@ public abstract class MixinCamera {
    protected abstract float method_19318(float var1);
 
    @ModifyArgs(
-      method = {"update"},
+      method = {"Lnet/minecraft/class_4184;method_19321(Lnet/minecraft/class_1922;Lnet/minecraft/class_1297;ZZF)V"},
       at = @At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/render/Camera;moveBy(FFF)V",
+         target = "Lnet/minecraft/class_4184;method_19324(FFF)V",
          ordinal = 0
       )
    )
@@ -36,7 +36,7 @@ public abstract class MixinCamera {
    }
 
    @Inject(
-      method = {"clipToSpace"},
+      method = {"Lnet/minecraft/class_4184;method_19318(F)F"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -47,7 +47,7 @@ public abstract class MixinCamera {
    }
 
    @Inject(
-      method = {"update"},
+      method = {"Lnet/minecraft/class_4184;method_19321(Lnet/minecraft/class_1922;Lnet/minecraft/class_1297;ZZF)V"},
       at = {@At("TAIL")}
    )
    private void updateHook(class_1922 area, class_1297 focusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo ci) {
@@ -57,10 +57,10 @@ public abstract class MixinCamera {
    }
 
    @ModifyArgs(
-      method = {"update"},
+      method = {"Lnet/minecraft/class_4184;method_19321(Lnet/minecraft/class_1922;Lnet/minecraft/class_1297;ZZF)V"},
       at = @At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/render/Camera;setRotation(FF)V"
+         target = "Lnet/minecraft/class_4184;method_19325(FF)V"
       )
    )
    private void setRotationHook(Args args) {
@@ -70,10 +70,10 @@ public abstract class MixinCamera {
    }
 
    @ModifyArgs(
-      method = {"update"},
+      method = {"Lnet/minecraft/class_4184;method_19321(Lnet/minecraft/class_1922;Lnet/minecraft/class_1297;ZZF)V"},
       at = @At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/render/Camera;setPos(DDD)V"
+         target = "Lnet/minecraft/class_4184;method_19327(DDD)V"
       )
    )
    private void setPosHook(Args args) {

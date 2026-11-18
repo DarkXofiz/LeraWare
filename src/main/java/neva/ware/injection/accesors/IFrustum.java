@@ -7,24 +7,24 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin({class_4604.class})
 public interface IFrustum {
-   @Accessor
+   @Accessor("field_40823")
    FrustumIntersection getFrustumIntersection();
 
-   @Accessor("x")
+   @Accessor("field_20995")
    double getX();
 
-   @Accessor("x")
+   @Accessor("field_20995")
    void setX(double var1);
 
-   @Accessor("y")
+   @Accessor("field_20996")
    double getY();
 
-   @Accessor("y")
+   @Accessor("field_20996")
    void setY(double var1);
 
-   @Accessor("z")
+   @Accessor("field_20997")
    double getZ();
 
-   @Accessor("z")
+   @Accessor("field_20997")
    void setZ(double var1);
 }

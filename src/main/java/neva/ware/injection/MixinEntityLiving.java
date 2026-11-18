@@ -49,7 +49,7 @@ public class MixinEntityLiving implements IEntityLiving {
    }
 
    @Inject(
-      method = {"getHandSwingDuration"},
+      method = {"Lnet/minecraft/class_1309;method_6028()I"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -60,7 +60,7 @@ public class MixinEntityLiving implements IEntityLiving {
    }
 
    @Inject(
-      method = {"updateTrackedPositionAndAngles"},
+      method = {"Lnet/minecraft/class_1309;method_5759(DDDFFI)V"},
       at = {@At("HEAD")}
    )
    private void updateTrackedPositionAndAnglesHook(double x, double y, double z, float yaw, float pitch, int interpolationSteps, CallbackInfo ci) {
@@ -89,7 +89,7 @@ public class MixinEntityLiving implements IEntityLiving {
    }
 
    @Inject(
-      method = {"isFallFlying"},
+      method = {"Lnet/minecraft/class_1309;method_6128()Z"},
       at = {@At("TAIL")},
       cancellable = true
    )
@@ -105,7 +105,7 @@ public class MixinEntityLiving implements IEntityLiving {
    }
 
    @Inject(
-      method = {"travel"},
+      method = {"Lnet/minecraft/class_1309;method_6091(Lnet/minecraft/class_243;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -123,7 +123,7 @@ public class MixinEntityLiving implements IEntityLiving {
    }
 
    @Inject(
-      method = {"travel"},
+      method = {"Lnet/minecraft/class_1309;method_6091(Lnet/minecraft/class_243;)V"},
       at = {@At("RETURN")},
       cancellable = true
    )
@@ -141,7 +141,7 @@ public class MixinEntityLiving implements IEntityLiving {
    }
 
    @ModifyVariable(
-      method = {"setSprinting"},
+      method = {"Lnet/minecraft/class_1309;method_5728(Z)V"},
       at = @At("HEAD"),
       ordinal = 0,
       argsOnly = true
@@ -160,7 +160,7 @@ public class MixinEntityLiving implements IEntityLiving {
    }
 
    @Inject(
-      method = {"getHandSwingDuration"},
+      method = {"Lnet/minecraft/class_1309;method_6028()I"},
       at = {@At("HEAD")},
       cancellable = true
    )

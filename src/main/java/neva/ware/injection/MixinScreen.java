@@ -37,7 +37,7 @@ public abstract class MixinScreen {
    public abstract void method_25423(class_310 var1, int var2, int var3);
 
    @Inject(
-      method = {"handleTextClick"},
+      method = {"Lnet/minecraft/class_437;method_25430(Lnet/minecraft/class_2583;)Z"},
       at = {@At(
          value = "INVOKE",
          target = "Lorg/slf4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;)V",
@@ -59,7 +59,7 @@ public abstract class MixinScreen {
    }
 
    @Inject(
-      method = {"filesDragged"},
+      method = {"Lnet/minecraft/class_437;method_29638(Ljava/util/List;)V"},
       at = {@At("HEAD")}
    )
    public void filesDragged(List<Path> paths, CallbackInfo ci) {
@@ -119,7 +119,7 @@ public abstract class MixinScreen {
    }
 
    @Inject(
-      method = {"renderPanoramaBackground"},
+      method = {"Lnet/minecraft/class_437;method_57728(Lnet/minecraft/class_332;F)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -133,7 +133,7 @@ public abstract class MixinScreen {
    }
 
    @Inject(
-      method = {"renderInGameBackground"},
+      method = {"Lnet/minecraft/class_437;method_52752(Lnet/minecraft/class_332;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -144,7 +144,7 @@ public abstract class MixinScreen {
    }
 
    @Inject(
-      method = {"renderBackground(Lnet/minecraft/client/gui/DrawContext;IIF)V"},
+      method = {"Lnet/minecraft/class_437;method_25420(Lnet/minecraft/class_332;IIF)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

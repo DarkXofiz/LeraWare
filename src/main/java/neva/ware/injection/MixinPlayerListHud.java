@@ -25,7 +25,7 @@ public class MixinPlayerListHud {
       .thenComparing(entry -> ((class_640)entry).method_2966().getName(), String::compareToIgnoreCase);
 
    @Inject(
-      method = {"collectPlayerEntries"},
+      method = {"Lnet/minecraft/class_355;method_48213()Ljava/util/List;"},
       at = {@At("HEAD")},
       cancellable = true
    )

@@ -57,11 +57,11 @@ public abstract class MixinGameRenderer {
    @Inject(
       at = {@At(
          value = "INVOKE",
-         target = "Lnet/minecraft/util/profiler/Profiler;pop()V",
+         target = "Lnet/minecraft/class_3695;method_15407()V",
          ordinal = 1,
          shift = Shift.BEFORE
       )},
-      method = {"render"}
+      method = {"Lnet/minecraft/class_757;method_3192(Lnet/minecraft/class_9779;Z)V"}
    )
    void postHudRenderHook(class_9779 tickCounter, boolean tick, CallbackInfo ci) {
       FrameRateCounter.INSTANCE.recordFrame();
@@ -70,11 +70,11 @@ public abstract class MixinGameRenderer {
    @Inject(
       at = {@At(
          value = "FIELD",
-         target = "Lnet/minecraft/client/render/GameRenderer;renderHand:Z",
+         target = "Lnet/minecraft/class_757;field_3992:Z",
          opcode = 180,
          ordinal = 0
       )},
-      method = {"renderWorld"}
+      method = {"Lnet/minecraft/class_757;method_3188(Lnet/minecraft/class_9779;)V"}
    )
    void render3dHook(class_9779 tickCounter, CallbackInfo ci) {
       if (!Module.fullNullCheck()) {
@@ -96,10 +96,10 @@ public abstract class MixinGameRenderer {
    }
 
    @Inject(
-      method = {"renderWorld"},
+      method = {"Lnet/minecraft/class_757;method_3188(Lnet/minecraft/class_9779;)V"},
       at = {@At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/render/GameRenderer;renderHand(Lnet/minecraft/client/render/Camera;FLorg/joml/Matrix4f;)V",
+         target = "Lnet/minecraft/class_757;method_3172(Lnet/minecraft/class_4184;FLorg/joml/Matrix4f;)V",
          shift = Shift.AFTER
       )}
    )
@@ -110,10 +110,10 @@ public abstract class MixinGameRenderer {
    }
 
    @Redirect(
-      method = {"renderWorld"},
+      method = {"Lnet/minecraft/class_757;method_3188(Lnet/minecraft/class_9779;)V"},
       at = @At(
          value = "INVOKE",
-         target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F"
+         target = "Lnet/minecraft/class_3532;method_16439(FFF)F"
       )
    )
    private float renderWorldHook(float delta, float first, float second) {
@@ -121,7 +121,7 @@ public abstract class MixinGameRenderer {
    }
 
    @Inject(
-      method = {"loadPrograms"},
+      method = {"Lnet/minecraft/class_757;method_34538(Lnet/minecraft/class_5912;)V"},
       at = {@At("RETURN")}
    )
    private void loadSatinPrograms(class_5912 factory, CallbackInfo ci) {
@@ -129,10 +129,10 @@ public abstract class MixinGameRenderer {
    }
 
    @Inject(
-      method = {"updateCrosshairTarget"},
+      method = {"Lnet/minecraft/class_757;method_3190(F)V"},
       at = {@At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/render/GameRenderer;findCrosshairTarget(Lnet/minecraft/entity/Entity;DDF)Lnet/minecraft/util/hit/HitResult;"
+         target = "Lnet/minecraft/class_757;method_56153(Lnet/minecraft/class_1297;DDF)Lnet/minecraft/class_239;"
       )},
       cancellable = true
    )
@@ -154,7 +154,7 @@ public abstract class MixinGameRenderer {
    }
 
    @Inject(
-      method = {"findCrosshairTarget"},
+      method = {"Lnet/minecraft/class_757;method_56153(Lnet/minecraft/class_1297;DDF)Lnet/minecraft/class_239;"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -175,7 +175,7 @@ public abstract class MixinGameRenderer {
    }
 
    @Inject(
-      method = {"getBasicProjectionMatrix"},
+      method = {"Lnet/minecraft/class_757;method_22973(D)Lorg/joml/Matrix4f;"},
       at = {@At("TAIL")},
       cancellable = true
    )
@@ -199,7 +199,7 @@ public abstract class MixinGameRenderer {
    }
 
    @Inject(
-      method = {"getFov(Lnet/minecraft/client/render/Camera;FZ)D"},
+      method = {"Lnet/minecraft/class_757;method_3196(Lnet/minecraft/class_4184;FZ)D"},
       at = {@At("TAIL")},
       cancellable = true
    )
@@ -223,7 +223,7 @@ public abstract class MixinGameRenderer {
    }
 
    @Inject(
-      method = {"bobView"},
+      method = {"Lnet/minecraft/class_757;method_3186(Lnet/minecraft/class_4587;F)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -256,7 +256,7 @@ public abstract class MixinGameRenderer {
    }
 
    @Inject(
-      method = {"showFloatingItem"},
+      method = {"Lnet/minecraft/class_757;method_3189(Lnet/minecraft/class_1799;)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -268,7 +268,7 @@ public abstract class MixinGameRenderer {
    }
 
    @Inject(
-      method = {"renderFloatingItem"},
+      method = {"Lnet/minecraft/class_757;method_3171(Lnet/minecraft/class_332;F)V"},
       at = {@At("HEAD")},
       cancellable = true
    )
@@ -280,7 +280,7 @@ public abstract class MixinGameRenderer {
    }
 
    @Inject(
-      method = {"tiltViewWhenHurt"},
+      method = {"Lnet/minecraft/class_757;method_3198(Lnet/minecraft/class_4587;F)V"},
       at = {@At("HEAD")},
       cancellable = true
    )

@@ -17,7 +17,7 @@ public abstract class MixinAbstractHorseEntity extends class_1429 {
    }
 
    @Inject(
-      method = {"isSaddled"},
+      method = {"Lnet/minecraft/class_1496;method_6725()Z"},
       at = {@At("HEAD")},
       cancellable = true
    )
