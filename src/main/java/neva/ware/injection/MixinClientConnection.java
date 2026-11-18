@@ -25,6 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin({class_2535.class})
 public class MixinClientConnection {
    @Inject(
+      remap = false,
       method = {"Lnet/minecraft/class_2535;exceptionCaught(Lio/netty/channel/ChannelHandlerContext;Ljava/lang/Throwable;)V"},
       at = {@At("HEAD")},
       cancellable = true

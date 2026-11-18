@@ -19,10 +19,10 @@ public interface IMinecraftClient {
    @Accessor("field_1752")
    void setUseCooldown(int var1);
 
-   @Invoker("method_1583()V")
+   @Invoker("method_1583")
    void idoItemUse();
 
-   @Invoker("method_1536()Z")
+   @Invoker("method_1536")
    boolean idoAttack();
 
    @Mutable

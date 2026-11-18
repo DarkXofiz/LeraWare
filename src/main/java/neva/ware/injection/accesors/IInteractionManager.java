@@ -13,6 +13,6 @@ public interface IInteractionManager {
    @Accessor("field_3715")
    void setCurBlockDamageMP(float var1);
 
-   @Invoker("method_2911()V")
+   @Invoker("method_2911")
    void syncSlot();
 }

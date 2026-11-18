@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin({class_746.class})
 public interface IClientPlayerEntity {
-   @Invoker("method_3136()V")
+   @Invoker("method_3136")
    void iSendMovementPackets();
 
    @Accessor("field_3941")

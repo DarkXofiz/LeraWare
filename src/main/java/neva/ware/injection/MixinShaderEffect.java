@@ -52,6 +52,7 @@ public class MixinShaderEffect implements IShaderEffect {
    }
 
    @Inject(
+      remap = false,
       method = {"Lnet/minecraft/class_279;close()V"},
       at = {@At("HEAD")}
    )
