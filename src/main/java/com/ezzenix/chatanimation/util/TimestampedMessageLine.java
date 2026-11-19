@@ -8,7 +8,7 @@ public interface TimestampedMessageLine {
    void chatAnimation$setAddedTime(long var1);
 
    static TimestampedMessageLine of(class_7590 line) {
-      return (TimestampedMessageLine)line;
+      return (TimestampedMessageLine)(Object)line;
    }
 
    static float age(class_7590 line) {

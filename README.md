@@ -1,36 +1,41 @@
-# NevaWare
+# LeraWare
 
-Client-side Fabric mod for Minecraft 1.21.x (Java 21), originally distributed as `NevaWare.jar` (v1.7).
-Author: TrNeverMind. Licensed under **GPL-3.0** (see `LICENSE`).
+Client-side Fabric mod for Minecraft 1.21.x (Java 21).
+
+LeraWare is the open-source source release of the **NevaWare 1.7** mod, originally created by **TrNeverMind**
+and distributed as `NevaWare.jar`. The code in this repository is derived from that release; the internal
+package names (`neva.ware.*`), the mod id and the in-game name are intentionally left unchanged so that all
+original features keep working exactly as before.
+
+Licensed under **GPL-3.0** (see `LICENSE`). Third-party components keep their own notices
+(see `THIRD_PARTY_NOTICES.md`).
 
 ## Layout
 ```
 src/main/java        decompiled sources (neva.ware.*, com.ezzenix.*, ru.donyka.*)
 src/main/resources   fabric.mod.json, mixin configs, accesswidener, assets (fonts, shaders, lang, sounds), default.nw
-tools/decompile.sh   reproducible decompile step
+stubs/baritone       compile-only stub of the Baritone API surface used by the mod (not shipped)
+tools/               helper scripts (identity mappings generator, CI script, decompile helper)
 ```
 
 ## Building
-1. Put the original jar somewhere outside the repo and get [Vineflower](https://github.com/Vineflower/vineflower/releases).
-2. `tools/decompile.sh /path/NevaWare.jar /path/vineflower.jar`
-3. `./gradlew build` → `build/libs/NevaWare-1.7.jar`
-4. Fix only compile errors from decompilation; do not change behaviour.
+Built by GitHub Actions on every push (see `.github/workflows/build.yml`); the jar is uploaded as the
+`NevaWare-jar` artifact.
+
+Locally: `python3 tools/make_identity_mappings.py 1.21.1 && gradle build`
 
 ## Notes
-- The original jar is built against **intermediary** names (`class_846`, `method_3653`). Decompiled code must be
-  remapped to Yarn (default here) — see "Remapping" below.
-- `nevaware.accesswidener` is in the `intermediary` namespace; if Loom rejects it, remap it to `named`.
-- Refmaps are intentionally not checked in; Loom regenerates them.
-- Dependencies shaded in the original jar: Orbit (Gradle dependency now), Netty (provided by Minecraft).
-- Suggested (optional) mods: Sodium, Exordium, Starlight, IAS, ViaFabricPlus.
-
-## Remapping
-Easiest path: run the original jar through Loom's `remapJar`-inverse, e.g. with
-[Tiny Remapper](https://github.com/FabricMC/tiny-remapper) using Yarn `intermediary -> named` before decompiling,
-or decompile via Loom's `genSources` workflow and replace names manually.
-
-## License
-GPL-3.0-or-later for NevaWare; bundled/derived MIT components keep their notices (`THIRD_PARTY_NOTICES.md`).
+- The sources use Minecraft's **intermediary** names (`class_2561`, `method_3653`, ...), because that is what the
+  original release jar contains. `tools/make_identity_mappings.py` generates an identity mapping so Loom can
+  compile them unchanged. Remapping to readable Yarn names is a possible future improvement.
+- `nevaware.accesswidener` uses the `named` namespace (identity mappings); Loom converts it when packaging.
+- Netty SOCKS/proxy codecs and Orbit were shaded in the original jar; here they are Gradle dependencies.
+- Baritone is optional at runtime; only a small compile-time stub is included.
 
 ## Status
-Sources are decompiled from the original release jar and are **not yet buildable as-is** (about 100 decompiler artefacts remain, mostly generics and mixin casts). Contributions that fix them without changing behaviour are welcome.
+Sources are decompiled from the original release jar. A few decompiler artefacts may still prevent a clean
+build; contributions that fix them without changing behaviour are welcome.
+
+## Credits
+- NevaWare by TrNeverMind (GPL-3.0)
+- ChatAnimation by Ezzenix (MIT), ChunkAnimator by Donyka (MIT)

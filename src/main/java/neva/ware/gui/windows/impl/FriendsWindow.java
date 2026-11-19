@@ -114,10 +114,10 @@ public class FriendsWindow extends WindowBase {
       Render2DEngine.addWindow(
          context.method_51448(), this.getX(), this.getY() + 38.0F, this.getX() + this.getWidth(), this.getY() + this.getHeight() - 1.0F, 1.0
       );
-      hover2 = (boolean)0;
+      int hoverIdx = 0;
 
       for (FriendsWindow.FriendPlate friendPlate : this.friendPlates) {
-         hover2++;
+         hoverIdx++;
          if (!((float)((int)(friendPlate.offset + this.getY() + 25.0F)) + this.getScrollOffset() > this.getY() + this.getHeight())
             && !(friendPlate.offset + this.getScrollOffset() + this.getY() + 10.0F < this.getY())) {
             boolean online = Module.mc.field_1724 != null
@@ -168,7 +168,7 @@ public class FriendsWindow extends WindowBase {
             FontRenderers.sf_medium_mini
                .drawString(
                   context.method_51448(),
-                  hover2 + ".",
+                  hoverIdx + ".",
                   (double)(this.getX() + 3.0F),
                   (double)(friendPlate.offset + this.getY() + 41.0F + this.getScrollOffset()),
                   textColor

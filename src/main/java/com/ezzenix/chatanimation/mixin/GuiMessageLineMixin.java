@@ -31,7 +31,7 @@ public class GuiMessageLineMixin implements TimestampedMessageLine {
       at = {@At("TAIL")}
    )
    private void afterInit(CallbackInfo ci) {
-      TimestampedMessageLine.of((class_7590)this).chatAnimation$setAddedTime(System.currentTimeMillis());
+      TimestampedMessageLine.of((class_7590)(Object)this).chatAnimation$setAddedTime(System.currentTimeMillis());
    }
 
    @Inject(
