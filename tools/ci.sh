@@ -12,11 +12,15 @@ rc=$?
 {
 echo "Fabric API: ${FAPI:-default}"
 echo "Toplam hata: $(grep -c ' error: ' build.log)"
-echo "<pre>"
-grep ' error: ' build.log | sed -E 's/^.* error: //; s/[A-Za-z0-9_.$]*class_[0-9]+/class_N/g' | sort | uniq -c | sort -rn | head -25
-echo "</pre>"
-echo "<pre>"
-grep ' error: ' build.log | sed -E 's|^.*/src/main/java/||; s/:[0-9]+: error:.*//' | sort | uniq -c | sort -rn | head -25
-echo "</pre>"
+if [ "$(grep -c ' error: ' build.log)" -le 40 ]; then
+  echo "Hata detaylari:"
+  echo "<pre>"
+  grep -A3 ' error: ' build.log | sed -E 's|/home/runner/work/[^/]+/[^/]+/src/main/java/||; s/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g' | head -120
+  echo "</pre>"
+else
+  echo "<pre>"
+  grep ' error: ' build.log | sed -E 's/^.* error: //; s/[A-Za-z0-9_.$]*class_[0-9]+/class_N/g; s/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g' | sort | uniq -c | sort -rn | head -25
+  echo "</pre>"
+fi
 } >> "$GITHUB_STEP_SUMMARY"
 exit $rc

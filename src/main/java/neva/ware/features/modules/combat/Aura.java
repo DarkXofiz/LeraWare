@@ -919,11 +919,11 @@ public class Aura extends Module {
          }
       }
       return switch ((Aura.Sort)this.sort.getValue()) {
-         case LowestDistance -> (class_1309)first_stage.stream().min(Comparator.comparing(e -> mc.field_1724.method_5707(e.method_19538()))).orElse(null);
-         case HighestDistance -> (class_1309)first_stage.stream().max(Comparator.comparing(e -> mc.field_1724.method_5707(e.method_19538()))).orElse(null);
-         case LowestHealth -> (class_1309)first_stage.stream().min(Comparator.comparing(e -> e.method_6032() + e.method_6067())).orElse(null);
-         case HighestHealth -> (class_1309)first_stage.stream().max(Comparator.comparing(e -> e.method_6032() + e.method_6067())).orElse(null);
-         case LowestDurability -> (class_1309)first_stage.stream().min(Comparator.comparing(e -> {
+         case LowestDistance -> (class_1309)first_stage.stream().min(Comparator.<class_1309, Double>comparing(e -> mc.field_1724.method_5707(e.method_19538()))).orElse(null);
+         case HighestDistance -> (class_1309)first_stage.stream().max(Comparator.<class_1309, Double>comparing(e -> mc.field_1724.method_5707(e.method_19538()))).orElse(null);
+         case LowestHealth -> (class_1309)first_stage.stream().min(Comparator.<class_1309, Float>comparing(e -> e.method_6032() + e.method_6067())).orElse(null);
+         case HighestHealth -> (class_1309)first_stage.stream().max(Comparator.<class_1309, Float>comparing(e -> e.method_6032() + e.method_6067())).orElse(null);
+         case LowestDurability -> (class_1309)first_stage.stream().min(Comparator.<class_1309, Float>comparing(e -> {
          float v = 0.0F;
 
          for (class_1799 armor : e.method_5661()) {
@@ -934,7 +934,7 @@ public class Aura extends Module {
 
          return v;
       })).orElse(null);
-         case HighestDurability -> (class_1309)first_stage.stream().max(Comparator.comparing(e -> {
+         case HighestDurability -> (class_1309)first_stage.stream().max(Comparator.<class_1309, Float>comparing(e -> {
          float v = 0.0F;
 
          for (class_1799 armor : e.method_5661()) {
@@ -945,7 +945,7 @@ public class Aura extends Module {
 
          return v;
       })).orElse(null);
-         case FOV -> (class_1309)first_stage.stream().min(Comparator.comparing(this::getFOVAngle)).orElse(null);
+         case FOV -> (class_1309)first_stage.stream().min(Comparator.<class_1309, Float>comparing(this::getFOVAngle)).orElse(null);
       };
    }
 
