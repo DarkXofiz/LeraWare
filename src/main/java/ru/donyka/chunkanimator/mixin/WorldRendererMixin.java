@@ -13,10 +13,10 @@ import ru.donyka.chunkanimator.ChunkAnimator;
 @Mixin({class_761.class})
 public abstract class WorldRendererMixin {
    @ModifyArgs(
-      method = {"renderLayer"},
+      method = {"Lnet/minecraft/class_761;method_3251(Lnet/minecraft/class_1921;DDDLorg/joml/Matrix4f;Lorg/joml/Matrix4f;)V"},
       at = @At(
          value = "INVOKE",
-         target = "Lnet/minecraft/client/gl/GlUniform;set(FFF)V",
+         target = "Lnet/minecraft/class_284;method_1249(FFF)V",
          ordinal = 0
       )
    )
