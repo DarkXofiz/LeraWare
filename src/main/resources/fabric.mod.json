@@ -22,9 +22,9 @@
     ]
   },
   "contact": {
-    "sources": "https://discord.gg/nevabest",
-    "homepage": "https://discord.gg/nevabest",
-    "issues": "https://discord.gg/nevabest"
+    "sources": "https://github.com/DarkXofiz/LeraWare",
+    "homepage": "https://github.com/DarkXofiz/LeraWare",
+    "issues": "https://github.com/DarkXofiz/LeraWare/issues"
   },
   "mixins": [
     "nevaware.mixins.json",
