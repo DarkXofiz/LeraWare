@@ -22,9 +22,9 @@
     ]
   },
   "contact": {
-    "sources": "https://github.com/DarkXofiz/LeraWare",
-    "homepage": "https://github.com/DarkXofiz/LeraWare",
-    "issues": "https://github.com/DarkXofiz/LeraWare/issues"
+    "sources": "LeraWare",
+    "homepage": "LeraWare",
+    "issues": "LeraWare"
   },
   "mixins": [
     "nevaware.mixins.json",
