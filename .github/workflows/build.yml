@@ -17,8 +17,10 @@ jobs:
       - run: bash tools/ci.sh
       - uses: actions/upload-artifact@v4
         with:
-          name: NevaWare-jar
-          path: build/libs/*.jar
+          name: LeraWare-jar
+          path: |
+            build/libs/*.jar
+            !build/libs/*-sources.jar
       - uses: actions/upload-artifact@v4
         if: always()
         with:
