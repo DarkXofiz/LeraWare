@@ -275,7 +275,7 @@ public final class InteractionUtility {
    @Nullable
    public static class_3965 getPlaceResult(@NotNull class_2338 bp, InteractionUtility.Interact interact, boolean ignoreEntities) {
       if (!ignoreEntities) {
-         for (class_1297 entity : new ArrayList(Module.mc.field_1687.method_18467(class_1297.class, new class_238(bp)))) {
+         for (class_1297 entity : new ArrayList<>(Module.mc.field_1687.method_18467(class_1297.class, new class_238(bp)))) {
             if (!(entity instanceof class_1542) && !(entity instanceof class_1303)) {
                return null;
             }

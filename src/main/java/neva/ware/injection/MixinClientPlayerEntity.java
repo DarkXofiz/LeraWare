@@ -1,6 +1,7 @@
 package neva.ware.injection;
 
 import com.mojang.authlib.GameProfile;
+import net.minecraft.class_1297;
 import net.minecraft.class_1313;
 import net.minecraft.class_243;
 import net.minecraft.class_2848;

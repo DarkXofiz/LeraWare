@@ -78,7 +78,7 @@ public class LegacyHud extends Module {
          };
          this.color = this.colorSetting.getValue().getColor();
          if (this.waterMark.getValue()) {
-            this.drawText(context, "nevaware v1.7b2407", 2, this.waterMarkY.getValue());
+            this.drawText(context, "leraware v1.7b2407", 2, this.waterMarkY.getValue());
          }
 
          int j = mc.field_1755 instanceof class_408 && !this.renderingUp.getValue() ? 14 : 0;

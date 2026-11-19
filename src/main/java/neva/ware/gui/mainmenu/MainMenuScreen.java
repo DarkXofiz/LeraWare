@@ -190,7 +190,7 @@ public class MainMenuScreen extends class_437 {
       } catch (Throwable var24) {
       }
 
-      String var23 = "NevaWare Client  |  online: " + var26;
+      String var23 = "LeraWare Client  |  online: " + var26;
    }
 
    public boolean method_25402(double var1, double var3, int var5) {

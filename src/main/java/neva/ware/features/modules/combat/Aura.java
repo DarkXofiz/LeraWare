@@ -1118,8 +1118,6 @@ public class Aura extends Module {
       HvH,
       Snap,
       Sharp;
-      // $VF: synthetic field
-      private static final Aura.Mode[] $VALUES = $values();
    }
 
    public static class Position {

@@ -148,7 +148,7 @@ public abstract class Module {
       }
 
       if (!fullNullCheck()) {
-         LogUtils.getLogger().info("[NevaWare] enabled " + this.getName());
+         LogUtils.getLogger().info("[LeraWare] enabled " + this.getName());
          Managers.MODULE.sortModules();
          if (!this.ignoreSoundList.contains(this.getDisplayName())) {
             Managers.NOTIFICATION.publicity(this.getDisplayName(), ClientSettings.isRu() ? "Модуль включен!" : "Was Enabled!", 2, Notification.Type.ENABLED);
@@ -172,7 +172,7 @@ public abstract class Module {
       Managers.MODULE.sortModules();
       if (!fullNullCheck()) {
          this.onDisable();
-         NevaWare.LOGGER.info("[NevaWare] disabled {}", this.getName());
+         NevaWare.LOGGER.info("[LeraWare] disabled {}", this.getName());
          if (!this.ignoreSoundList.contains(this.getDisplayName())) {
             Managers.NOTIFICATION.publicity(this.getDisplayName(), ClientSettings.isRu() ? "Модуль выключен!" : "Was Disabled!", 2, Notification.Type.DISABLED);
             Managers.SOUND.playDisable();

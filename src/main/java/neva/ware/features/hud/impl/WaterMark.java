@@ -56,7 +56,7 @@ public class WaterMark extends HudElement {
       float var3 = this.getPosX();
       float var4 = this.getPosY();
       ArrayList<NwHud.Seg> var5 = new ArrayList<>();
-      var5.add(new NwHud.Seg(NwHud.Icon.LOGO, "NevaWare", null, true));
+      var5.add(new NwHud.Seg(NwHud.Icon.LOGO, "LeraWare", null, true));
       if (this.nwNick.getValue()) {
          var5.add(new NwHud.Seg(NwHud.Icon.USER, nick(), null, false));
       }
