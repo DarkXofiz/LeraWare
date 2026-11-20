@@ -17,31 +17,31 @@ import neva.ware.features.modules.Module;
 import neva.ware.features.modules.client.ClientSettings;
 
 public class CategoryArgumentType implements ArgumentType<String> {
-   private static final List<String> EXAMPLES = Managers.MODULE.getCategories().stream().map(Module.Category::getName).toList();
+    private static final List<String> EXAMPLES = Managers.MODULE.getCategories().stream().map(Module.Category::getName).toList();
 
-   public static CategoryArgumentType create() {
-      return new CategoryArgumentType();
-   }
+    public static CategoryArgumentType create() {
+        return new CategoryArgumentType();
+    }
 
-   public String parse(StringReader reader) throws CommandSyntaxException {
-      String cat = reader.readString();
-      if (!EXAMPLES.contains(cat)) {
-         throw new DynamicCommandExceptionType(
-               name -> class_2561.method_43470(
-                     ClientSettings.isRu() ? "Категории " + name.toString() + " не существует(" : "Category " + name.toString() + " does not exist :("
-                  )
-            )
-            .create(cat);
-      } else {
-         return cat;
-      }
-   }
+    public String parse(StringReader reader) throws CommandSyntaxException {
+        String cat = reader.readString();
+        if (!EXAMPLES.contains(cat)) {
+            throw new DynamicCommandExceptionType(
+                    name -> class_2561.method_43470(
+                        ClientSettings.isRu() ? "Категории " + name.toString() + " не существует(" : "Category " + name.toString() + " does not exist :("
+                    )
+                )
+                .create(cat);
+        } else {
+            return cat;
+        }
+    }
 
-   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-      return class_2172.method_9265(EXAMPLES, builder);
-   }
+    public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
+        return class_2172.method_9265(EXAMPLES, builder);
+    }
 
-   public Collection<String> getExamples() {
-      return EXAMPLES;
-   }
+    public Collection<String> getExamples() {
+        return EXAMPLES;
+    }
 }

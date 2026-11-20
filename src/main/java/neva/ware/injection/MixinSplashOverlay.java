@@ -28,168 +28,170 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({class_425.class})
 public abstract class MixinSplashOverlay {
-   @Final
-   @Shadow
-   private boolean field_18219;
-   @Shadow
-   private float field_17770;
-   @Shadow
-   private long field_17771 = -1L;
-   @Shadow
-   private long field_18220 = -1L;
-   @Final
-   @Shadow
-   private class_4011 field_17767;
-   @Final
-   @Shadow
-   private Consumer<Optional<Throwable>> field_18218;
+    @Final
+    @Shadow
+    private boolean field_18219;
+    @Shadow
+    private float field_17770;
+    @Shadow
+    private long field_17771 = -1L;
+    @Shadow
+    private long field_18220 = -1L;
+    @Final
+    @Shadow
+    private class_4011 field_17767;
+    @Final
+    @Shadow
+    private Consumer<Optional<Throwable>> field_18218;
 
-   @Inject(
-      method = {"Lnet/minecraft/class_425;method_25394(Lnet/minecraft/class_332;IIF)V"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void render(class_332 var1, int var2, int var3, float var4, CallbackInfo var5) {
-      if (!ModuleManager.unHook.isEnabled() && ClientSettings.customLoadingScreen.getValue()) {
-         var5.cancel();
-         this.renderCustom(var1, var2, var3, var4);
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_425;method_25394(Lnet/minecraft/class_332;IIF)V"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    public void render(class_332 var1, int var2, int var3, float var4, CallbackInfo var5) {
+        if (!ModuleManager.unHook.isEnabled() && ClientSettings.customLoadingScreen.getValue()) {
+            var5.cancel();
+            this.renderCustom(var1, var2, var3, var4);
+        }
+    }
 
-   public void renderCustom(class_332 var1, int var2, int var3, float var4) {
-      int var5 = Module.mc.method_22683().method_4486();
-      int var6 = Module.mc.method_22683().method_4502();
-      long var7 = class_156.method_658();
-      if (this.field_18219 && this.field_18220 == -1L) {
-         this.field_18220 = var7;
-      }
+    public void renderCustom(class_332 var1, int var2, int var3, float var4) {
+        int var5 = Module.mc.method_22683().method_4486();
+        int var6 = Module.mc.method_22683().method_4502();
+        long var7 = class_156.method_658();
+        if (this.field_18219 && this.field_18220 == -1L) {
+            this.field_18220 = var7;
+        }
 
-      float var9 = this.field_17771 > -1L ? (float)(var7 - this.field_17771) / 600.0F : -1.0F;
-      float var10 = this.field_18220 > -1L ? (float)(var7 - this.field_18220) / 500.0F : -1.0F;
-      boolean var13 = false;
-      boolean var14 = false;
-      float var12;
-      float var38;
-      if (var9 >= 0.0F) {
-         if (Module.mc.field_1755 != null) {
-            Module.mc.field_1755.method_25394(var1, 0, 0, var4);
-         }
+        float var9 = this.field_17771 > -1L ? (float)(var7 - this.field_17771) / 600.0F : -1.0F;
+        float var10 = this.field_18220 > -1L ? (float)(var7 - this.field_18220) / 500.0F : -1.0F;
+        boolean var13 = false;
+        boolean var14 = false;
+        float var12;
+        float var38;
+        if (var9 >= 0.0F) {
+            if (Module.mc.field_1755 != null) {
+                Module.mc.field_1755.method_25394(var1, 0, 0, var4);
+            }
 
-         float var11 = 1.0F - class_3532.method_15363(var9 - 0.0F, 0.0F, 1.0F);
-         var38 = var11 * var11 * (3.0F - 2.0F * var11);
-         var12 = var38;
-         var13 = true;
-      } else if (this.field_18219) {
-         if (Module.mc.field_1755 != null && var10 < 1.0F) {
-            Module.mc.field_1755.method_25394(var1, var2, var3, var4);
-         }
+            float var11 = 1.0F - class_3532.method_15363(var9 - 0.0F, 0.0F, 1.0F);
+            var38 = var11 * var11 * (3.0F - 2.0F * var11);
+            var12 = var38;
+            var13 = true;
+        } else if (this.field_18219) {
+            if (Module.mc.field_1755 != null && var10 < 1.0F) {
+                Module.mc.field_1755.method_25394(var1, var2, var3, var4);
+            }
 
-         var38 = (float)class_3532.method_15350((double)var10, 0.15, 1.0);
-         var12 = class_3532.method_15363(var10, 0.0F, 1.0F);
-         var13 = true;
-      } else {
-         var38 = 1.0F;
-         var12 = 1.0F;
-         var14 = true;
-      }
+            var38 = (float)class_3532.method_15350(var10, 0.15, 1.0);
+            var12 = class_3532.method_15363(var10, 0.0F, 1.0F);
+            var13 = true;
+        } else {
+            var38 = 1.0F;
+            var12 = 1.0F;
+            var14 = true;
+        }
 
-      boolean var15 = ClientSettings.customPanorama.getValue();
-      boolean var16 = false;
-      if (var15 && (var14 || var38 >= -1.0F || this.field_18219 && var9 < 1.0F)) {
-         try {
-            class_4587 var10000 = var1.method_51448();
-            float var10003 = (float)var5;
-            float var10004 = (float)var6;
-            PanoramaBackground.fadeAlpha = var38;
-            PanoramaBackground.drawMainMenuShader(var10000, 0.0F, 0.0F, var10003, var10004);
-            var16 = true;
-         } catch (Throwable var37) {
-         }
-      }
+        boolean var15 = ClientSettings.customPanorama.getValue();
+        boolean var16 = false;
+        if (var15 && (var14 || var38 >= -1.0F || this.field_18219 && var9 < 1.0F)) {
+            try {
+                class_4587 var10000 = var1.method_51448();
+                float var10003 = var5;
+                float var10004 = var6;
+                PanoramaBackground.fadeAlpha = var38;
+                PanoramaBackground.drawMainMenuShader(var10000, 0.0F, 0.0F, var10003, var10004);
+                var16 = true;
+            } catch (Throwable var37) {
+            }
+        }
 
-      if (!var16 || var13) {
-         if (var14) {
-            float var17 = 0.019607844F;
-            float var18 = 0.019607844F;
-            float var19 = 0.039215688F;
-            GlStateManager._clearColor(var17, var18, var19, 1.0F);
-            GlStateManager._clear(16384, false);
-         } else if (!var15) {
-            int var39 = class_3532.method_15386(var38 * 255.0F);
-            var1.method_25294(0, 0, var5, var6, withAlpha(328970, var39));
-         }
-      }
+        if (!var16 || var13) {
+            if (var14) {
+                float var17 = 0.019607844F;
+                float var18 = 0.019607844F;
+                float var19 = 0.039215688F;
+                GlStateManager._clearColor(var17, var18, var19, 1.0F);
+                GlStateManager._clear(16384, false);
+            } else if (!var15) {
+                int var39 = class_3532.method_15386(var38 * 255.0F);
+                var1.method_25294(0, 0, var5, var6, withAlpha(328970, var39));
+            }
+        }
 
-      if (var15) {
-         int var40 = class_3532.method_15386(var38 * 0.55F * 255.0F);
-         var1.method_25294(0, 0, var5, var6, withAlpha(0, var40));
-      }
+        if (var15) {
+            int var40 = class_3532.method_15386(var38 * 0.55F * 255.0F);
+            var1.method_25294(0, 0, var5, var6, withAlpha(0, var40));
+        }
 
-      float var41 = this.field_17770;
-      Color var42 = HudEditor.getColor(0);
-      Color var43 = HudEditor.getColor(90);
-      int var20 = (int)((double)var1.method_51421() * 0.5);
-      int var21 = (int)((double)var1.method_51443() * 0.5);
-      short var22 = 140;
-      int var23 = var20 - var22 / 2;
-      int var24 = var21 - var22 / 2 - 10;
-      float var25 = 0.85F + 0.15F * (float)Math.sin((double)var7 / 450.0);
-      RenderSystem.enableBlend();
+        float var41 = this.field_17770;
+        Color var42 = HudEditor.getColor(0);
+        Color var43 = HudEditor.getColor(90);
+        int var20 = (int)(var1.method_51421() * 0.5);
+        int var21 = (int)(var1.method_51443() * 0.5);
+        int logoPx = (int)Math.min(190.0F, var1.method_51443() * 0.55F);
+        int logoX = var20 - logoPx / 2;
+        int logoY = var21 - (logoPx + 14) / 2;
+        int logoFrame = (int)((System.currentTimeMillis() / 180L) % 6L);
+        short var22 = 140;
+        int var23 = var20 - var22 / 2;
+        int var24 = var21 - var22 / 2 - 10;
+        float var25 = 0.85F + 0.15F * (float)Math.sin(var7 / 450.0);
+        RenderSystem.enableBlend();
 
-      try {
-         RenderSystem.defaultBlendFunc();
-         RenderSystem.setShaderColor((float)var42.getRed() / 255.0F, (float)var42.getGreen() / 255.0F, (float)var42.getBlue() / 255.0F, var12);
-         var1.method_25290(class_2960.method_60655("nevaware", "textures/gui/menu/wm.png"), var20 - 150, var21 - 31, 0.0F, 0.0F, 300, 42, 300, 42);
-         RenderSystem.setShaderColor((float)var43.getRed() / 255.0F, (float)var43.getGreen() / 255.0F, (float)var43.getBlue() / 255.0F, var12);
-         var1.method_25290(class_2960.method_60655("nevaware", "textures/gui/menu/wm_grad.png"), var20 - 150, var21 - 31, 0.0F, 0.0F, 300, 42, 300, 42);
-      } catch (Throwable var36) {
-      }
+        try {
+            RenderSystem.defaultBlendFunc();
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, var12);
+            var1.method_25290(class_2960.method_60655("nevaware", "textures/gui/menu/loading_logo_" + logoFrame + ".png"), logoX, logoY, 0.0F, 0.0F, logoPx, logoPx, logoPx, logoPx);
+        } catch (Throwable var36) {
+        }
 
-      RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
-      try {
-         float var26 = 300.0F;
-         float var27 = 3.0F;
-         float var28 = (float)var20 - var26 / 2.0F;
-         float var29 = (float)var24 + (float)var22 * 0.72F + 6.2F;
-         float var30 = Math.max(var27, var26 * class_3532.method_15363(var41, 0.0F, 1.0F));
-         Color var31 = new Color(255, 255, 255, (int)(35.0F * var12));
-         Render2DEngine.drawRound(var1.method_51448(), var28, var29, var26, var27, 1.5F, var31);
-         Color var32 = Render2DEngine.applyOpacity(var42, var12);
-         Color var33 = Render2DEngine.applyOpacity(var43, var12);
-         Render2DEngine.drawBlurredShadow(
-            var1.method_51448(), var28, var29, NwCursor.quantize(var30), var27, 8, Render2DEngine.applyOpacity(var42, var12 * 0.5F)
-         );
-         Render2DEngine.drawGradientRound(var1.method_51448(), var28, var29, var30, var27, 1.5F, var32, var33, var33, var32);
-      } catch (Throwable var35) {
-      }
+        try {
+            float var26 = logoPx;
+            float var27 = 4.0F;
+            float var28 = var20 - var26 / 2.0F;
+            float var29 = logoY + logoPx + 8.0F;
+            float var30 = Math.max(var27, var26 * class_3532.method_15363(var41, 0.0F, 1.0F));
+            Color var31 = new Color(255, 255, 255, (int)(35.0F * var12));
+            Render2DEngine.drawRound(var1.method_51448(), var28, var29, var26, var27, 1.5F, var31);
+            Color var32 = Render2DEngine.applyOpacity(var42, var12);
+            Color var33 = Render2DEngine.applyOpacity(var43, var12);
+            Render2DEngine.drawBlurredShadow(
+                var1.method_51448(), var28, var29, NwCursor.quantize(var30), var27, 8, Render2DEngine.applyOpacity(var42, var12 * 0.5F)
+            );
+            Render2DEngine.drawGradientRound(var1.method_51448(), var28, var29, var30, var27, 1.5F, var32, var33, var33, var32);
+        } catch (Throwable var35) {
+        }
 
-      float var44 = this.field_17767.method_18229();
-      this.field_17770 = class_3532.method_15363(this.field_17770 * 0.95F + var44 * 0.050000012F, 0.0F, 1.0F);
-      RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-      RenderSystem.defaultBlendFunc();
-      RenderSystem.disableBlend();
-      if (var9 >= 1.0F) {
-         Module.mc.method_18502(null);
-      }
+        float var44 = this.field_17767.method_18229();
+        this.field_17770 = class_3532.method_15363(this.field_17770 * 0.95F + var44 * 0.050000012F, 0.0F, 1.0F);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.disableBlend();
+        if (var9 >= 1.0F) {
+            Module.mc.method_18502(null);
+        }
 
-      if (this.field_17771 == -1L && this.field_17767.method_18787() && (!this.field_18219 || var10 >= 1.0F)) {
-         try {
-            this.field_17767.method_18849();
-            this.field_18218.accept(Optional.empty());
-         } catch (Throwable var34) {
-            this.field_18218.accept(Optional.of(var34));
-         }
+        if (this.field_17771 == -1L && this.field_17767.method_18787() && (!this.field_18219 || var10 >= 1.0F)) {
+            try {
+                this.field_17767.method_18849();
+                this.field_18218.accept(Optional.empty());
+            } catch (Throwable var34) {
+                this.field_18218.accept(Optional.of(var34));
+            }
 
-         this.field_17771 = class_156.method_658();
-         if (Module.mc.field_1755 != null) {
-            Module.mc.field_1755.method_25423(Module.mc, Module.mc.method_22683().method_4486(), Module.mc.method_22683().method_4502());
             this.field_17771 = class_156.method_658();
-         }
-      }
-   }
+            if (Module.mc.field_1755 != null) {
+                Module.mc.field_1755.method_25423(Module.mc, Module.mc.method_22683().method_4486(), Module.mc.method_22683().method_4502());
+                this.field_17771 = class_156.method_658();
+            }
+        }
+    }
 
-   private static int withAlpha(int var0, int var1) {
-      return var0 & 16777215 | var1 << 24;
-   }
+    private static int withAlpha(int var0, int var1) {
+        return var0 & 16777215 | var1 << 24;
+    }
 }

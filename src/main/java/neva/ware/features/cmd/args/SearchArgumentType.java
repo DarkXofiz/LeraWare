@@ -18,37 +18,37 @@ import net.minecraft.class_7923;
 import neva.ware.features.modules.client.ClientSettings;
 
 public class SearchArgumentType implements ArgumentType<String> {
-   private static final List<String> EXAMPLES = getRegisteredBlocks().stream().limit(5L).toList();
+    private static final List<String> EXAMPLES = getRegisteredBlocks().stream().limit(5L).toList();
 
-   public static SearchArgumentType create() {
-      return new SearchArgumentType();
-   }
+    public static SearchArgumentType create() {
+        return new SearchArgumentType();
+    }
 
-   public String parse(StringReader reader) throws CommandSyntaxException {
-      String blockName = reader.readString();
-      if (!getRegisteredBlocks().contains(blockName)) {
-         throw new DynamicCommandExceptionType(name -> class_2561.method_43470(ClientSettings.isRu() ? "Такого блока нет!" : "There is no such block!"))
-            .create(blockName);
-      } else {
-         return blockName;
-      }
-   }
+    public String parse(StringReader reader) throws CommandSyntaxException {
+        String blockName = reader.readString();
+        if (!getRegisteredBlocks().contains(blockName)) {
+            throw new DynamicCommandExceptionType(name -> class_2561.method_43470(ClientSettings.isRu() ? "Такого блока нет!" : "There is no such block!"))
+                .create(blockName);
+        } else {
+            return blockName;
+        }
+    }
 
-   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-      return class_2172.method_9265(getRegisteredBlocks(), builder);
-   }
+    public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
+        return class_2172.method_9265(getRegisteredBlocks(), builder);
+    }
 
-   public Collection<String> getExamples() {
-      return EXAMPLES;
-   }
+    public Collection<String> getExamples() {
+        return EXAMPLES;
+    }
 
-   public static List<String> getRegisteredBlocks() {
-      List<String> result = new ArrayList<>();
+    public static List<String> getRegisteredBlocks() {
+        List<String> result = new ArrayList();
 
-      for (class_2248 block : class_7923.field_41175) {
-         result.add(block.method_9539().replace("block.minecraft.", ""));
-      }
+        for (class_2248 block : class_7923.field_41175) {
+            result.add(block.method_9539().replace("block.minecraft.", ""));
+        }
 
-      return result;
-   }
+        return result;
+    }
 }

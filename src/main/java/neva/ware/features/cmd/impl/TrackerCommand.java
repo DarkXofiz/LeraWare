@@ -7,18 +7,18 @@ import neva.ware.features.cmd.Command;
 import org.jetbrains.annotations.NotNull;
 
 public class TrackerCommand extends Command {
-   public TrackerCommand() {
-      super("tracker");
-   }
+    public TrackerCommand() {
+        super("tracker");
+    }
 
-   @Override
-   public void executeBuild(@NotNull LiteralArgumentBuilder<class_2172> builder) {
-      builder.executes(context -> {
-         if (ModuleManager.tracker.isEnabled()) {
-            ModuleManager.tracker.sendTrack();
-         }
+    @Override
+    public void executeBuild(@NotNull LiteralArgumentBuilder<class_2172> builder) {
+        builder.executes(context -> {
+            if (ModuleManager.tracker.isEnabled()) {
+                ModuleManager.tracker.sendTrack();
+            }
 
-         return 1;
-      });
-   }
+            return 1;
+        });
+    }
 }

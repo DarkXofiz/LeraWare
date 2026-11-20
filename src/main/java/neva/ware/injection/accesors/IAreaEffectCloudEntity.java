@@ -7,6 +7,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin({class_1295.class})
 public interface IAreaEffectCloudEntity {
-   @Accessor("field_49209")
-   class_1844 getPotionContentsComponent();
+    @Accessor("field_49209")
+    class_1844 getPotionContentsComponent();
 }

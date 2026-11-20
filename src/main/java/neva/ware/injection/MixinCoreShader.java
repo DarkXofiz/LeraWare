@@ -11,20 +11,20 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin({class_5944.class})
 public abstract class MixinCoreShader implements SamplerAccess {
-   @Shadow
-   @Final
-   private Map<String, Object> field_29487;
+    @Shadow
+    @Final
+    private Map<String, Object> field_29487;
 
-   @Override
-   public boolean hasSampler(String name) {
-      return this.field_29487.containsKey(name);
-   }
+    @Override
+    public boolean hasSampler(String name) {
+        return this.field_29487.containsKey(name);
+    }
 
-   @Accessor("field_29488")
-   @Override
-   public abstract List<String> getSamplerNames();
+    @Accessor("field_29488")
+    @Override
+    public abstract List<String> getSamplerNames();
 
-   @Accessor("field_29489")
-   @Override
-   public abstract List<Integer> getSamplerShaderLocs();
+    @Accessor("field_29489")
+    @Override
+    public abstract List<Integer> getSamplerShaderLocs();
 }

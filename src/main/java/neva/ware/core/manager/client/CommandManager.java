@@ -47,93 +47,93 @@ import neva.ware.features.cmd.impl.WayPointCommand;
 import org.jetbrains.annotations.NotNull;
 
 public class CommandManager implements IManager {
-   private String prefix = "@";
-   private final CommandDispatcher<class_2172> dispatcher = new CommandDispatcher();
-   private final class_2172 source = new class_637(null, class_310.method_1551());
-   private final List<Command> commands = new ArrayList<>();
+    private String prefix = "@";
+    private final CommandDispatcher<class_2172> dispatcher = new CommandDispatcher();
+    private final class_2172 source = new class_637(null, class_310.method_1551());
+    private final List<Command> commands = new ArrayList();
 
-   public CommandManager() {
-      this.add(new RpcCommand());
-      this.add(new KitCommand());
-      this.add(new GpsCommand());
-      this.add(new CfgCommand());
-      this.add(new RctCommand());
-      this.add(new BindCommand());
-      this.add(new DrawCommand());
-      this.add(new HelpCommand());
-      this.add(new NukerCommand());
-      this.add(new EClipCommand());
-      this.add(new HClipCommand());
-      this.add(new LoginCommand());
-      this.add(new MacroCommand());
-      this.add(new StaffCommand());
-      this.add(new VClipCommand());
-      this.add(new AddonsCommand());
-      this.add(new GetNbtCommand());
-      this.add(new FriendCommand());
-      this.add(new ModuleCommand());
-      this.add(new PrefixCommand());
-      this.add(new TrackerCommand());
-      this.add(new GamemodeCommand());
-      this.add(new DropAllCommand());
-      this.add(new TreasureCommand());
-      this.add(new WayPointCommand());
-      this.add(new TabParseCommand());
-      this.add(new BlockESPCommand());
-      this.add(new BenchMarkCommand());
-      this.add(new HorseSpeedCommand());
-      this.add(new OpenFolderCommand());
-      this.add(new ResetBindsCommand());
-      this.add(new InvCleanerCommand());
-      this.add(new GotoWaypointCommand());
-      this.add(new ChestStealerCommand());
-      this.add(new GarbageCleanerCommand());
-   }
+    public CommandManager() {
+        this.add(new RpcCommand());
+        this.add(new KitCommand());
+        this.add(new GpsCommand());
+        this.add(new CfgCommand());
+        this.add(new RctCommand());
+        this.add(new BindCommand());
+        this.add(new DrawCommand());
+        this.add(new HelpCommand());
+        this.add(new NukerCommand());
+        this.add(new EClipCommand());
+        this.add(new HClipCommand());
+        this.add(new LoginCommand());
+        this.add(new MacroCommand());
+        this.add(new StaffCommand());
+        this.add(new VClipCommand());
+        this.add(new AddonsCommand());
+        this.add(new GetNbtCommand());
+        this.add(new FriendCommand());
+        this.add(new ModuleCommand());
+        this.add(new PrefixCommand());
+        this.add(new TrackerCommand());
+        this.add(new GamemodeCommand());
+        this.add(new DropAllCommand());
+        this.add(new TreasureCommand());
+        this.add(new WayPointCommand());
+        this.add(new TabParseCommand());
+        this.add(new BlockESPCommand());
+        this.add(new BenchMarkCommand());
+        this.add(new HorseSpeedCommand());
+        this.add(new OpenFolderCommand());
+        this.add(new ResetBindsCommand());
+        this.add(new InvCleanerCommand());
+        this.add(new GotoWaypointCommand());
+        this.add(new ChestStealerCommand());
+        this.add(new GarbageCleanerCommand());
+    }
 
-   private void add(@NotNull Command command) {
-      command.register(this.dispatcher);
-      this.commands.add(command);
-   }
+    private void add(@NotNull Command command) {
+        command.register(this.dispatcher);
+        this.commands.add(command);
+    }
 
-   public String getPrefix() {
-      return this.prefix;
-   }
+    public String getPrefix() {
+        return this.prefix;
+    }
 
-   public void setPrefix(String prefix) {
-      this.prefix = prefix;
-   }
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
 
-   public Command get(Class<? extends Command> commandClass) {
-      for (Command command : this.commands) {
-         if (command.getClass().equals(commandClass)) {
-            return command;
-         }
-      }
+    public Command get(Class<? extends Command> commandClass) {
+        for (Command command : this.commands) {
+            if (command.getClass().equals(commandClass)) {
+                return command;
+            }
+        }
 
-      return null;
-   }
+        return null;
+    }
 
-   @NotNull
-   public static String getClientMessage() {
-      return class_124.field_1068 + "⌊" + class_124.field_1065 + "⚡" + class_124.field_1068 + "⌉" + class_124.field_1070;
-   }
+    @NotNull
+    public static String getClientMessage() {
+        return class_124.field_1068 + "⌊" + class_124.field_1065 + "⚡" + class_124.field_1068 + "⌉" + class_124.field_1070;
+    }
 
-   public List<Command> getCommands() {
-      return this.commands;
-   }
+    public List<Command> getCommands() {
+        return this.commands;
+    }
 
-   public class_2172 getSource() {
-      return this.source;
-   }
+    public class_2172 getSource() {
+        return this.source;
+    }
 
-   public CommandDispatcher<class_2172> getDispatcher() {
-      return this.dispatcher;
-   }
+    public CommandDispatcher<class_2172> getDispatcher() {
+        return this.dispatcher;
+    }
 
-   public void registerCommand(Command command) {
-      if (command != null) {
-         command.register(this.dispatcher);
-         this.commands.add(command);
-      }
-   }
+    public void registerCommand(Command command) {
+        if (command != null) {
+            command.register(this.dispatcher);
+            this.commands.add(command);
+        }
+    }
 }

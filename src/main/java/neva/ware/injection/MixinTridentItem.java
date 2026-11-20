@@ -19,34 +19,34 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin({class_1835.class})
 public abstract class MixinTridentItem {
-   @Inject(
-      method = {"Lnet/minecraft/class_1835;method_7840(Lnet/minecraft/class_1799;Lnet/minecraft/class_1937;Lnet/minecraft/class_1309;I)V"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void onStoppedUsingHook(class_1799 stack, class_1937 world, class_1309 user, int remainingUseTicks, CallbackInfo ci) {
-      if (user == NevaWare.mc.field_1724 && class_1890.method_60123(stack, NevaWare.mc.field_1724) > 0.0F) {
-         UseTridentEvent e = new UseTridentEvent();
-         NevaWare.EVENT_BUS.post(e);
-         if (e.isCancelled()) {
-            ci.cancel();
-         }
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_1835;method_7840(Lnet/minecraft/class_1799;Lnet/minecraft/class_1937;Lnet/minecraft/class_1309;I)V"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    public void onStoppedUsingHook(class_1799 stack, class_1937 world, class_1309 user, int remainingUseTicks, CallbackInfo ci) {
+        if (user == NevaWare.mc.field_1724 && class_1890.method_60123(stack, NevaWare.mc.field_1724) > 0.0F) {
+            UseTridentEvent e = new UseTridentEvent();
+            NevaWare.EVENT_BUS.post(e);
+            if (e.isCancelled()) {
+                ci.cancel();
+            }
+        }
+    }
 
-   @Inject(
-      method = {"Lnet/minecraft/class_1835;method_7836(Lnet/minecraft/class_1937;Lnet/minecraft/class_1657;Lnet/minecraft/class_1268;)Lnet/minecraft/class_1271;"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void useHook(class_1937 world, class_1657 user, class_1268 hand, CallbackInfoReturnable<class_1271<class_1799>> cir) {
-      class_1799 itemStack = user.method_5998(hand);
-      if (class_1890.method_60123(itemStack, user) > 0.0F
-         && !user.method_5721()
-         && ModuleManager.tridentBoost.isEnabled()
-         && ModuleManager.tridentBoost.anyWeather.getValue()) {
-         user.method_6019(hand);
-         cir.setReturnValue(class_1271.method_22428(itemStack));
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_1835;method_7836(Lnet/minecraft/class_1937;Lnet/minecraft/class_1657;Lnet/minecraft/class_1268;)Lnet/minecraft/class_1271;"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    public void useHook(class_1937 world, class_1657 user, class_1268 hand, CallbackInfoReturnable<class_1271<class_1799>> cir) {
+        class_1799 itemStack = user.method_5998(hand);
+        if (class_1890.method_60123(itemStack, user) > 0.0F
+            && !user.method_5721()
+            && ModuleManager.tridentBoost.isEnabled()
+            && ModuleManager.tridentBoost.anyWeather.getValue()) {
+            user.method_6019(hand);
+            cir.setReturnValue(class_1271.method_22428(itemStack));
+        }
+    }
 }

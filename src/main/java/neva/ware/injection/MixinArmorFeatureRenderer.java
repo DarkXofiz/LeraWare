@@ -14,16 +14,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({class_970.class})
 public class MixinArmorFeatureRenderer<T extends class_1309, M extends class_572<T>, A extends class_572<T>> {
-   @Inject(
-      method = {"Lnet/minecraft/class_970;method_4169(Lnet/minecraft/class_4587;Lnet/minecraft/class_4597;Lnet/minecraft/class_1309;Lnet/minecraft/class_1304;ILnet/minecraft/class_572;)V"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   private void onRenderArmor(
-      class_4587 matrices, class_4597 vertexConsumers, T livingEntity, class_1304 equipmentSlot, int i, A bipedEntityModel, CallbackInfo ci
-   ) {
-      if (ModuleManager.noRender.isEnabled() && ModuleManager.noRender.armor.getValue()) {
-         ci.cancel();
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_970;method_4169(Lnet/minecraft/class_4587;Lnet/minecraft/class_4597;Lnet/minecraft/class_1309;Lnet/minecraft/class_1304;ILnet/minecraft/class_572;)V"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    private void onRenderArmor(
+        class_4587 matrices, class_4597 vertexConsumers, T livingEntity, class_1304 equipmentSlot, int i, A bipedEntityModel, CallbackInfo ci
+    ) {
+        if (ModuleManager.noRender.isEnabled() && ModuleManager.noRender.armor.getValue()) {
+            ci.cancel();
+        }
+    }
 }

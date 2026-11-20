@@ -9,14 +9,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin({class_4971.class})
 public class MixinAbstractBlockState {
-   @Inject(
-      method = {"Lnet/minecraft/class_4970$class_4971;method_26213()I"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void getLuminanceHook(CallbackInfoReturnable<Integer> cir) {
-      if (ModuleManager.xray.isEnabled()) {
-         cir.setReturnValue(15);
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_4970$class_4971;method_26213()I"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    public void getLuminanceHook(CallbackInfoReturnable<Integer> cir) {
+        if (ModuleManager.xray.isEnabled()) {
+            cir.setReturnValue(15);
+        }
+    }
 }

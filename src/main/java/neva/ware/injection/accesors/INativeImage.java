@@ -6,6 +6,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin({class_1011.class})
 public interface INativeImage {
-   @Accessor("field_4988")
-   long getPointer();
+    @Accessor("field_4988")
+    long getPointer();
 }

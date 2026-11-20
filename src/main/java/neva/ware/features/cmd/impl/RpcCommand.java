@@ -9,28 +9,28 @@ import neva.ware.features.modules.client.RPC;
 import org.jetbrains.annotations.NotNull;
 
 public class RpcCommand extends Command {
-   public RpcCommand() {
-      super("rpc");
-   }
+    public RpcCommand() {
+        super("rpc");
+    }
 
-   @Override
-   public void executeBuild(@NotNull LiteralArgumentBuilder<class_2172> builder) {
-      builder.then(((RequiredArgumentBuilder)arg("bigImg", StringArgumentType.greedyString()).executes(context -> {
-         String bigImg = (String)context.getArgument("bigImg", String.class);
-         RPC.WriteFile(bigImg, "none");
-         sendMessage("Большая картинка RPC изменена на " + bigImg);
-         return 1;
-      })).then(arg("littleImg", StringArgumentType.greedyString()).executes(context -> {
-         String bigImg = (String)context.getArgument("bigImg", String.class);
-         String littleImg = (String)context.getArgument("littleImg", String.class);
-         RPC.WriteFile(bigImg, littleImg);
-         sendMessage("Большая картинка RPC изменена на " + bigImg);
-         sendMessage("Маленькая картинка RPC изменена на " + littleImg);
-         return 1;
-      })));
-      builder.executes(context -> {
-         sendMessage(".rpc url or .rpc url url");
-         return 1;
-      });
-   }
+    @Override
+    public void executeBuild(@NotNull LiteralArgumentBuilder<class_2172> builder) {
+        builder.then(((RequiredArgumentBuilder)arg("bigImg", StringArgumentType.greedyString()).executes(context -> {
+            String bigImg = (String)context.getArgument("bigImg", String.class);
+            RPC.WriteFile(bigImg, "none");
+            sendMessage("Большая картинка RPC изменена на " + bigImg);
+            return 1;
+        })).then(arg("littleImg", StringArgumentType.greedyString()).executes(context -> {
+            String bigImg = (String)context.getArgument("bigImg", String.class);
+            String littleImg = (String)context.getArgument("littleImg", String.class);
+            RPC.WriteFile(bigImg, littleImg);
+            sendMessage("Большая картинка RPC изменена на " + bigImg);
+            sendMessage("Маленькая картинка RPC изменена на " + littleImg);
+            return 1;
+        })));
+        builder.executes(context -> {
+            sendMessage(".rpc url or .rpc url url");
+            return 1;
+        });
+    }
 }

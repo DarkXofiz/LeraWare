@@ -17,30 +17,36 @@ import neva.ware.core.manager.IManager;
 import neva.ware.features.modules.client.ClientSettings;
 
 public class PlayerArgumentType implements ArgumentType<class_640> {
-   private static final Collection<String> EXAMPLES = List.of("pan4ur", "06ED");
+    private static final Collection<String> EXAMPLES = List.of("pan4ur", "06ED");
 
-   public static PlayerArgumentType create() {
-      return new PlayerArgumentType();
-   }
+    public static PlayerArgumentType create() {
+        return new PlayerArgumentType();
+    }
 
-   public class_640 parse(StringReader reader) throws CommandSyntaxException {
-      String name = reader.readString();
-      class_640 player = IManager.mc.method_1562().method_2880().stream().filter(p -> name.equals(p.method_2966().getName())).findFirst().orElse(null);
-      if (player == null) {
-         throw new DynamicCommandExceptionType(
-               nickname -> class_2561.method_43470(ClientSettings.isRu() ? "Игрок " + nickname + " не в сети" : "Player " + nickname + " offline")
-            )
-            .create(name);
-      } else {
-         return player;
-      }
-   }
+    public class_640 parse(StringReader reader) throws CommandSyntaxException {
+        String name = reader.readString();
+        class_640 player = (class_640)IManager.mc
+            .method_1562()
+            .method_2880()
+            .stream()
+            .filter(p -> name.equals(p.method_2966().getName()))
+            .findFirst()
+            .orElse(null);
+        if (player == null) {
+            throw new DynamicCommandExceptionType(
+                    nickname -> class_2561.method_43470(ClientSettings.isRu() ? "Игрок " + nickname + " не в сети" : "Player " + nickname + " offline")
+                )
+                .create(name);
+        } else {
+            return player;
+        }
+    }
 
-   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-      return class_2172.method_9264(IManager.mc.method_1562().method_2880().stream().map(p -> p.method_2966().getName()), builder);
-   }
+    public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
+        return class_2172.method_9264(IManager.mc.method_1562().method_2880().stream().map(p -> p.method_2966().getName()), builder);
+    }
 
-   public Collection<String> getExamples() {
-      return EXAMPLES;
-   }
+    public Collection<String> getExamples() {
+        return EXAMPLES;
+    }
 }

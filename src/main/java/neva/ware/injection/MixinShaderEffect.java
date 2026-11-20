@@ -18,47 +18,46 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({class_279.class})
 public class MixinShaderEffect implements IShaderEffect {
-   @Unique
-   private final List<String> fakedBufferNames = new ArrayList<>();
-   @Shadow
-   @Final
-   private Map<String, class_276> field_1495;
-   @Shadow
-   @Final
-   private List<class_283> field_1497;
+    @Unique
+    private final List<String> fakedBufferNames = new ArrayList();
+    @Shadow
+    @Final
+    private Map<String, class_276> field_1495;
+    @Shadow
+    @Final
+    private List<class_283> field_1497;
 
-   @Override
-   public void addFakeTargetHook(String name, class_276 buffer) {
-      class_276 previousFramebuffer = this.field_1495.get(name);
-      if (previousFramebuffer != buffer) {
-         if (previousFramebuffer != null) {
-            for (class_283 pass : this.field_1497) {
-               if (pass.field_1536 == previousFramebuffer) {
-                  ((IPostProcessShader)(Object)pass).setInput(buffer);
-               }
+    @Override
+    public void addFakeTargetHook(String name, class_276 buffer) {
+        class_276 previousFramebuffer = (class_276)this.field_1495.get(name);
+        if (previousFramebuffer != buffer) {
+            if (previousFramebuffer != null) {
+                for (class_283 pass : this.field_1497) {
+                    if (pass.field_1536 == previousFramebuffer) {
+                        ((IPostProcessShader)(Object)pass).setInput(buffer);
+                    }
 
-               if (pass.field_1538 == previousFramebuffer) {
-                  ((IPostProcessShader)(Object)pass).setOutput(buffer);
-               }
+                    if (pass.field_1538 == previousFramebuffer) {
+                        ((IPostProcessShader)(Object)pass).setOutput(buffer);
+                    }
+                }
+
+                this.field_1495.remove(name);
+                this.fakedBufferNames.remove(name);
             }
 
-            this.field_1495.remove(name);
-            this.fakedBufferNames.remove(name);
-         }
+            this.field_1495.put(name, buffer);
+            this.fakedBufferNames.add(name);
+        }
+    }
 
-         this.field_1495.put(name, buffer);
-         this.fakedBufferNames.add(name);
-      }
-   }
-
-   @Inject(
-      remap = false,
-      method = {"Lnet/minecraft/class_279;close()V"},
-      at = {@At("HEAD")}
-   )
-   void deleteFakeBuffersHook(CallbackInfo ci) {
-      for (String fakedBufferName : this.fakedBufferNames) {
-         this.field_1495.remove(fakedBufferName);
-      }
-   }
+    @Inject(
+        remap = false, method = {"Lnet/minecraft/class_279;close()V"},
+        at = {@At("HEAD")}
+    )
+    void deleteFakeBuffersHook(CallbackInfo ci) {
+        for (String fakedBufferName : this.fakedBufferNames) {
+            this.field_1495.remove(fakedBufferName);
+        }
+    }
 }

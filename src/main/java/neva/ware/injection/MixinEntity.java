@@ -29,187 +29,188 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin({class_1297.class})
 public abstract class MixinEntity implements IEntity {
-   @Shadow
-   private class_238 field_6005;
-   @Unique
-   public List<Trails.Trail> trails = new ArrayList<>();
+    @Shadow
+    private class_238 field_6005;
+    @Unique
+    public List<Trails.Trail> trails = new ArrayList();
 
-   @Shadow
-   protected abstract class_2338 method_23314();
+    @Shadow
+    protected abstract class_2338 method_23314();
 
-   @Override
-   public List<Trails.Trail> getTrails() {
-      return this.trails;
-   }
+    @Override
+    public List<Trails.Trail> getTrails() {
+        return this.trails;
+    }
 
-   @Override
-   public class_2338 thunderHack_Recode$getVelocityBP() {
-      return this.method_23314();
-   }
+    @Override
+    public class_2338 thunderHack_Recode$getVelocityBP() {
+        return this.method_23314();
+    }
 
-   @ModifyArgs(
-      method = {"Lnet/minecraft/class_1297;method_5697(Lnet/minecraft/class_1297;)V"},
-      at = @At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/class_1297;method_5762(DDD)V"
-      )
-   )
-   public void pushAwayFromHook(Args args) {
-      if ((Object)this == Module.mc.field_1724 && ModuleManager.noPush.isEnabled() && ModuleManager.noPush.players.getValue()) {
-         args.set(0, 0.0);
-         args.set(1, 0.0);
-         args.set(2, 0.0);
-      }
-   }
+    @ModifyArgs(
+        method = {"Lnet/minecraft/class_1297;method_5697(Lnet/minecraft/class_1297;)V"},
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/class_1297;method_5762(DDD)V"
+        )
+    )
+    public void pushAwayFromHook(Args args) {
+        if ((Object)this == Module.mc.field_1724 && ModuleManager.noPush.isEnabled() && ModuleManager.noPush.players.getValue()) {
+            args.set(0, 0.0);
+            args.set(1, 0.0);
+            args.set(2, 0.0);
+        }
+    }
 
-   @Inject(
-      method = {"Lnet/minecraft/class_1297;method_5724(FLnet/minecraft/class_243;)V"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void updateVelocityHook(float speed, class_243 movementInput, CallbackInfo ci) {
-      if (!Module.fullNullCheck()) {
-         if ((Object)this == Module.mc.field_1724) {
-            ci.cancel();
-            EventFixVelocity event = new EventFixVelocity(
-               movementInput, speed, Module.mc.field_1724.method_36454(), movementInputToVelocityC(movementInput, speed, Module.mc.field_1724.method_36454())
+    @Inject(
+        method = {"Lnet/minecraft/class_1297;method_5724(FLnet/minecraft/class_243;)V"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    public void updateVelocityHook(float speed, class_243 movementInput, CallbackInfo ci) {
+        if (!Module.fullNullCheck()) {
+            if ((Object)this == Module.mc.field_1724) {
+                ci.cancel();
+                EventFixVelocity event = new EventFixVelocity(
+                    movementInput,
+                    speed,
+                    Module.mc.field_1724.method_36454(),
+                    movementInputToVelocityC(movementInput, speed, Module.mc.field_1724.method_36454())
+                );
+                NevaWare.EVENT_BUS.post(event);
+                Module.mc.field_1724.method_18799(Module.mc.field_1724.method_18798().method_1019(event.getVelocity()));
+            }
+        }
+    }
+
+    @Unique
+    private static class_243 movementInputToVelocityC(class_243 movementInput, float speed, float yaw) {
+        double d = movementInput.method_1027();
+        if (d < 1.0E-7) {
+            return class_243.field_1353;
+        } else {
+            class_243 vec3d = (d > 1.0 ? movementInput.method_1029() : movementInput).method_1021(speed);
+            float f = class_3532.method_15374(yaw * (float) (Math.PI / 180.0));
+            float g = class_3532.method_15362(yaw * (float) (Math.PI / 180.0));
+            return new class_243(vec3d.field_1352 * g - vec3d.field_1350 * f, vec3d.field_1351, vec3d.field_1350 * g + vec3d.field_1352 * f);
+        }
+    }
+
+    @Inject(
+        method = {"Lnet/minecraft/class_1297;method_5829()Lnet/minecraft/class_238;"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    public final void getBoundingBox(CallbackInfoReturnable<class_238> cir) {
+        if (ModuleManager.hitBox.isEnabled()
+            && Module.mc != null
+            && Module.mc.field_1724 != null
+            && ((class_1297)(Object)this).method_5628() != Module.mc.field_1724.method_5628()
+            && (ModuleManager.aura.isDisabled() || HitBox.affectToAura.getValue())) {
+            cir.setReturnValue(
+                new class_238(
+                    this.field_6005.field_1323 - HitBox.XZExpand.getValue() / 2.0F,
+                    this.field_6005.field_1322 - HitBox.YExpand.getValue() / 2.0F,
+                    this.field_6005.field_1321 - HitBox.XZExpand.getValue() / 2.0F,
+                    this.field_6005.field_1320 + HitBox.XZExpand.getValue() / 2.0F,
+                    this.field_6005.field_1325 + HitBox.YExpand.getValue() / 2.0F,
+                    this.field_6005.field_1324 + HitBox.XZExpand.getValue() / 2.0F
+                )
             );
-            NevaWare.EVENT_BUS.post(event);
-            Module.mc.field_1724.method_18799(Module.mc.field_1724.method_18798().method_1019(event.getVelocity()));
-         }
-      }
-   }
+        }
+    }
 
-   @Unique
-   private static class_243 movementInputToVelocityC(class_243 movementInput, float speed, float yaw) {
-      double d = movementInput.method_1027();
-      if (d < 1.0E-7) {
-         return class_243.field_1353;
-      } else {
-         class_243 vec3d = (d > 1.0 ? movementInput.method_1029() : movementInput).method_1021((double)speed);
-         float f = class_3532.method_15374(yaw * (float) (Math.PI / 180.0));
-         float g = class_3532.method_15362(yaw * (float) (Math.PI / 180.0));
-         return new class_243(
-            vec3d.field_1352 * (double)g - vec3d.field_1350 * (double)f, vec3d.field_1351, vec3d.field_1350 * (double)g + vec3d.field_1352 * (double)f
-         );
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_1297;method_5851()Z"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    public void isGlowingHook(CallbackInfoReturnable<Boolean> cir) {
+        Shaders shaders = ModuleManager.shaders;
+        if (shaders.isEnabled()) {
+            cir.setReturnValue(shaders.shouldRender((class_1297)(Object)this));
+        }
+    }
 
-   @Inject(
-      method = {"Lnet/minecraft/class_1297;method_5829()Lnet/minecraft/class_238;"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public final void getBoundingBox(CallbackInfoReturnable<class_238> cir) {
-      if (ModuleManager.hitBox.isEnabled()
-         && Module.mc != null
-         && Module.mc.field_1724 != null
-         && ((class_1297)(Object)this).method_5628() != Module.mc.field_1724.method_5628()
-         && (ModuleManager.aura.isDisabled() || HitBox.affectToAura.getValue())) {
-         cir.setReturnValue(
-            new class_238(
-               this.field_6005.field_1323 - (double)(HitBox.XZExpand.getValue() / 2.0F),
-               this.field_6005.field_1322 - (double)(HitBox.YExpand.getValue() / 2.0F),
-               this.field_6005.field_1321 - (double)(HitBox.XZExpand.getValue() / 2.0F),
-               this.field_6005.field_1320 + (double)(HitBox.XZExpand.getValue() / 2.0F),
-               this.field_6005.field_1325 + (double)(HitBox.YExpand.getValue() / 2.0F),
-               this.field_6005.field_1324 + (double)(HitBox.XZExpand.getValue() / 2.0F)
-            )
-         );
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_1297;method_5809()Z"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    public void isOnFireHook(CallbackInfoReturnable<Boolean> cir) {
+        if (ModuleManager.noRender.isEnabled() && ModuleManager.noRender.fireEntity.getValue()) {
+            cir.setReturnValue(false);
+        }
+    }
 
-   @Inject(
-      method = {"Lnet/minecraft/class_1297;method_5851()Z"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void isGlowingHook(CallbackInfoReturnable<Boolean> cir) {
-      Shaders shaders = ModuleManager.shaders;
-      if (shaders.isEnabled()) {
-         cir.setReturnValue(shaders.shouldRender((class_1297)(Object)this));
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_1297;method_5756(Lnet/minecraft/class_1657;)Z"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    public void isInvisibleToHook(class_1657 player, CallbackInfoReturnable<Boolean> cir) {
+        if (ModuleManager.serverHelper.isEnabled() && ModuleManager.serverHelper.trueSight.getValue()) {
+            cir.setReturnValue(false);
+        }
+    }
 
-   @Inject(
-      method = {"Lnet/minecraft/class_1297;method_5809()Z"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void isOnFireHook(CallbackInfoReturnable<Boolean> cir) {
-      if (ModuleManager.noRender.isEnabled() && ModuleManager.noRender.fireEntity.getValue()) {
-         cir.setReturnValue(false);
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_1297;method_5771()Z"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    public void isInLavaHook(CallbackInfoReturnable<Boolean> cir) {
+        if ((ModuleManager.jesus.isEnabled() || ModuleManager.noWaterCollision.isEnabled())
+            && Module.mc.field_1724 != null
+            && ((class_1297)(Object)this).method_5628() == Module.mc.field_1724.method_5628()) {
+            cir.setReturnValue(false);
+        }
+    }
 
-   @Inject(
-      method = {"Lnet/minecraft/class_1297;method_5756(Lnet/minecraft/class_1657;)Z"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void isInvisibleToHook(class_1657 player, CallbackInfoReturnable<Boolean> cir) {
-      if (ModuleManager.serverHelper.isEnabled() && ModuleManager.serverHelper.trueSight.getValue()) {
-         cir.setReturnValue(false);
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_1297;method_5799()Z"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    public void isTouchingWaterHook(CallbackInfoReturnable<Boolean> cir) {
+        if ((ModuleManager.jesus.isEnabled() || ModuleManager.noWaterCollision.isEnabled())
+            && Module.mc.field_1724 != null
+            && ((class_1297)(Object)this).method_5628() == Module.mc.field_1724.method_5628()) {
+            cir.setReturnValue(false);
+        }
+    }
 
-   @Inject(
-      method = {"Lnet/minecraft/class_1297;method_5771()Z"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void isInLavaHook(CallbackInfoReturnable<Boolean> cir) {
-      if ((ModuleManager.jesus.isEnabled() || ModuleManager.noWaterCollision.isEnabled())
-         && Module.mc.field_1724 != null
-         && ((class_1297)(Object)this).method_5628() == Module.mc.field_1724.method_5628()) {
-         cir.setReturnValue(false);
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_1297;method_5796(Z)V"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    public void setSwimmingHook(boolean swimming, CallbackInfo ci) {
+        if ((ModuleManager.jesus.isEnabled() || ModuleManager.noWaterCollision.isEnabled())
+            && swimming
+            && Module.mc.field_1724 != null
+            && ((class_1297)(Object)this).method_5628() == Module.mc.field_1724.method_5628()) {
+            ci.cancel();
+        }
+    }
 
-   @Inject(
-      method = {"Lnet/minecraft/class_1297;method_5799()Z"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void isTouchingWaterHook(CallbackInfoReturnable<Boolean> cir) {
-      if ((ModuleManager.jesus.isEnabled() || ModuleManager.noWaterCollision.isEnabled())
-         && Module.mc.field_1724 != null
-         && ((class_1297)(Object)this).method_5628() == Module.mc.field_1724.method_5628()) {
-         cir.setReturnValue(false);
-      }
-   }
+    @ModifyVariable(
+        method = {"Lnet/minecraft/class_1297;method_5872(DD)V"},
+        at = @At("HEAD"),
+        ordinal = 0,
+        argsOnly = true
+    )
+    private double changeLookDirectionHook0(double value) {
+        return ModuleManager.viewLock.isEnabled() && ModuleManager.viewLock.yaw.getValue() ? 0.0 : value;
+    }
 
-   @Inject(
-      method = {"Lnet/minecraft/class_1297;method_5796(Z)V"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void setSwimmingHook(boolean swimming, CallbackInfo ci) {
-      if ((ModuleManager.jesus.isEnabled() || ModuleManager.noWaterCollision.isEnabled())
-         && swimming
-         && Module.mc.field_1724 != null
-         && ((class_1297)(Object)this).method_5628() == Module.mc.field_1724.method_5628()) {
-         ci.cancel();
-      }
-   }
-
-   @ModifyVariable(
-      method = {"Lnet/minecraft/class_1297;method_5872(DD)V"},
-      at = @At("HEAD"),
-      ordinal = 0,
-      argsOnly = true
-   )
-   private double changeLookDirectionHook0(double value) {
-      return ModuleManager.viewLock.isEnabled() && ModuleManager.viewLock.yaw.getValue() ? 0.0 : value;
-   }
-
-   @ModifyVariable(
-      method = {"Lnet/minecraft/class_1297;method_5872(DD)V"},
-      at = @At("HEAD"),
-      ordinal = 1,
-      argsOnly = true
-   )
-   private double changeLookDirectionHook1(double value) {
-      return ModuleManager.viewLock.isEnabled() && ModuleManager.viewLock.pitch.getValue() ? 0.0 : value;
-   }
+    @ModifyVariable(
+        method = {"Lnet/minecraft/class_1297;method_5872(DD)V"},
+        at = @At("HEAD"),
+        ordinal = 1,
+        argsOnly = true
+    )
+    private double changeLookDirectionHook1(double value) {
+        return ModuleManager.viewLock.isEnabled() && ModuleManager.viewLock.pitch.getValue() ? 0.0 : value;
+    }
 }

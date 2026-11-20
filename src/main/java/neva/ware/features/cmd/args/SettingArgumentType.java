@@ -14,25 +14,25 @@ import neva.ware.features.modules.Module;
 import neva.ware.setting.Setting;
 
 public class SettingArgumentType implements ArgumentType<String> {
-   public static SettingArgumentType create() {
-      return new SettingArgumentType();
-   }
+    public static SettingArgumentType create() {
+        return new SettingArgumentType();
+    }
 
-   public String parse(StringReader reader) throws CommandSyntaxException {
-      return reader.readString();
-   }
+    public String parse(StringReader reader) throws CommandSyntaxException {
+        return reader.readString();
+    }
 
-   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-      return class_2172.method_9265(getSettings((Module)context.getArgument("module", Module.class)), builder);
-   }
+    public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
+        return class_2172.method_9265(getSettings((Module)context.getArgument("module", Module.class)), builder);
+    }
 
-   public static List<String> getSettings(Module module) {
-      List<String> result = new ArrayList<>();
+    public static List<String> getSettings(Module module) {
+        List<String> result = new ArrayList();
 
-      for (Setting<?> setting : module.getSettings()) {
-         result.add(setting.getName());
-      }
+        for (Setting<?> setting : module.getSettings()) {
+            result.add(setting.getName());
+        }
 
-      return result;
-   }
+        return result;
+    }
 }

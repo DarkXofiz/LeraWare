@@ -4,11 +4,11 @@ import java.util.List;
 import neva.ware.features.modules.combat.Aura;
 
 public interface IEntityLiving {
-   double getPrevServerX();
+    double getPrevServerX();
 
-   double getPrevServerY();
+    double getPrevServerY();
 
-   double getPrevServerZ();
+    double getPrevServerZ();
 
-   List<Aura.Position> getPositionHistory();
+    List<Aura.Position> getPositionHistory();
 }

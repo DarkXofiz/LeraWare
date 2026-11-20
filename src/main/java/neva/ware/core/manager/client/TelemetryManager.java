@@ -16,53 +16,89 @@ import neva.ware.utility.Timer;
 import org.apache.commons.compress.utils.Lists;
 
 public class TelemetryManager implements IManager {
-   private final Timer pingTimer = new Timer();
-   private List<String> onlinePlayers = new ArrayList<>();
-   private List<String> allPlayers = new ArrayList<>();
+    private final Timer pingTimer = new Timer();
+    private List<String> onlinePlayers = new ArrayList();
+    private List<String> allPlayers = new ArrayList();
 
-   public void onUpdate() {
-      if (this.pingTimer.every(90000L)) {
-         this.fetchData();
-      }
-   }
+    public void onUpdate() {
+        if (this.pingTimer.every(90000L)) {
+            this.fetchData();
+        }
+    }
 
-   public void fetchData() {
-      if (ClientSettings.telemetry.getValue()) {
-         this.pingServer(mc.method_1548().method_1676());
-      }
+    public void fetchData() {
+        if (ClientSettings.telemetry.getValue()) {
+            this.pingServer(mc.method_1548().method_1676());
+        }
 
-      this.onlinePlayers = getPlayers(true);
-      this.allPlayers = getPlayers(false);
-   }
+        this.onlinePlayers = getPlayers(true);
+        this.allPlayers = getPlayers(false);
+    }
 
-   public void pingServer(String name) {
-      HttpRequest req = HttpRequest.newBuilder(URI.create("https://api.nevaware.net/v1/users/online?name=" + name)).POST(BodyPublishers.noBody()).build();
+    public void pingServer(String name) {
+        HttpRequest req = HttpRequest.newBuilder(URI.create("https://api.nevaware.net/v1/users/online?name=" + name)).POST(BodyPublishers.noBody()).build();
 
-      try (HttpClient client = HttpClient.newHttpClient()) {
-         client.send(req, BodyHandlers.ofString());
-      } catch (Throwable var8) {
-      }
-   }
+        try {
+            HttpClient client = HttpClient.newHttpClient();
 
-   public static List<String> getPlayers(boolean online) {
-      HttpRequest request = HttpRequest.newBuilder(URI.create("https://api.nevaware.net/v1/users" + (online ? "/online" : ""))).GET().build();
-      List<String> names = new ArrayList<>();
+            try {
+                client.send(req, BodyHandlers.ofString());
+            } catch (Throwable var7) {
+                if (client != null) {
+                    try {
+                        client.close();
+                    } catch (Throwable var6) {
+                        var7.addSuppressed(var6);
+                    }
+                }
 
-      try (HttpClient client = HttpClient.newHttpClient()) {
-         HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-         JsonArray array = JsonParser.parseString(response.body()).getAsJsonArray();
-         array.forEach(e -> names.add(e.getAsJsonObject().get("name").getAsString()));
-      } catch (Throwable var8) {
-      }
+                throw var7;
+            }
 
-      return names;
-   }
+            if (client != null) {
+                client.close();
+            }
+        } catch (Throwable var8) {
+        }
+    }
 
-   public List<String> getOnlinePlayers() {
-      return Lists.newArrayList(this.onlinePlayers.iterator());
-   }
+    public static List<String> getPlayers(boolean online) {
+        HttpRequest request = HttpRequest.newBuilder(URI.create("https://api.nevaware.net/v1/users" + (online ? "/online" : ""))).GET().build();
+        List<String> names = new ArrayList();
 
-   public List<String> getAllPlayers() {
-      return Lists.newArrayList(this.allPlayers.iterator());
-   }
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+
+            try {
+                HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+                JsonArray array = JsonParser.parseString((String)response.body()).getAsJsonArray();
+                array.forEach(e -> names.add(e.getAsJsonObject().get("name").getAsString()));
+            } catch (Throwable var7) {
+                if (client != null) {
+                    try {
+                        client.close();
+                    } catch (Throwable var6) {
+                        var7.addSuppressed(var6);
+                    }
+                }
+
+                throw var7;
+            }
+
+            if (client != null) {
+                client.close();
+            }
+        } catch (Throwable var8) {
+        }
+
+        return names;
+    }
+
+    public List<String> getOnlinePlayers() {
+        return Lists.newArrayList(this.onlinePlayers.iterator());
+    }
+
+    public List<String> getAllPlayers() {
+        return Lists.newArrayList(this.allPlayers.iterator());
+    }
 }

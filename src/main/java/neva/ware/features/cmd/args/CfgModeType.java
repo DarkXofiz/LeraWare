@@ -16,31 +16,31 @@ import neva.ware.core.Managers;
 import neva.ware.features.modules.client.ClientSettings;
 
 public class CfgModeType implements ArgumentType<String> {
-   private static final Collection<String> EXAMPLES = List.of("combat", "render", "player", "misc", "client", "hud", "movement");
+    private static final Collection<String> EXAMPLES = List.of("combat", "render", "player", "misc", "client", "hud", "movement");
 
-   public static CfgModeType create() {
-      return new CfgModeType();
-   }
+    public static CfgModeType create() {
+        return new CfgModeType();
+    }
 
-   public String parse(StringReader reader) throws CommandSyntaxException {
-      String cat = reader.readString();
-      if (!this.getExamples().contains(cat)) {
-         throw new DynamicCommandExceptionType(
-               name -> class_2561.method_43470(
-                     ClientSettings.isRu() ? "Вкладки " + name.toString() + " не существует(" : "Category " + name.toString() + " does not exist :("
-                  )
-            )
-            .create(cat);
-      } else {
-         return cat;
-      }
-   }
+    public String parse(StringReader reader) throws CommandSyntaxException {
+        String cat = reader.readString();
+        if (!this.getExamples().contains(cat)) {
+            throw new DynamicCommandExceptionType(
+                    name -> class_2561.method_43470(
+                        ClientSettings.isRu() ? "Вкладки " + name.toString() + " не существует(" : "Category " + name.toString() + " does not exist :("
+                    )
+                )
+                .create(cat);
+        } else {
+            return cat;
+        }
+    }
 
-   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-      return class_2172.method_9265(Managers.CONFIG.getConfigList(), builder);
-   }
+    public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
+        return class_2172.method_9265(Managers.CONFIG.getConfigList(), builder);
+    }
 
-   public Collection<String> getExamples() {
-      return EXAMPLES;
-   }
+    public Collection<String> getExamples() {
+        return EXAMPLES;
+    }
 }

@@ -10,25 +10,25 @@ import ru.donyka.chunkanimator.compat.SodiumShaderSourcePatcher;
 
 @Pseudo
 @Mixin(
-   targets = {"me.jellysquid.mods.sodium.client.gl.shader.ShaderLoader"},
-   remap = false
+    targets = {"me.jellysquid.mods.sodium.client.gl.shader.ShaderLoader"},
+    remap = false
 )
 public abstract class LegacySodiumShaderLoaderMixin {
-   @Inject(
-      method = {"getShaderSource"},
-      at = {@At("RETURN")},
-      cancellable = true,
-      remap = false,
-      require = 0
-   )
-   private static void chunkanimator$patchShaderSource(@Coerce Object name, CallbackInfoReturnable<String> cir) {
-      if (chunkanimator$isChunkVertexShader(name)) {
-         cir.setReturnValue(SodiumShaderSourcePatcher.patch((String)cir.getReturnValue()));
-      }
-   }
+    @Inject(
+        method = {"getShaderSource"},
+        at = {@At("RETURN")},
+        cancellable = true,
+        remap = false,
+        require = 0
+    )
+    private static void chunkanimator$patchShaderSource(@Coerce Object name, CallbackInfoReturnable<String> cir) {
+        if (chunkanimator$isChunkVertexShader(name)) {
+            cir.setReturnValue(SodiumShaderSourcePatcher.patch((String)cir.getReturnValue()));
+        }
+    }
 
-   private static boolean chunkanimator$isChunkVertexShader(Object name) {
-      String id = String.valueOf(name);
-      return id.contains("sodium:") && id.contains("blocks/block_layer_opaque.vsh");
-   }
+    private static boolean chunkanimator$isChunkVertexShader(Object name) {
+        String id = String.valueOf(name);
+        return id.contains("sodium:") && id.contains("blocks/block_layer_opaque.vsh");
+    }
 }

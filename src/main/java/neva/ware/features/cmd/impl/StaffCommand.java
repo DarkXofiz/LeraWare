@@ -10,48 +10,48 @@ import neva.ware.features.cmd.Command;
 import org.jetbrains.annotations.NotNull;
 
 public class StaffCommand extends Command {
-   public static List<String> staffNames = new ArrayList<>();
+    public static List<String> staffNames = new ArrayList();
 
-   public StaffCommand() {
-      super("staff");
-   }
+    public StaffCommand() {
+        super("staff");
+    }
 
-   @Override
-   public void executeBuild(@NotNull LiteralArgumentBuilder<class_2172> builder) {
-      builder.then(literal("reset").executes(context -> {
-         staffNames.clear();
-         sendMessage("staff list got reset.");
-         return 1;
-      }));
-      builder.then(literal("add").then(arg("name", StringArgumentType.word()).executes(context -> {
-         String name = (String)context.getArgument("name", String.class);
-         staffNames.add(name);
-         sendMessage(class_124.field_1060 + name + " added to staff list");
-         return 1;
-      })));
-      builder.then(literal("del").then(arg("name", StringArgumentType.word()).executes(context -> {
-         String name = (String)context.getArgument("name", String.class);
-         staffNames.remove(name);
-         sendMessage(class_124.field_1060 + name + " removed from staff list");
-         return 1;
-      })));
-      builder.executes(context -> {
-         if (staffNames.isEmpty()) {
-            sendMessage("Staff list empty");
-         } else {
-            StringBuilder f = new StringBuilder("Staff: ");
+    @Override
+    public void executeBuild(@NotNull LiteralArgumentBuilder<class_2172> builder) {
+        builder.then(literal("reset").executes(context -> {
+            staffNames.clear();
+            sendMessage("staff list got reset.");
+            return 1;
+        }));
+        builder.then(literal("add").then(arg("name", StringArgumentType.word()).executes(context -> {
+            String name = (String)context.getArgument("name", String.class);
+            staffNames.add(name);
+            sendMessage(class_124.field_1060 + name + " added to staff list");
+            return 1;
+        })));
+        builder.then(literal("del").then(arg("name", StringArgumentType.word()).executes(context -> {
+            String name = (String)context.getArgument("name", String.class);
+            staffNames.remove(name);
+            sendMessage(class_124.field_1060 + name + " removed from staff list");
+            return 1;
+        })));
+        builder.executes(context -> {
+            if (staffNames.isEmpty()) {
+                sendMessage("Staff list empty");
+            } else {
+                StringBuilder f = new StringBuilder("Staff: ");
 
-            for (String staff : staffNames) {
-               try {
-                  f.append(staff).append(", ");
-               } catch (Exception var5) {
-               }
+                for (String staff : staffNames) {
+                    try {
+                        f.append(staff).append(", ");
+                    } catch (Exception var5) {
+                    }
+                }
+
+                sendMessage(f.toString());
             }
 
-            sendMessage(f.toString());
-         }
-
-         return 1;
-      });
-   }
+            return 1;
+        });
+    }
 }

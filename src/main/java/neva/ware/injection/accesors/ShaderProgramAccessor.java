@@ -8,6 +8,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin({class_5944.class})
 public interface ShaderProgramAccessor {
-   @Accessor("field_29492")
-   Map<String, class_284> getUniformsHook();
+    @Accessor("field_29492")
+    Map<String, class_284> getUniformsHook();
 }

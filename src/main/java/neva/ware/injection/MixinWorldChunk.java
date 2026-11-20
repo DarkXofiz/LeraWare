@@ -15,17 +15,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin({class_2818.class})
 public class MixinWorldChunk {
-   @Shadow
-   @Final
-   class_1937 field_12858;
+    @Shadow
+    @Final
+    class_1937 field_12858;
 
-   @Inject(
-      method = {"Lnet/minecraft/class_2818;method_12010(Lnet/minecraft/class_2338;Lnet/minecraft/class_2680;Z)Lnet/minecraft/class_2680;"},
-      at = {@At("RETURN")}
-   )
-   private void setBlockStateHook(class_2338 pos, class_2680 state, boolean moved, CallbackInfoReturnable<class_2680> cir) {
-      if (this.field_12858.field_9236) {
-         NevaWare.EVENT_BUS.post(new EventSetBlockState(pos, (class_2680)cir.getReturnValue(), state));
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_2818;method_12010(Lnet/minecraft/class_2338;Lnet/minecraft/class_2680;Z)Lnet/minecraft/class_2680;"},
+        at = {@At("RETURN")}
+    )
+    private void setBlockStateHook(class_2338 pos, class_2680 state, boolean moved, CallbackInfoReturnable<class_2680> cir) {
+        if (this.field_12858.field_9236) {
+            NevaWare.EVENT_BUS.post(new EventSetBlockState(pos, (class_2680)cir.getReturnValue(), state));
+        }
+    }
 }

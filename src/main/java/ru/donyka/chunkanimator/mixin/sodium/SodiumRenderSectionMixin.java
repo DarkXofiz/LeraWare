@@ -11,27 +11,27 @@ import ru.donyka.chunkanimator.compat.SodiumShaderSupport;
 
 @Pseudo
 @Mixin(
-   targets = {"net.caffeinemc.mods.sodium.client.render.chunk.RenderSection"},
-   remap = false
+    targets = {"net.caffeinemc.mods.sodium.client.render.chunk.RenderSection"},
+    remap = false
 )
 public abstract class SodiumRenderSectionMixin {
-   @Inject(
-      method = {"setInfo"},
-      at = {@At("HEAD")},
-      remap = false,
-      require = 0
-   )
-   private void chunkanimator$setInfo(@Coerce Object info, CallbackInfoReturnable<Boolean> cir) {
-      SodiumShaderSupport.markSectionBuilt(this, info != null);
-   }
+    @Inject(
+        method = {"setInfo"},
+        at = {@At("HEAD")},
+        remap = false,
+        require = 0
+    )
+    private void chunkanimator$setInfo(@Coerce Object info, CallbackInfoReturnable<Boolean> cir) {
+        SodiumShaderSupport.markSectionBuilt(this, info != null);
+    }
 
-   @Inject(
-      method = {"delete"},
-      at = {@At("HEAD")},
-      remap = false,
-      require = 0
-   )
-   private void chunkanimator$delete(CallbackInfo ci) {
-      SodiumShaderSupport.markSectionBuilt(this, false);
-   }
+    @Inject(
+        method = {"delete"},
+        at = {@At("HEAD")},
+        remap = false,
+        require = 0
+    )
+    private void chunkanimator$delete(CallbackInfo ci) {
+        SodiumShaderSupport.markSectionBuilt(this, false);
+    }
 }

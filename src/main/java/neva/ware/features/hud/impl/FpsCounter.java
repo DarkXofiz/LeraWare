@@ -6,15 +6,15 @@ import neva.ware.features.hud.NwHud;
 import neva.ware.utility.math.FrameRateCounter;
 
 public class FpsCounter extends HudElement {
-   private final NwHud.Anim anim = new NwHud.Anim();
+    private final NwHud.Anim anim = new NwHud.Anim();
 
-   public FpsCounter() {
-      super("Fps", 50, 10);
-   }
+    public FpsCounter() {
+        super("Fps", 50, 10);
+    }
 
-   @Override
-   public void onRender2D(class_332 var1) {
-      super.onRender2D(var1);
-      NwInfoPill.render(this, var1, this.anim, NwHud.Icon.FPS, String.valueOf(FrameRateCounter.INSTANCE.getFps()), "Fps");
-   }
+    @Override
+    public void onRender2D(class_332 var1) {
+        super.onRender2D(var1);
+        NwInfoPill.render(this, var1, this.anim, NwHud.Icon.FPS, String.valueOf(FrameRateCounter.INSTANCE.getFps()), "Fps");
+    }
 }

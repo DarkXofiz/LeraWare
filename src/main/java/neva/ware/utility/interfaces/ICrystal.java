@@ -1,7 +1,7 @@
 package neva.ware.utility.interfaces;
 
 public interface ICrystal {
-   boolean canAttack();
+    boolean canAttack();
 
-   void attack();
+    void attack();
 }

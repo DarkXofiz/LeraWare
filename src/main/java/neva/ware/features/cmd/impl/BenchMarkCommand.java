@@ -10,31 +10,31 @@ import neva.ware.features.modules.client.ClientSettings;
 import neva.ware.utility.world.ExplosionUtility;
 
 public class BenchMarkCommand extends Command {
-   public BenchMarkCommand() {
-      super("benchmark");
-   }
+    public BenchMarkCommand() {
+        super("benchmark");
+    }
 
-   @Override
-   public void executeBuild(LiteralArgumentBuilder<class_2172> builder) {
-      builder.executes(context -> {
-         new Thread(() -> {
-            long time = System.currentTimeMillis();
-            class_2338 playerPos = class_2338.method_49638(mc.field_1724.method_19538());
-            int r = 6;
+    @Override
+    public void executeBuild(LiteralArgumentBuilder<class_2172> builder) {
+        builder.executes(context -> {
+            new Thread(() -> {
+                long time = System.currentTimeMillis();
+                class_2338 playerPos = class_2338.method_49638(mc.field_1724.method_19538());
+                int r = 6;
 
-            for (int x = playerPos.method_10263() - r; x <= playerPos.method_10263() + r; x++) {
-               for (int y = playerPos.method_10264() - r; y <= playerPos.method_10264() + r; y++) {
-                  for (int z = playerPos.method_10260() - r; z <= playerPos.method_10260() + r; z++) {
-                     float var7 = ExplosionUtility.getExplosionDamage(new class_243((double)x, (double)y, (double)z), mc.field_1724, false);
-                  }
-               }
-            }
+                for (int x = playerPos.method_10263() - r; x <= playerPos.method_10263() + r; x++) {
+                    for (int y = playerPos.method_10264() - r; y <= playerPos.method_10264() + r; y++) {
+                        for (int z = playerPos.method_10260() - r; z <= playerPos.method_10260() + r; z++) {
+                            float var7 = ExplosionUtility.getExplosionDamage(new class_243(x, y, z), mc.field_1724, false);
+                        }
+                    }
+                }
 
-            time = System.currentTimeMillis() - time;
-            int score = (int)(216.0F / (float)time * 10000.0F);
-            sendMessage((ClientSettings.isRu() ? "Твой CPU набрал: " : "Your CPU score: ") + class_124.field_1080 + score);
-         }).start();
-         return 1;
-      });
-   }
+                time = System.currentTimeMillis() - time;
+                int score = (int)(216.0F / (float)time * 10000.0F);
+                sendMessage((ClientSettings.isRu() ? "Твой CPU набрал: " : "Your CPU score: ") + class_124.field_1080 + score);
+            }).start();
+            return 1;
+        });
+    }
 }

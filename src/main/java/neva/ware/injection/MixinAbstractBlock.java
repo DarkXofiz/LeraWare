@@ -19,28 +19,29 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin({class_4970.class})
 public abstract class MixinAbstractBlock {
-   @Inject(
-      method = {"Lnet/minecraft/class_4970;method_9594(Lnet/minecraft/class_2680;Lnet/minecraft/class_1657;Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;)F"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void calcBlockBreakingDeltaHook(class_2680 state, class_1657 player, class_1922 world, class_2338 pos, CallbackInfoReturnable<Float> ci) {
-      if (ModuleManager.autoTool.isEnabled() && AutoTool.silent.getValue()) {
-         float f = state.method_26214(world, pos);
-         if (f < 0.0F) {
-            ci.setReturnValue(0.0F);
-         } else {
-            float dig_speed = this.getDigSpeed(state, player.method_31548().method_5438(AutoTool.itemIndex)) / f;
-            ci.setReturnValue(player.method_31548().method_5438(AutoTool.itemIndex).method_7951(state) ? dig_speed / 30.0F : dig_speed / 100.0F);
-         }
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_4970;method_9594(Lnet/minecraft/class_2680;Lnet/minecraft/class_1657;Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;)F"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    public void calcBlockBreakingDeltaHook(class_2680 state, class_1657 player, class_1922 world, class_2338 pos, CallbackInfoReturnable<Float> ci) {
+        if (ModuleManager.autoTool.isEnabled() && AutoTool.silent.getValue()) {
+            float f = state.method_26214(world, pos);
+            if (f < 0.0F) {
+                ci.setReturnValue(0.0F);
+            } else {
+                float dig_speed = this.getDigSpeed(state, player.method_31548().method_5438(AutoTool.itemIndex)) / f;
+                ci.setReturnValue(player.method_31548().method_5438(AutoTool.itemIndex).method_7951(state) ? dig_speed / 30.0F : dig_speed / 100.0F);
+            }
+        }
+    }
 
-   public float getDigSpeed(class_2680 state, class_1799 stack) {
-      double str = (double)stack.method_7924(state);
-      int effect = class_1890.method_8225(
-         (class_6880)IManager.mc.field_1687.method_30349().method_30530(class_1893.field_9131.method_58273()).method_40264(class_1893.field_9131).get(), stack
-      );
-      return (float)Math.max(str + (str > 1.0 ? (double)(effect * effect) + 1.0 : 0.0), 0.0);
-   }
+    public float getDigSpeed(class_2680 state, class_1799 stack) {
+        double str = stack.method_7924(state);
+        int effect = class_1890.method_8225(
+            (class_6880)IManager.mc.field_1687.method_30349().method_30530(class_1893.field_9131.method_58273()).method_40264(class_1893.field_9131).get(),
+            stack
+        );
+        return (float)Math.max(str + (str > 1.0 ? effect * effect + 1.0 : 0.0), 0.0);
+    }
 }

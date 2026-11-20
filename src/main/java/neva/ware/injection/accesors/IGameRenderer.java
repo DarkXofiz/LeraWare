@@ -8,6 +8,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin({class_757.class})
 public interface IGameRenderer {
-   @Invoker("method_3172")
-   void irenderHand(class_4184 var1, float var2, Matrix4f var3);
+    @Invoker("method_3172")
+    void irenderHand(class_4184 var1, float var2, Matrix4f var3);
 }

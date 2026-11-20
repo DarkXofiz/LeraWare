@@ -8,15 +8,15 @@ import neva.ware.features.cmd.Command;
 import org.jetbrains.annotations.NotNull;
 
 public class OpenFolderCommand extends Command {
-   public OpenFolderCommand() {
-      super("openfolder", "folder");
-   }
+    public OpenFolderCommand() {
+        super("openfolder", "folder");
+    }
 
-   @Override
-   public void executeBuild(@NotNull LiteralArgumentBuilder<class_2172> builder) {
-      builder.executes(context -> {
-         class_156.method_668().method_672(new File("NevaWare/configs/"));
-         return 1;
-      });
-   }
+    @Override
+    public void executeBuild(@NotNull LiteralArgumentBuilder<class_2172> builder) {
+        builder.executes(context -> {
+            class_156.method_668().method_672(new File("NevaWare/configs/"));
+            return 1;
+        });
+    }
 }

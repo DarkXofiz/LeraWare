@@ -6,17 +6,17 @@ import net.minecraft.class_2960;
 import neva.ware.utility.render.shaders.satin.impl.ReloadableShaderEffectManager;
 
 public interface ShaderEffectManager {
-   static ShaderEffectManager getInstance() {
-      return ReloadableShaderEffectManager.INSTANCE;
-   }
+    static ShaderEffectManager getInstance() {
+        return ReloadableShaderEffectManager.INSTANCE;
+    }
 
-   ManagedShaderEffect manage(class_2960 var1);
+    ManagedShaderEffect manage(class_2960 var1);
 
-   ManagedShaderEffect manage(class_2960 var1, Consumer<ManagedShaderEffect> var2);
+    ManagedShaderEffect manage(class_2960 var1, Consumer<ManagedShaderEffect> var2);
 
-   ManagedCoreShader manageCoreShader(class_2960 var1);
+    ManagedCoreShader manageCoreShader(class_2960 var1);
 
-   ManagedCoreShader manageCoreShader(class_2960 var1, class_293 var2);
+    ManagedCoreShader manageCoreShader(class_2960 var1, class_293 var2);
 
-   ManagedCoreShader manageCoreShader(class_2960 var1, class_293 var2, Consumer<ManagedCoreShader> var3);
+    ManagedCoreShader manageCoreShader(class_2960 var1, class_293 var2, Consumer<ManagedCoreShader> var3);
 }

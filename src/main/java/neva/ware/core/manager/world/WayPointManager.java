@@ -9,135 +9,163 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import neva.ware.core.manager.IManager;
 
 public class WayPointManager implements IManager {
-   private static CopyOnWriteArrayList<WayPointManager.WayPoint> wayPoints = new CopyOnWriteArrayList<>();
+    private static CopyOnWriteArrayList<WayPointManager.WayPoint> wayPoints = new CopyOnWriteArrayList();
 
-   public void addWayPoint(WayPointManager.WayPoint wp) {
-      if (!wayPoints.contains(wp)) {
-         wayPoints.add(wp);
-      }
-   }
+    public void addWayPoint(WayPointManager.WayPoint wp) {
+        if (!wayPoints.contains(wp)) {
+            wayPoints.add(wp);
+        }
+    }
 
-   public void onLoad() {
-      wayPoints = new CopyOnWriteArrayList<>();
+    public void onLoad() {
+        wayPoints = new CopyOnWriteArrayList();
 
-      try {
-         File file = new File("NevaWare/misc/waypoints.txt");
-         if (file.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-               while (reader.ready()) {
-                  String[] line = reader.readLine().split(":");
-                  String x = line[0];
-                  String y = line[1];
-                  String z = line[2];
-                  String name = line[3];
-                  String server = line[4];
-                  String dimension = line.length == 6 ? line[5] : "overworld";
-                  this.addWayPoint(new WayPointManager.WayPoint(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(z), name, server, dimension));
-               }
+        try {
+            File file = new File("NevaWare/misc/waypoints.txt");
+            if (file.exists()) {
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+
+                try {
+                    while (reader.ready()) {
+                        String[] line = reader.readLine().split(":");
+                        String x = line[0];
+                        String y = line[1];
+                        String z = line[2];
+                        String name = line[3];
+                        String server = line[4];
+                        String dimension = line.length == 6 ? line[5] : "overworld";
+                        this.addWayPoint(new WayPointManager.WayPoint(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(z), name, server, dimension));
+                    }
+                } catch (Throwable var11) {
+                    try {
+                        reader.close();
+                    } catch (Throwable var10) {
+                        var11.addSuppressed(var10);
+                    }
+
+                    throw var11;
+                }
+
+                reader.close();
             }
-         }
-      } catch (Exception var12) {
-      }
-   }
+        } catch (Exception var12) {
+        }
+    }
 
-   public void saveWayPoints() {
-      File file = new File("NevaWare/misc/waypoints.txt");
+    public void saveWayPoints() {
+        File file = new File("NevaWare/misc/waypoints.txt");
 
-      try {
-         new File("NevaWare").mkdirs();
-         file.createNewFile();
-      } catch (Exception var6) {
-      }
+        try {
+            new File("NevaWare").mkdirs();
+            file.createNewFile();
+        } catch (Exception var6) {
+        }
 
-      try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-         for (WayPointManager.WayPoint wayPoint : wayPoints) {
-            writer.write(wayPoint.x + ":" + wayPoint.y + ":" + wayPoint.z + ":" + wayPoint.name + ":" + wayPoint.server + ":" + wayPoint.dimension + "\n");
-         }
-      } catch (Exception var8) {
-      }
-   }
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 
-   public void removeWayPoint(WayPointManager.WayPoint macro) {
-      wayPoints.remove(macro);
-   }
+            try {
+                for (WayPointManager.WayPoint wayPoint : wayPoints) {
+                    writer.write(
+                        wayPoint.x + ":" + wayPoint.y + ":" + wayPoint.z + ":" + wayPoint.name + ":" + wayPoint.server + ":" + wayPoint.dimension + "\n"
+                    );
+                }
+            } catch (Throwable var7) {
+                try {
+                    writer.close();
+                } catch (Throwable var5) {
+                    var7.addSuppressed(var5);
+                }
 
-   public CopyOnWriteArrayList<WayPointManager.WayPoint> getWayPoints() {
-      return wayPoints;
-   }
+                throw var7;
+            }
 
-   public WayPointManager.WayPoint getWayPointByName(String name) {
-      for (WayPointManager.WayPoint wayPoint : this.getWayPoints()) {
-         if (wayPoint.name.equalsIgnoreCase(name)) {
-            return wayPoint;
-         }
-      }
+            writer.close();
+        } catch (Exception var8) {
+        }
+    }
 
-      return null;
-   }
+    public void removeWayPoint(WayPointManager.WayPoint macro) {
+        wayPoints.remove(macro);
+    }
 
-   public static class WayPoint {
-      private int x;
-      private int y;
-      private int z;
-      private String name;
-      private String server;
-      private String dimension;
+    public CopyOnWriteArrayList<WayPointManager.WayPoint> getWayPoints() {
+        return wayPoints;
+    }
 
-      public WayPoint(int x, int y, int z, String name, String server, String dimension) {
-         this.x = x;
-         this.y = y;
-         this.z = z;
-         this.name = name;
-         this.server = server;
-         this.dimension = dimension;
-      }
+    public WayPointManager.WayPoint getWayPointByName(String name) {
+        for (WayPointManager.WayPoint wayPoint : this.getWayPoints()) {
+            if (wayPoint.name.equalsIgnoreCase(name)) {
+                return wayPoint;
+            }
+        }
 
-      public int getX() {
-         return this.x;
-      }
+        return null;
+    }
 
-      public void setX(int x) {
-         this.x = x;
-      }
+    public static class WayPoint {
+        private int x;
+        private int y;
+        private int z;
+        private String name;
+        private String server;
+        private String dimension;
 
-      public int getY() {
-         return this.y;
-      }
+        public WayPoint(int x, int y, int z, String name, String server, String dimension) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+            this.name = name;
+            this.server = server;
+            this.dimension = dimension;
+        }
 
-      public void setY(int y) {
-         this.y = y;
-      }
+        public int getX() {
+            return this.x;
+        }
 
-      public int getZ() {
-         return this.z;
-      }
+        public void setX(int x) {
+            this.x = x;
+        }
 
-      public void setZ(int z) {
-         this.z = z;
-      }
+        public int getY() {
+            return this.y;
+        }
 
-      public String getName() {
-         return this.name;
-      }
+        public void setY(int y) {
+            this.y = y;
+        }
 
-      public void setName(String name) {
-         this.name = name;
-      }
+        public int getZ() {
+            return this.z;
+        }
 
-      public String getServer() {
-         return this.server;
-      }
+        public void setZ(int z) {
+            this.z = z;
+        }
 
-      public void setServer(String server) {
-         this.server = server;
-      }
+        public String getName() {
+            return this.name;
+        }
 
-      public String getDimension() {
-         return this.dimension;
-      }
+        public void setName(String name) {
+            this.name = name;
+        }
 
-      public void setDimension(String dimension) {
-         this.dimension = dimension;
-      }
-   }
+        public String getServer() {
+            return this.server;
+        }
+
+        public void setServer(String server) {
+            this.server = server;
+        }
+
+        public String getDimension() {
+            return this.dimension;
+        }
+
+        public void setDimension(String dimension) {
+            this.dimension = dimension;
+        }
+    }
 }

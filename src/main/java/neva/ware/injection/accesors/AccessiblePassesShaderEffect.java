@@ -8,6 +8,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin({class_279.class})
 public interface AccessiblePassesShaderEffect {
-   @Accessor("field_1497")
-   List<class_283> getPasses();
+    @Accessor("field_1497")
+    List<class_283> getPasses();
 }

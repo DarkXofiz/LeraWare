@@ -9,14 +9,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({class_337.class})
 public class MixinBossBarHud {
-   @Inject(
-      method = {"Lnet/minecraft/class_337;method_1796(Lnet/minecraft/class_332;)V"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   private void render(CallbackInfo ci) {
-      if (ModuleManager.noRender.isEnabled() && ModuleManager.noRender.bossbar.getValue()) {
-         ci.cancel();
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_337;method_1796(Lnet/minecraft/class_332;)V"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    private void render(CallbackInfo ci) {
+        if (ModuleManager.noRender.isEnabled() && ModuleManager.noRender.bossbar.getValue()) {
+            ci.cancel();
+        }
+    }
 }

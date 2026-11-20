@@ -11,18 +11,18 @@ import neva.ware.features.modules.render.SoundESP;
 import neva.ware.features.modules.render.StorageEsp;
 
 public final class RemovedModules {
-   private RemovedModules() {
-   }
+    private RemovedModules() {
+    }
 
-   public static void purge(ArrayList<Module> var0) {
-      var0.removeIf(
-         var0x -> var0x instanceof Shaders
-               || var0x instanceof SoundESP
-               || var0x instanceof StorageEsp
-               || var0x instanceof Companion
-               || var0x instanceof AutoCrystalInfo
-               || var0x instanceof CandleHud
-               || var0x instanceof Crosshair
-      );
-   }
+    public static void purge(ArrayList<Module> var0) {
+        var0.removeIf(
+            var0x -> var0x instanceof Shaders
+                || var0x instanceof SoundESP
+                || var0x instanceof StorageEsp
+                || var0x instanceof Companion
+                || var0x instanceof AutoCrystalInfo
+                || var0x instanceof CandleHud
+                || var0x instanceof Crosshair
+        );
+    }
 }

@@ -3,44 +3,44 @@ package neva.ware.utility;
 import net.minecraft.class_310;
 
 public class TickTimer {
-   private int time;
+    private int time;
 
-   public TickTimer() {
-      this.reset();
-   }
+    public TickTimer() {
+        this.reset();
+    }
 
-   public boolean passedTicks(long t) {
-      if (this.getPassedTicks() < 0) {
-         this.reset();
-      }
+    public boolean passedTicks(long t) {
+        if (this.getPassedTicks() < 0) {
+            this.reset();
+        }
 
-      return (long)this.getPassedTicks() >= t;
-   }
+        return this.getPassedTicks() >= t;
+    }
 
-   public boolean every(long ms) {
-      if (this.getPassedTicks() < 0) {
-         this.reset();
-      }
+    public boolean every(long ms) {
+        if (this.getPassedTicks() < 0) {
+            this.reset();
+        }
 
-      boolean passed = (long)this.getPassedTicks() >= ms;
-      if (passed) {
-         this.reset();
-      }
+        boolean passed = this.getPassedTicks() >= ms;
+        if (passed) {
+            this.reset();
+        }
 
-      return passed;
-   }
+        return passed;
+    }
 
-   public void set(int t) {
-      this.time = t;
-   }
+    public void set(int t) {
+        this.time = t;
+    }
 
-   public void reset() {
-      class_310 mc = class_310.method_1551();
-      this.time = mc != null && mc.field_1724 != null ? mc.field_1724.field_6012 : 0;
-   }
+    public void reset() {
+        class_310 mc = class_310.method_1551();
+        this.time = mc != null && mc.field_1724 != null ? mc.field_1724.field_6012 : 0;
+    }
 
-   private int getPassedTicks() {
-      class_310 mc = class_310.method_1551();
-      return mc != null && mc.field_1724 != null ? mc.field_1724.field_6012 - this.time : 0;
-   }
+    private int getPassedTicks() {
+        class_310 mc = class_310.method_1551();
+        return mc != null && mc.field_1724 != null ? mc.field_1724.field_6012 - this.time : 0;
+    }
 }

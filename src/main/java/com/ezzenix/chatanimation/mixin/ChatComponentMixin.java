@@ -23,54 +23,54 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({class_338.class})
 public class ChatComponentMixin {
-   @Shadow
-   private int field_2066;
-   @Unique
-   private long lastMessageTime = 0L;
+    @Shadow
+    private int field_2066;
+    @Unique
+    private long lastMessageTime = 0L;
 
-   @Shadow
-   private int method_44752() {
-      return 0;
-   }
+    @Shadow
+    private int method_44752() {
+        return 0;
+    }
 
-   @Unique
-   private float calculateDisplacement() {
-      if (ModConfig.enableMessageAnimation && this.field_2066 == 0) {
-         float fadeTime = (float)ModConfig.fadeTimeMessage;
-         int lineHeight = this.method_44752();
-         float fadeOffsetYScale = 0.8F;
-         float maxDisplacement = (float)lineHeight * fadeOffsetYScale;
-         long lifetime = System.currentTimeMillis() - this.lastMessageTime;
-         float alpha = Math.min((float)lifetime / fadeTime, 1.0F);
-         return maxDisplacement - alpha * maxDisplacement;
-      } else {
-         return 0.0F;
-      }
-   }
+    @Unique
+    private float calculateDisplacement() {
+        if (ModConfig.enableMessageAnimation && this.field_2066 == 0) {
+            float fadeTime = ModConfig.fadeTimeMessage;
+            int lineHeight = this.method_44752();
+            float fadeOffsetYScale = 0.8F;
+            float maxDisplacement = lineHeight * fadeOffsetYScale;
+            long lifetime = System.currentTimeMillis() - this.lastMessageTime;
+            float alpha = Math.min((float)lifetime / fadeTime, 1.0F);
+            return maxDisplacement - alpha * maxDisplacement;
+        } else {
+            return 0.0F;
+        }
+    }
 
-   @Inject(
-      method = {"method_44811(Lnet/minecraft/class_2561;Lnet/minecraft/class_7469;Lnet/minecraft/class_7591;)V"},
-      at = {@At("TAIL")}
-   )
-   private void addMessage(class_2561 chatComponent, class_7469 headerSignature, class_7591 tag, CallbackInfo ci) {
-      this.lastMessageTime = System.currentTimeMillis();
-   }
+    @Inject(
+        method = {"method_44811(Lnet/minecraft/class_2561;Lnet/minecraft/class_7469;Lnet/minecraft/class_7591;)V"},
+        at = {@At("TAIL")}
+    )
+    private void addMessage(class_2561 chatComponent, class_7469 headerSignature, class_7591 tag, CallbackInfo ci) {
+        this.lastMessageTime = System.currentTimeMillis();
+    }
 
-   @WrapMethod(
-      method = {"method_1805"}
-   )
-   private void wrapRender(class_332 guiGraphics, int tickCount, int mouseX, int mouseY, boolean focused, Operation<Void> original) {
-      ChatAnimation.wrap(guiGraphics, this.calculateDisplacement(), () -> original.call(new Object[]{guiGraphics, tickCount, mouseX, mouseY, focused}));
-   }
+    @WrapMethod(
+        method = {"method_1805"}
+    )
+    private void wrapRender(class_332 guiGraphics, int tickCount, int mouseX, int mouseY, boolean focused, Operation<Void> original) {
+        ChatAnimation.wrap(guiGraphics, this.calculateDisplacement(), () -> original.call(new Object[]{guiGraphics, tickCount, mouseX, mouseY, focused}));
+    }
 
-   @ModifyVariable(
-      method = {"method_1805"},
-      at = @At("STORE"),
-      ordinal = 3
-   )
-   private double modifyChatOpacity(double original, @Local class_7590 line) {
-      float age = TimestampedMessageLine.age(line);
-      double alpha = original * ChatAnimation.getOpacityFactor(age);
-      return EasingStyle.SINE.apply(alpha);
-   }
+    @ModifyVariable(
+        method = {"method_1805"},
+        at = @At("STORE"),
+        ordinal = 3
+    )
+    private double modifyChatOpacity(double original, @Local class_7590 line) {
+        float age = TimestampedMessageLine.age(line);
+        double alpha = original * ChatAnimation.getOpacityFactor(age);
+        return EasingStyle.SINE.apply(alpha);
+    }
 }

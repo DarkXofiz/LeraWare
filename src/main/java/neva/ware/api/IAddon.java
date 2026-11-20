@@ -7,29 +7,29 @@ import neva.ware.features.hud.HudElement;
 import neva.ware.features.modules.Module;
 
 public interface IAddon {
-   void onInitialize();
+    void onInitialize();
 
-   List<Module> getModules();
+    List<Module> getModules();
 
-   List<Command> getCommands();
+    List<Command> getCommands();
 
-   List<HudElement> getHudElements();
+    List<HudElement> getHudElements();
 
-   String getPackage();
+    String getPackage();
 
-   String getName();
+    String getName();
 
-   String getAuthor();
+    String getAuthor();
 
-   String getRepo();
+    String getRepo();
 
-   String getVersion();
+    String getVersion();
 
-   default String getDescription() {
-      return "";
-   }
+    default String getDescription() {
+        return "";
+    }
 
-   default void onShutdown() {
-      LogUtils.getLogger().info("Shutting down addon: " + this.getName());
-   }
+    default void onShutdown() {
+        LogUtils.getLogger().info("Shutting down addon: " + this.getName());
+    }
 }

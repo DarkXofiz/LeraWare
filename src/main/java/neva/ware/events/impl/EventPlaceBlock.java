@@ -5,19 +5,19 @@ import net.minecraft.class_2338;
 import neva.ware.events.Event;
 
 public class EventPlaceBlock extends Event {
-   private final class_2338 blockPos;
-   private final class_2248 block;
+    private final class_2338 blockPos;
+    private final class_2248 block;
 
-   public EventPlaceBlock(class_2338 blockPos, class_2248 block) {
-      this.blockPos = blockPos;
-      this.block = block;
-   }
+    public EventPlaceBlock(class_2338 blockPos, class_2248 block) {
+        this.blockPos = blockPos;
+        this.block = block;
+    }
 
-   public class_2338 getBlockPos() {
-      return this.blockPos;
-   }
+    public class_2338 getBlockPos() {
+        return this.blockPos;
+    }
 
-   public class_2248 getBlock() {
-      return this.block;
-   }
+    public class_2248 getBlock() {
+        return this.block;
+    }
 }

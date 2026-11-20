@@ -14,15 +14,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin({class_1747.class})
 public class MixinBlockItem {
-   @Inject(
-      method = {"Lnet/minecraft/class_1747;method_7708(Lnet/minecraft/class_1750;Lnet/minecraft/class_2680;)Z"},
-      at = {@At("RETURN")}
-   )
-   private void onPlace(@NotNull class_1750 context, class_2680 state, CallbackInfoReturnable<Boolean> info) {
-      if (!Module.fullNullCheck()) {
-         if (context.method_8045().field_9236) {
-            NevaWare.EVENT_BUS.post(new EventPlaceBlock(context.method_8037(), state.method_26204()));
-         }
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_1747;method_7708(Lnet/minecraft/class_1750;Lnet/minecraft/class_2680;)Z"},
+        at = {@At("RETURN")}
+    )
+    private void onPlace(@NotNull class_1750 context, class_2680 state, CallbackInfoReturnable<Boolean> info) {
+        if (!Module.fullNullCheck()) {
+            if (context.method_8045().field_9236) {
+                NevaWare.EVENT_BUS.post(new EventPlaceBlock(context.method_8037(), state.method_26204()));
+            }
+        }
+    }
 }

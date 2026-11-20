@@ -11,29 +11,29 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin({class_9781.class})
 public class MixinDynamic {
-   @Shadow
-   private float field_51958;
-   @Shadow
-   private float field_51959;
-   @Shadow
-   private long field_51962;
-   @Final
-   @Shadow
-   private float field_51964;
+    @Shadow
+    private float field_51958;
+    @Shadow
+    private float field_51959;
+    @Shadow
+    private long field_51962;
+    @Final
+    @Shadow
+    private float field_51964;
 
-   @Inject(
-      method = {"Lnet/minecraft/class_9779$class_9781;method_60639(J)I"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   private void beginRenderTickHook(long timeMillis, CallbackInfoReturnable<Integer> cir) {
-      if (NevaWare.TICK_TIMER != 1.0F) {
-         this.field_51958 = (float)(timeMillis - this.field_51962) / this.field_51964 * NevaWare.TICK_TIMER;
-         this.field_51962 = timeMillis;
-         this.field_51959 = this.field_51959 + this.field_51958;
-         int i = (int)this.field_51959;
-         this.field_51959 -= (float)i;
-         cir.setReturnValue(i);
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_9779$class_9781;method_60639(J)I"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    private void beginRenderTickHook(long timeMillis, CallbackInfoReturnable<Integer> cir) {
+        if (NevaWare.TICK_TIMER != 1.0F) {
+            this.field_51958 = (float)(timeMillis - this.field_51962) / this.field_51964 * NevaWare.TICK_TIMER;
+            this.field_51962 = timeMillis;
+            this.field_51959 = this.field_51959 + this.field_51958;
+            int i = (int)this.field_51959;
+            this.field_51959 -= i;
+            cir.setReturnValue(i);
+        }
+    }
 }

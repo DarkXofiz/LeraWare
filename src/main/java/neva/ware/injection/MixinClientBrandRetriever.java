@@ -9,15 +9,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin({ClientBrandRetriever.class})
 public class MixinClientBrandRetriever {
-   @Inject(
-      method = {"getClientModName"},
-      at = {@At("HEAD")},
-      cancellable = true,
-      remap = false
-   )
-   private static void getClientModNameHook(CallbackInfoReturnable<String> cir) {
-      if (ModuleManager.clientSpoof.isEnabled()) {
-         cir.setReturnValue(ModuleManager.clientSpoof.getClientName());
-      }
-   }
+    @Inject(
+        method = {"getClientModName"},
+        at = {@At("HEAD")},
+        cancellable = true,
+        remap = false
+    )
+    private static void getClientModNameHook(CallbackInfoReturnable<String> cir) {
+        if (ModuleManager.clientSpoof.isEnabled()) {
+            cir.setReturnValue(ModuleManager.clientSpoof.getClientName());
+        }
+    }
 }

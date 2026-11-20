@@ -9,18 +9,18 @@ import neva.ware.setting.impl.Bind;
 import org.jetbrains.annotations.NotNull;
 
 public class ResetBindsCommand extends Command {
-   public ResetBindsCommand() {
-      super("resetbinds", "unbind", "fuckbinds");
-   }
+    public ResetBindsCommand() {
+        super("resetbinds", "unbind", "fuckbinds");
+    }
 
-   @Override
-   public void executeBuild(@NotNull LiteralArgumentBuilder<class_2172> builder) {
-      builder.executes(context -> {
-         for (Module mod : Managers.MODULE.modules) {
-            mod.setBind(new Bind(-1, false, false));
-         }
+    @Override
+    public void executeBuild(@NotNull LiteralArgumentBuilder<class_2172> builder) {
+        builder.executes(context -> {
+            for (Module mod : Managers.MODULE.modules) {
+                mod.setBind(new Bind(-1, false, false));
+            }
 
-         return 1;
-      });
-   }
+            return 1;
+        });
+    }
 }

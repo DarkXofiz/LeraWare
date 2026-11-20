@@ -7,9 +7,9 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin({class_7743.class})
 public interface ISignEditScreen {
-   @Accessor("field_40424")
-   class_2625 getBlockEntity();
+    @Accessor("field_40424")
+    class_2625 getBlockEntity();
 
-   @Accessor("field_43363")
-   boolean isFront();
+    @Accessor("field_43363")
+    boolean isFront();
 }

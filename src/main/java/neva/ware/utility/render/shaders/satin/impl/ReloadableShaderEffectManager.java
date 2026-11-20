@@ -13,61 +13,59 @@ import neva.ware.utility.render.shaders.satin.api.managed.ManagedShaderEffect;
 import neva.ware.utility.render.shaders.satin.api.managed.ShaderEffectManager;
 
 public final class ReloadableShaderEffectManager implements ShaderEffectManager {
-   public static final ReloadableShaderEffectManager INSTANCE = new ReloadableShaderEffectManager();
-   private final Set<ResettableManagedShaderBase<?>> managedShaders = new ReferenceOpenHashSet();
+    public static final ReloadableShaderEffectManager INSTANCE = new ReloadableShaderEffectManager();
+    private final Set<ResettableManagedShaderBase<?>> managedShaders = new ReferenceOpenHashSet();
 
-   public ReloadableShaderEffectManager() {
-      WindowResizeCallback.EVENT.register((WindowResizeCallback)(client, window) -> this.onResolutionChanged(window.method_4489(), window.method_4506()));
-   }
+    public ReloadableShaderEffectManager() {
+        WindowResizeCallback.EVENT.register((WindowResizeCallback)(client, window) -> this.onResolutionChanged(window.method_4489(), window.method_4506()));
+    }
 
-   @Override
-   public ManagedShaderEffect manage(class_2960 location) {
-      return this.manage(location, s -> {
-      });
-   }
+    @Override
+    public ManagedShaderEffect manage(class_2960 location) {
+        return this.manage(location, s -> {});
+    }
 
-   @Override
-   public ManagedShaderEffect manage(class_2960 location, Consumer<ManagedShaderEffect> initCallback) {
-      ResettableManagedShaderEffect ret = new ResettableManagedShaderEffect(location, initCallback);
-      this.managedShaders.add(ret);
-      return ret;
-   }
+    @Override
+    public ManagedShaderEffect manage(class_2960 location, Consumer<ManagedShaderEffect> initCallback) {
+        ResettableManagedShaderEffect ret = new ResettableManagedShaderEffect(location, initCallback);
+        this.managedShaders.add(ret);
+        return ret;
+    }
 
-   @Override
-   public ManagedCoreShader manageCoreShader(class_2960 location) {
-      return this.manageCoreShader(location, class_290.field_1580);
-   }
+    @Override
+    public ManagedCoreShader manageCoreShader(class_2960 location) {
+        return this.manageCoreShader(location, class_290.field_1580);
+    }
 
-   @Override
-   public ManagedCoreShader manageCoreShader(class_2960 location, class_293 vertexFormat) {
-      return this.manageCoreShader(location, vertexFormat, s -> {
-      });
-   }
+    @Override
+    public ManagedCoreShader manageCoreShader(class_2960 location, class_293 vertexFormat) {
+        return this.manageCoreShader(location, vertexFormat, s -> {});
+    }
 
-   @Override
-   public ManagedCoreShader manageCoreShader(class_2960 location, class_293 vertexFormat, Consumer<ManagedCoreShader> initCallback) {
-      ResettableManagedCoreShader ret = new ResettableManagedCoreShader(location, vertexFormat, initCallback);
-      this.managedShaders.add(ret);
-      return ret;
-   }
+    @Override
+    public ManagedCoreShader manageCoreShader(class_2960 location, class_293 vertexFormat, Consumer<ManagedCoreShader> initCallback) {
+        ResettableManagedCoreShader ret = new ResettableManagedCoreShader(location, vertexFormat, initCallback);
+        this.managedShaders.add(ret);
+        return ret;
+    }
 
-   public void reload(class_5912 shaderResources) {
-      for (ResettableManagedShaderBase<?> ss : this.managedShaders) {
-         ss.initializeOrLog(shaderResources);
-      }
-   }
+    public void reload(class_5912 shaderResources) {
+        for (ResettableManagedShaderBase<?> ss : this.managedShaders) {
+            ss.initializeOrLog(shaderResources);
+        }
+    }
 
-   public void onResolutionChanged(int newWidth, int newHeight) {
-      this.runShaderSetup(newWidth, newHeight);
-   }
+    public void onResolutionChanged(int newWidth, int newHeight) {
+        this.runShaderSetup(newWidth, newHeight);
+    }
 
-   private void runShaderSetup(int newWidth, int newHeight) {
-      if (!this.managedShaders.isEmpty()) {
-         for (ResettableManagedShaderBase<?> ss : this.managedShaders) {
-            if (ss.isInitialized()) {
-               ss.setup(newWidth, newHeight);
+    private void runShaderSetup(int newWidth, int newHeight) {
+        if (!this.managedShaders.isEmpty()) {
+            for (ResettableManagedShaderBase<?> ss : this.managedShaders) {
+                if (ss.isInitialized()) {
+                    ss.setup(newWidth, newHeight);
+                }
             }
-         }
-      }
-   }
+        }
+    }
 }

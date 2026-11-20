@@ -3,17 +3,17 @@ package neva.ware.events.impl;
 import neva.ware.events.Event;
 
 public class EventSprint extends Event {
-   private boolean sprintState;
+    private boolean sprintState;
 
-   public EventSprint(boolean sprintState) {
-      this.sprintState = sprintState;
-   }
+    public EventSprint(boolean sprintState) {
+        this.sprintState = sprintState;
+    }
 
-   public boolean getSprintState() {
-      return this.sprintState;
-   }
+    public boolean getSprintState() {
+        return this.sprintState;
+    }
 
-   public void setSprintState(boolean sprintState) {
-      this.sprintState = sprintState;
-   }
+    public void setSprintState(boolean sprintState) {
+        this.sprintState = sprintState;
+    }
 }

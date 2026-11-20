@@ -15,18 +15,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({class_897.class})
 public abstract class MixinEntityRenderer<T extends class_1297> {
-   @Inject(
-      method = {"Lnet/minecraft/class_897;method_3926(Lnet/minecraft/class_1297;Lnet/minecraft/class_2561;Lnet/minecraft/class_4587;Lnet/minecraft/class_4597;IF)V"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   private void renderLabelIfPresent(T entity, class_2561 text, class_4587 matrices, class_4597 vertexConsumers, int light, float tickDelta, CallbackInfo info) {
-      if (entity instanceof class_1531 && ModuleManager.noRender.isEnabled() && ModuleManager.noRender.noArmorStands.getValue()) {
-         info.cancel();
-      }
+    @Inject(
+        method = {"Lnet/minecraft/class_897;method_3926(Lnet/minecraft/class_1297;Lnet/minecraft/class_2561;Lnet/minecraft/class_4587;Lnet/minecraft/class_4597;IF)V"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    private void renderLabelIfPresent(T entity, class_2561 text, class_4587 matrices, class_4597 vertexConsumers, int light, float tickDelta, CallbackInfo info) {
+        if (entity instanceof class_1531 && ModuleManager.noRender.isEnabled() && ModuleManager.noRender.noArmorStands.getValue()) {
+            info.cancel();
+        }
 
-      if (entity instanceof class_1657 && ModuleManager.nameTags.isEnabled()) {
-         info.cancel();
-      }
-   }
+        if (entity instanceof class_1657 && ModuleManager.nameTags.isEnabled()) {
+            info.cancel();
+        }
+    }
 }

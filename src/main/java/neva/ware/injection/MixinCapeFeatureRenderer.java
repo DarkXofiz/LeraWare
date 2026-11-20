@@ -11,24 +11,24 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin({class_972.class})
 public class MixinCapeFeatureRenderer {
-   @ModifyVariable(
-      method = {"Lnet/minecraft/class_972;method_4177(Lnet/minecraft/class_4587;Lnet/minecraft/class_4597;ILnet/minecraft/class_742;FFFFFF)V"},
-      at = @At("STORE"),
-      ordinal = 6
-   )
-   private float renderHook(
-      float n,
-      class_4587 matrixStack,
-      class_4597 vertexConsumerProvider,
-      int i,
-      class_742 abstractClientPlayerEntity,
-      float f,
-      float g,
-      float h,
-      float j,
-      float k,
-      float l
-   ) {
-      return class_3532.method_16439(h, abstractClientPlayerEntity.field_6220, abstractClientPlayerEntity.field_6283);
-   }
+    @ModifyVariable(
+        method = {"Lnet/minecraft/class_972;method_4177(Lnet/minecraft/class_4587;Lnet/minecraft/class_4597;ILnet/minecraft/class_742;FFFFFF)V"},
+        at = @At("STORE"),
+        ordinal = 6
+    )
+    private float renderHook(
+        float n,
+        class_4587 matrixStack,
+        class_4597 vertexConsumerProvider,
+        int i,
+        class_742 abstractClientPlayerEntity,
+        float f,
+        float g,
+        float h,
+        float j,
+        float k,
+        float l
+    ) {
+        return class_3532.method_16439(h, abstractClientPlayerEntity.field_6220, abstractClientPlayerEntity.field_6283);
+    }
 }

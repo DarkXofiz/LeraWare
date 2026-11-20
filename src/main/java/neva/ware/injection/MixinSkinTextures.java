@@ -12,14 +12,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin({class_8685.class})
 public class MixinSkinTextures {
-   @Inject(
-      method = {"Lnet/minecraft/class_8685;comp_1626()Lnet/minecraft/class_2960;"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void getSkinTextureHook(CallbackInfoReturnable<class_2960> cir) {
-      if (ModuleManager.media.isEnabled() && Media.skinProtect.getValue()) {
-         cir.setReturnValue(TextureStorage.sunRiseSkin);
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_8685;comp_1626()Lnet/minecraft/class_2960;"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    public void getSkinTextureHook(CallbackInfoReturnable<class_2960> cir) {
+        if (ModuleManager.media.isEnabled() && Media.skinProtect.getValue()) {
+            cir.setReturnValue(TextureStorage.sunRiseSkin);
+        }
+    }
 }

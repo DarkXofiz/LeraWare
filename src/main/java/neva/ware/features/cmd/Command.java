@@ -17,51 +17,51 @@ import neva.ware.core.manager.client.CommandManager;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class Command {
-   protected static final class_7157 REGISTRY_ACCESS = class_2170.method_46732(class_7887.method_46817());
-   protected static final class_310 mc = class_310.method_1551();
-   protected final List<String> names;
-   private final String description;
+    protected static final class_7157 REGISTRY_ACCESS = class_2170.method_46732(class_7887.method_46817());
+    protected static final class_310 mc = class_310.method_1551();
+    protected final List<String> names;
+    private final String description;
 
-   public Command(String... names) {
-      this.names = Arrays.asList(names);
-      this.description = "descriptions.commands." + this.names.get(0);
-   }
+    public Command(String... names) {
+        this.names = Arrays.asList(names);
+        this.description = "descriptions.commands." + (String)this.names.get(0);
+    }
 
-   public abstract void executeBuild(LiteralArgumentBuilder<class_2172> var1);
+    public abstract void executeBuild(LiteralArgumentBuilder<class_2172> var1);
 
-   public static void sendMessage(String message) {
-      if (mc.field_1724 != null) {
-         mc.field_1724.method_43496(class_2561.method_30163(CommandManager.getClientMessage() + " " + message));
-      }
-   }
+    public static void sendMessage(String message) {
+        if (mc.field_1724 != null) {
+            mc.field_1724.method_43496(class_2561.method_30163(CommandManager.getClientMessage() + " " + message));
+        }
+    }
 
-   @NotNull
-   protected static <T> RequiredArgumentBuilder<class_2172, T> arg(String name, ArgumentType<T> type) {
-      return RequiredArgumentBuilder.argument(name, type);
-   }
+    @NotNull
+    protected static <T> RequiredArgumentBuilder<class_2172, T> arg(String name, ArgumentType<T> type) {
+        return RequiredArgumentBuilder.argument(name, type);
+    }
 
-   @NotNull
-   protected static LiteralArgumentBuilder<class_2172> literal(String name) {
-      return LiteralArgumentBuilder.literal(name);
-   }
+    @NotNull
+    protected static LiteralArgumentBuilder<class_2172> literal(String name) {
+        return LiteralArgumentBuilder.literal(name);
+    }
 
-   public void register(CommandDispatcher<class_2172> dispatcher) {
-      for (String name : this.names) {
-         LiteralArgumentBuilder<class_2172> builder = LiteralArgumentBuilder.literal(name);
-         this.executeBuild(builder);
-         dispatcher.register(builder);
-      }
-   }
+    public void register(CommandDispatcher<class_2172> dispatcher) {
+        for (String name : this.names) {
+            LiteralArgumentBuilder<class_2172> builder = LiteralArgumentBuilder.literal(name);
+            this.executeBuild(builder);
+            dispatcher.register(builder);
+        }
+    }
 
-   public String getName() {
-      return this.names.get(0);
-   }
+    public String getName() {
+        return (String)this.names.get(0);
+    }
 
-   public String getAliases() {
-      return String.join(", ", this.names.stream().filter(n -> !n.equals(this.names.get(0))).toList());
-   }
+    public String getAliases() {
+        return String.join(", ", this.names.stream().filter(n -> !n.equals(this.names.get(0))).toList());
+    }
 
-   public String getDescription() {
-      return class_1074.method_4662(this.description, new Object[0]);
-   }
+    public String getDescription() {
+        return class_1074.method_4662(this.description, new Object[0]);
+    }
 }

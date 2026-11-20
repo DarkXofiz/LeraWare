@@ -13,25 +13,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({class_634.class})
 public class MixinClientPlayNetworkHandler {
-   @Inject(
-      method = {"Lnet/minecraft/class_634;method_45729(Ljava/lang/String;)V"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   private void sendChatMessageHook(@NotNull String message, CallbackInfo ci) {
-      if (message.equals(String.valueOf(ModuleManager.unHook.code)) && ModuleManager.unHook.isEnabled()) {
-         ModuleManager.unHook.disable();
-      }
+    @Inject(
+        method = {"Lnet/minecraft/class_634;method_45729(Ljava/lang/String;)V"},
+        at = {@At("HEAD")},
+        cancellable = true
+    )
+    private void sendChatMessageHook(@NotNull String message, CallbackInfo ci) {
+        if (message.equals(String.valueOf(ModuleManager.unHook.code)) && ModuleManager.unHook.isEnabled()) {
+            ModuleManager.unHook.disable();
+        }
 
-      if (!Module.fullNullCheck()) {
-         if (message.startsWith(Managers.COMMAND.getPrefix())) {
-            try {
-               Managers.COMMAND.getDispatcher().execute(message.substring(Managers.COMMAND.getPrefix().length()), Managers.COMMAND.getSource());
-            } catch (CommandSyntaxException var4) {
+        if (!Module.fullNullCheck()) {
+            if (message.startsWith(Managers.COMMAND.getPrefix())) {
+                try {
+                    Managers.COMMAND.getDispatcher().execute(message.substring(Managers.COMMAND.getPrefix().length()), Managers.COMMAND.getSource());
+                } catch (CommandSyntaxException var4) {
+                }
+
+                ci.cancel();
             }
-
-            ci.cancel();
-         }
-      }
-   }
+        }
+    }
 }

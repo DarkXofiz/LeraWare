@@ -6,9 +6,9 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin({class_2708.class})
 public interface ISPacketPlayerPosLook {
-   @Accessor("field_12393")
-   void setYaw(float var1);
+    @Accessor("field_12393")
+    void setYaw(float var1);
 
-   @Accessor("field_12391")
-   void setPitch(float var1);
+    @Accessor("field_12391")
+    void setPitch(float var1);
 }

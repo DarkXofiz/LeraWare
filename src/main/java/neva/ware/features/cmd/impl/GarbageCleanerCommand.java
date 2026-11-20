@@ -6,17 +6,17 @@ import neva.ware.features.cmd.Command;
 import org.jetbrains.annotations.NotNull;
 
 public class GarbageCleanerCommand extends Command {
-   public GarbageCleanerCommand() {
-      super("gc", "garbagecleaner", "clearram");
-   }
+    public GarbageCleanerCommand() {
+        super("gc", "garbagecleaner", "clearram");
+    }
 
-   @Override
-   public void executeBuild(@NotNull LiteralArgumentBuilder<class_2172> builder) {
-      builder.executes(context -> {
-         sendMessage("Cleaning RAM..");
-         System.gc();
-         sendMessage("Successfully cleaned RAM!");
-         return 1;
-      });
-   }
+    @Override
+    public void executeBuild(@NotNull LiteralArgumentBuilder<class_2172> builder) {
+        builder.executes(context -> {
+            sendMessage("Cleaning RAM..");
+            System.gc();
+            sendMessage("Successfully cleaned RAM!");
+            return 1;
+        });
+    }
 }

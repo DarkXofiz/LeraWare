@@ -16,31 +16,31 @@ import neva.ware.features.modules.Module;
 import neva.ware.features.modules.client.ClientSettings;
 
 public class ModuleArgumentType implements ArgumentType<Module> {
-   private static final Collection<String> EXAMPLES = Managers.MODULE.modules.stream().map(Module::getName).limit(5L).toList();
+    private static final Collection<String> EXAMPLES = Managers.MODULE.modules.stream().map(Module::getName).limit(5L).toList();
 
-   public static ModuleArgumentType create() {
-      return new ModuleArgumentType();
-   }
+    public static ModuleArgumentType create() {
+        return new ModuleArgumentType();
+    }
 
-   public Module parse(StringReader reader) throws CommandSyntaxException {
-      Module module = Managers.MODULE.get(reader.readString());
-      if (module == null) {
-         throw new DynamicCommandExceptionType(
-               name -> class_2561.method_43470(
-                     ClientSettings.isRu() ? "Модуля " + name.toString() + " не существует(" : "Module " + name.toString() + " does not exist :("
-                  )
-            )
-            .create(reader.readString());
-      } else {
-         return module;
-      }
-   }
+    public Module parse(StringReader reader) throws CommandSyntaxException {
+        Module module = Managers.MODULE.get(reader.readString());
+        if (module == null) {
+            throw new DynamicCommandExceptionType(
+                    name -> class_2561.method_43470(
+                        ClientSettings.isRu() ? "Модуля " + name.toString() + " не существует(" : "Module " + name.toString() + " does not exist :("
+                    )
+                )
+                .create(reader.readString());
+        } else {
+            return module;
+        }
+    }
 
-   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-      return class_2172.method_9264(Managers.MODULE.modules.stream().map(Module::getName), builder);
-   }
+    public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
+        return class_2172.method_9264(Managers.MODULE.modules.stream().map(Module::getName), builder);
+    }
 
-   public Collection<String> getExamples() {
-      return EXAMPLES;
-   }
+    public Collection<String> getExamples() {
+        return EXAMPLES;
+    }
 }

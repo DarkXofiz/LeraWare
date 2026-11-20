@@ -17,33 +17,33 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({class_702.class})
 public class MixinParticleManager {
-   @Inject(
-      at = {@At("HEAD")},
-      method = {"Lnet/minecraft/class_702;method_3058(Lnet/minecraft/class_703;)V"},
-      cancellable = true
-   )
-   public void addParticleHook(class_703 p, CallbackInfo e) {
-      NoRender nR = ModuleManager.noRender;
-      if (nR.isEnabled()) {
-         if (nR.elderGuardian.getValue() && p instanceof class_700) {
-            e.cancel();
-         }
+    @Inject(
+        at = {@At("HEAD")},
+        method = {"Lnet/minecraft/class_702;method_3058(Lnet/minecraft/class_703;)V"},
+        cancellable = true
+    )
+    public void addParticleHook(class_703 p, CallbackInfo e) {
+        NoRender nR = ModuleManager.noRender;
+        if (nR.isEnabled()) {
+            if (nR.elderGuardian.getValue() && p instanceof class_700) {
+                e.cancel();
+            }
 
-         if (nR.explosions.getValue() && p instanceof class_691) {
-            e.cancel();
-         }
+            if (nR.explosions.getValue() && p instanceof class_691) {
+                e.cancel();
+            }
 
-         if (nR.campFire.getValue() && p instanceof class_3937) {
-            e.cancel();
-         }
+            if (nR.campFire.getValue() && p instanceof class_3937) {
+                e.cancel();
+            }
 
-         if (nR.breakParticles.getValue() && p instanceof class_727) {
-            e.cancel();
-         }
+            if (nR.breakParticles.getValue() && p instanceof class_727) {
+                e.cancel();
+            }
 
-         if (nR.fireworks.getValue() && (p instanceof class_681 || p instanceof class_678)) {
-            e.cancel();
-         }
-      }
-   }
+            if (nR.fireworks.getValue() && (p instanceof class_681 || p instanceof class_678)) {
+                e.cancel();
+            }
+        }
+    }
 }

@@ -5,7 +5,7 @@ import net.minecraft.class_2338;
 import neva.ware.features.modules.render.Trails;
 
 public interface IEntity {
-   List<Trails.Trail> getTrails();
+    List<Trails.Trail> getTrails();
 
-   class_2338 thunderHack_Recode$getVelocityBP();
+    class_2338 thunderHack_Recode$getVelocityBP();
 }

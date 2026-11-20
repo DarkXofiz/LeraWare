@@ -13,17 +13,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({class_881.class})
 public class MixinBoatEntityRenderer {
-   @Inject(
-      method = {"Lnet/minecraft/class_881;method_3888(Lnet/minecraft/class_1690;FFLnet/minecraft/class_4587;Lnet/minecraft/class_4597;I)V"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/class_4587;method_22905(FFF)V",
-         shift = Shift.AFTER
-      )}
-   )
-   public void render(class_1690 boatEntity, float f, float g, class_4587 matrixStack, class_4597 vertexConsumerProvider, int i, CallbackInfo ci) {
-      if (ModuleManager.boatFly.isEnabled() && ModuleManager.boatFly.hideBoat.getValue()) {
-         matrixStack.method_22905(0.3F, 0.3F, 0.3F);
-      }
-   }
+    @Inject(
+        method = {"Lnet/minecraft/class_881;method_3888(Lnet/minecraft/class_1690;FFLnet/minecraft/class_4587;Lnet/minecraft/class_4597;I)V"},
+        at = {@At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/class_4587;method_22905(FFF)V",
+            shift = Shift.AFTER
+        )}
+    )
+    public void render(class_1690 boatEntity, float f, float g, class_4587 matrixStack, class_4597 vertexConsumerProvider, int i, CallbackInfo ci) {
+        if (ModuleManager.boatFly.isEnabled() && ModuleManager.boatFly.hideBoat.getValue()) {
+            matrixStack.method_22905(0.3F, 0.3F, 0.3F);
+        }
+    }
 }

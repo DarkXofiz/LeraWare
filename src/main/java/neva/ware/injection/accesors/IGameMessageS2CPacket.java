@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin({class_7439.class})
 public interface IGameMessageS2CPacket {
-   @Mutable
-   @Accessor("comp_763")
-   void setContent(class_2561 var1);
+    @Mutable
+    @Accessor("comp_763")
+    void setContent(class_2561 var1);
 }
