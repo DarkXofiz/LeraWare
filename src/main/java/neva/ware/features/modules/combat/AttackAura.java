@@ -1,5 +1,7 @@
 package neva.ware.features.modules.combat;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.class_1268;
@@ -40,6 +42,9 @@ import neva.ware.features.modules.Module;
 import neva.ware.features.modules.client.ClientSettings;
 import neva.ware.features.modules.render.TargetESP;
 import neva.ware.gui.notification.Notification;
+import net.minecraft.class_239;
+import net.minecraft.class_2708;
+import neva.ware.events.impl.PacketEvent;
 import neva.ware.setting.Setting;
 import neva.ware.utility.Timer;
 import neva.ware.utility.player.InventoryUtility;
@@ -64,6 +69,8 @@ public class AttackAura extends Module {
    public final Setting<Float> aimRange = new Setting<>("AimRange", 3.1F, 0.0F, 6.0F);
    public final Setting<Float> elytraAimRange = new Setting<>("ElytraAimRange", 25.0F, 10.0F, 100.0F);
    public final Setting<AttackAura.Mode> rotationMode = new Setting<>("Rotation", AttackAura.Mode.HvH);
+   /** Acikken: sunucunun anticheat tepkisine gore menzil / donus hizi / duvar kontrolu otomatik ayarlanir. */
+   public final Setting<Boolean> bypass = new Setting<>("Bypass", true);
    public final Setting<AttackAura.CritMode> crit = new Setting<>("Crit", AttackAura.CritMode.Smart);
    public final Setting<Boolean> dropSprint = new Setting<>("DropSprint", true);
    public final Setting<AttackAura.Switch> switchMode = new Setting<>("AutoWeapon", AttackAura.Switch.None);
@@ -103,6 +110,237 @@ public class AttackAura extends Module {
    private final PitchTremor yawTremor = new PitchTremor();
    private final PitchTremor pitchTremor = new PitchTremor();
    private final long aimNoiseSeed = ThreadLocalRandom.current().nextLong();
+
+   // ------------------------------------------------------------ bypass
+   /** Sunucunun anticheat tepkisine gore otomatik secilen seviye. Siralama siki -> gevsek. */
+   private enum AcLevel {
+      STRICT(2.9F, 55.0F, 100.0F, 30.0F, 70.0F, true, 60L),
+      NORMAL(3.0F, 90.0F, 150.0F, 50.0F, 100.0F, true, 0L),
+      RELAXED(Float.MAX_VALUE, 180.0F, 180.0F, 90.0F, 90.0F, false, 0L);
+
+      final float reach;
+      final float yawCap;
+      final float yawCapElytra;
+      final float pitchCap;
+      final float pitchCapElytra;
+      final boolean wallCheck;
+      final long extraDelayMs;
+
+      AcLevel(float reach, float yawCap, float yawCapElytra, float pitchCap, float pitchCapElytra, boolean wallCheck, long extraDelayMs) {
+         this.reach = reach;
+         this.yawCap = yawCap;
+         this.yawCapElytra = yawCapElytra;
+         this.pitchCap = pitchCap;
+         this.pitchCapElytra = pitchCapElytra;
+         this.wallCheck = wallCheck;
+         this.extraDelayMs = extraDelayMs;
+      }
+   }
+
+   private static final Map<String, AcLevel> SERVER_LEVEL = new HashMap<>();
+   private static final Map<String, AcLevel> SERVER_CEIL = new HashMap<>();
+
+   private AcLevel level = AcLevel.NORMAL;
+   private AcLevel ceil = AcLevel.RELAXED;
+   private String serverKey = "unknown";
+   private volatile int signals;
+   private volatile long signalWindowMs;
+   private volatile long lastRealAttackMs;
+   private long cleanSinceMs;
+   private long relaxedAtMs;
+   private long lastTickMs;
+   private int keyTicks;
+   private boolean prevCommitted;
+   private boolean lastCommitted;
+   private float baseYaw;
+   private float basePitch;
+   private class_1297 pendingTarget;
+   private float pendingHealth;
+   private int pendingTicks;
+   private int ignoredStreak;
+
+   private static String currentServerKey() {
+      try {
+         if (mc.method_1562() != null && mc.method_1562().method_45734() != null) {
+            return mc.method_1562().method_45734().field_3761.toLowerCase();
+         }
+      } catch (Throwable ignored) {
+      }
+
+      return "unknown";
+   }
+
+   private void loadLevel() {
+      this.serverKey = currentServerKey();
+      this.level = SERVER_LEVEL.getOrDefault(this.serverKey, AcLevel.NORMAL);
+      this.ceil = SERVER_CEIL.getOrDefault(this.serverKey, AcLevel.RELAXED);
+      long now = System.currentTimeMillis();
+      this.signals = 0;
+      this.signalWindowMs = now;
+      this.cleanSinceMs = now;
+      this.relaxedAtMs = 0L;
+   }
+
+   private void notifyLevel(String text) {
+      try {
+         Managers.NOTIFICATION.publicity("Aura", text, 3, Notification.Type.INFO);
+      } catch (Throwable ignored) {
+      }
+   }
+
+   /** Anticheat tepkisi sinyali: geri cekme, yok sayilan vuruslar, vurus sonrasi baglanti kopmasi. */
+   private void addSignal() {
+      long now = System.currentTimeMillis();
+      if (now - this.signalWindowMs > 15000L) {
+         this.signalWindowMs = now;
+         this.signals = 0;
+      }
+
+      this.signals++;
+      this.cleanSinceMs = now;
+   }
+
+   private void tighten(long now) {
+      if (now - this.relaxedAtMs < 30000L) {
+         // gevsettigimiz seviye sinyal yedi: bu sunucuda tavan olarak bir alt seviyeyi kabul et
+         this.ceil = AcLevel.values()[Math.max(0, this.level.ordinal() - 1)];
+         SERVER_CEIL.put(this.serverKey, this.ceil);
+      }
+
+      if (this.level.ordinal() > 0) {
+         this.level = AcLevel.values()[this.level.ordinal() - 1];
+         SERVER_LEVEL.put(this.serverKey, this.level);
+         this.notifyLevel("Anticheat tepkisi algilandi, seviye: " + this.level.name());
+      }
+
+      this.signals = 0;
+      this.signalWindowMs = now;
+      this.cleanSinceMs = now;
+      if (ModuleManager.elytraFlight != null && ModuleManager.elytraFlight.isEnabled()) {
+         ModuleManager.elytraFlight.externalTighten();
+      }
+   }
+
+   /** Her tick (bypass acikken): sunucu degisimi, vurus sonrasi kopma, sinyal degerlendirme, vurus geri bildirimi. */
+   private void bypassTick() {
+      long now = System.currentTimeMillis();
+      if (this.lastTickMs != 0L
+         && now - this.lastTickMs > 4000L
+         && this.lastRealAttackMs > 0L
+         && this.lastTickMs - this.lastRealAttackMs < 2500L) {
+         // vurustan hemen sonra baglanti koptu / dondu: bu sunucuyu tehlikeli say, bir kademe sikilastir
+         this.loadLevel();
+         this.tighten(now);
+         this.lastRealAttackMs = 0L;
+      }
+
+      this.lastTickMs = now;
+      if (this.keyTicks++ % 40 == 0 && !currentServerKey().equals(this.serverKey)) {
+         this.loadLevel();
+      }
+
+      if (now - this.signalWindowMs > 15000L) {
+         this.signalWindowMs = now;
+         this.signals = 0;
+      }
+
+      if (this.signals >= 3) {
+         this.tighten(now);
+      } else if (this.level.ordinal() < this.ceil.ordinal()
+         && now - this.cleanSinceMs > 90000L
+         && now - this.lastRealAttackMs < 60000L) {
+         this.level = AcLevel.values()[this.level.ordinal() + 1];
+         SERVER_LEVEL.put(this.serverKey, this.level);
+         this.relaxedAtMs = now;
+         this.cleanSinceMs = now;
+         this.notifyLevel("Temiz vurus, seviye: " + this.level.name());
+      }
+
+      this.trackHitFeedback();
+   }
+
+   /** Vurustan ~6 tick sonra hedefin cani dusmediyse vurus yok sayilmis demektir; ust uste 4 kez olursa sinyal. */
+   private void trackHitFeedback() {
+      if (this.pendingTarget == null) {
+         return;
+      }
+
+      if (++this.pendingTicks < 6) {
+         return;
+      }
+
+      class_1297 t = this.pendingTarget;
+      this.pendingTarget = null;
+      if (!(t instanceof class_1309 living) || !t.method_5805() || living.method_29504()) {
+         this.ignoredStreak = 0;
+         return;
+      }
+
+      float hp = living.method_6032() + living.method_6067();
+      if (hp < this.pendingHealth - 0.001F) {
+         this.ignoredStreak = 0;
+      } else if (++this.ignoredStreak >= 4) {
+         this.ignoredStreak = 0;
+         this.addSignal();
+      }
+   }
+
+   /** Geri cekme (rubberband) vurustan hemen sonra geldiyse sinyal say. */
+   @EventHandler
+   public void onPacketReceive(PacketEvent.Receive e) {
+      if (!this.bypass.getValue() || !(e.getPacket() instanceof class_2708)) {
+         return;
+      }
+
+      if (System.currentTimeMillis() - this.lastRealAttackMs < 1000L) {
+         this.addSignal();
+      }
+   }
+
+   /** Bypass acikken seviyeye gore kisitlanmis vurus menzili. */
+   private float getReach() {
+      float r = this.attackRange.getValue();
+      return this.bypass.getValue() ? Math.min(r, this.level.reach) : r;
+   }
+
+   /** Sunucunun gordugu bir onceki rotasyondan itibaren tek tick'te donulebilecek yaw sinirini uygular. */
+   private float capYaw(float desired) {
+      if (!this.bypass.getValue() || mc.field_1724 == null) {
+         return desired;
+      }
+
+      float base = this.prevCommitted ? this.baseYaw : mc.field_1724.method_36454();
+      float cap = mc.field_1724.method_6128() ? this.level.yawCapElytra : this.level.yawCap;
+      float d = class_3532.method_15393(desired - base);
+      return Math.abs(d) <= cap ? desired : base + Math.signum(d) * cap;
+   }
+
+   private float capPitch(float desired) {
+      if (!this.bypass.getValue() || mc.field_1724 == null) {
+         return desired;
+      }
+
+      float base = this.prevCommitted ? this.basePitch : mc.field_1724.method_36455();
+      float cap = mc.field_1724.method_6128() ? this.level.pitchCapElytra : this.level.pitchCap;
+      float d = desired - base;
+      return Math.abs(d) <= cap ? desired : class_3532.method_15363(base + Math.signum(d) * cap, -90.0F, 90.0F);
+   }
+
+   /** Isinin duvara carpip carpmadigini kontrol eder: hedefe giris mesafesinden once blok varsa true. */
+   private boolean wallBlocked(float yaw, float pitch, float reach) {
+      double entry = this.rayEntry(yaw, pitch, target, reach);
+      if (entry < 0.0) {
+         return false;
+      }
+
+      class_239 hit = Managers.PLAYER.rayTrace((double)reach, yaw, pitch);
+      if (hit == null) {
+         return false;
+      }
+
+      double blockDist = Math.sqrt(mc.field_1724.method_33571().method_1025(hit.method_17784()));
+      return blockDist + 0.02 < entry;
+   }
 
    public AttackAura() {
       super("Attack Aura", Module.Category.COMBAT);
@@ -156,6 +394,13 @@ public class AttackAura extends Module {
       this.quantizer.reset();
       this.yawTremor.reset();
       this.pitchTremor.reset();
+      this.loadLevel();
+      this.lastTickMs = 0L;
+      this.lastRealAttackMs = 0L;
+      this.pendingTarget = null;
+      this.ignoredStreak = 0;
+      this.prevCommitted = false;
+      this.lastCommitted = false;
    }
 
    @Override
@@ -163,6 +408,8 @@ public class AttackAura extends Module {
       target = null;
       this.lookingAtHitbox = false;
       this.rotationCommitted = false;
+      this.pendingTarget = null;
+      this.lastCommitted = false;
    }
 
    // ------------------------------------------------------------------ tick
@@ -170,6 +417,8 @@ public class AttackAura extends Module {
    @EventHandler
    public void onUpdate(PlayerUpdateEvent e) {
       this.rotationCommitted = false;
+      this.prevCommitted = this.lastCommitted;
+      this.lastCommitted = false;
       if (mc.field_1724 == null || mc.field_1687 == null || mc.field_1761 == null) {
          target = null;
          return;
@@ -182,6 +431,10 @@ public class AttackAura extends Module {
          }
 
          return;
+      }
+
+      if (this.bypass.getValue()) {
+         this.bypassTick();
       }
 
       this.tickFallDistance = mc.field_1724.field_6017;
@@ -206,6 +459,9 @@ public class AttackAura extends Module {
 
       this.commitRotation();
       this.rotationCommitted = true;
+      this.lastCommitted = true;
+      this.baseYaw = this.rotationYaw;
+      this.basePitch = this.rotationPitch;
    }
 
    @EventHandler
@@ -345,17 +601,17 @@ public class AttackAura extends Module {
       if (this.elytraLook()) {
          float[] direct = this.anglesTo(this.closestPointOnBox(mc.field_1724.method_33571(), target.method_5829()));
          this.applyRotation(
-            this.quantizer.yaw(mc.field_1724.method_36454(), direct[0]),
-            this.quantizer.pitch(mc.field_1724.method_36455(), direct[1])
+            this.quantizer.yaw(mc.field_1724.method_36454(), this.capYaw(direct[0])),
+            this.quantizer.pitch(mc.field_1724.method_36455(), this.capPitch(direct[1]))
          );
-         this.lookingAtHitbox = this.isLookingAtHitbox(this.rotationYaw, this.rotationPitch, target, this.getRange());
+         this.lookingAtHitbox = this.isLookingAtHitbox(this.rotationYaw, this.rotationPitch, target, this.getReach());
          if (!this.lookingAtHitbox) {
             float[] snap = this.anglesTo(target.method_5829().method_1005());
             this.applyRotation(
-               this.quantizer.yaw(mc.field_1724.method_36454(), snap[0]),
-               this.quantizer.pitch(mc.field_1724.method_36455(), snap[1])
+               this.quantizer.yaw(mc.field_1724.method_36454(), this.capYaw(snap[0])),
+               this.quantizer.pitch(mc.field_1724.method_36455(), this.capPitch(snap[1]))
             );
-            this.lookingAtHitbox = this.isLookingAtHitbox(this.rotationYaw, this.rotationPitch, target, this.getRange());
+            this.lookingAtHitbox = this.isLookingAtHitbox(this.rotationYaw, this.rotationPitch, target, this.getReach());
          }
 
          return;
@@ -367,24 +623,24 @@ public class AttackAura extends Module {
       float noisyYaw = (float)((double)this.desiredYaw + this.yawTremor.next(noiseScale));
       float noisyPitch = (float)((double)this.desiredPitch + this.pitchTremor.next(noiseScale * 0.6));
       this.applyRotation(
-         this.quantizer.yaw(mc.field_1724.method_36454(), noisyYaw),
-         this.quantizer.pitch(mc.field_1724.method_36455(), noisyPitch)
+         this.quantizer.yaw(mc.field_1724.method_36454(), this.capYaw(noisyYaw)),
+         this.quantizer.pitch(mc.field_1724.method_36455(), this.capPitch(noisyPitch))
       );
-      this.lookingAtHitbox = this.isLookingAtHitbox(this.rotationYaw, this.rotationPitch, target, this.getRange());
+      this.lookingAtHitbox = this.isLookingAtHitbox(this.rotationYaw, this.rotationPitch, target, this.getReach());
 
       // elytra: the target moves too fast for the smoothed aim, snap onto its eye position
       if (!this.lookingAtHitbox && mc.field_1724.method_6128() && this.rotationMode.getValue() == AttackAura.Mode.HvH && this.autoCrit()) {
          float[] snap = this.anglesTo(target.method_33571());
          this.applyRotation(
-            this.quantizer.yaw(mc.field_1724.method_36454(), snap[0]),
-            this.quantizer.pitch(mc.field_1724.method_36455(), snap[1])
+            this.quantizer.yaw(mc.field_1724.method_36454(), this.capYaw(snap[0])),
+            this.quantizer.pitch(mc.field_1724.method_36455(), this.capPitch(snap[1]))
          );
-         this.lookingAtHitbox = this.isLookingAtHitbox(this.rotationYaw, this.rotationPitch, target, this.getRange());
+         this.lookingAtHitbox = this.isLookingAtHitbox(this.rotationYaw, this.rotationPitch, target, this.getReach());
       }
    }
 
    /** Ray (from the eye along yaw / pitch, length distance) against the target hitbox, slab method. */
-   private boolean isLookingAtHitbox(float yaw, float pitch, class_1297 entity, float distance) {
+   private double rayEntry(float yaw, float pitch, class_1297 entity, float distance) {
       float yawRad = yaw * (float)(Math.PI / 180.0);
       float pitchRad = pitch * (float)(Math.PI / 180.0);
       float cosPitch = class_3532.method_15362(pitchRad);
@@ -399,7 +655,7 @@ public class AttackAura extends Module {
       for (int axis = 0; axis < 3; axis++) {
          if (dir[axis] > -1.0E-9 && dir[axis] < 1.0E-9) {
             if (origin[axis] < min[axis] || origin[axis] > max[axis]) {
-               return false;
+               return -1.0;
             }
          } else {
             double inv = 1.0 / dir[axis];
@@ -414,18 +670,26 @@ public class AttackAura extends Module {
             tMin = Math.max(tMin, t1);
             tMax = Math.min(tMax, t2);
             if (tMin > tMax) {
-               return false;
+               return -1.0;
             }
          }
       }
 
-      return true;
+      return tMin;
+   }
+
+   private boolean isLookingAtHitbox(float yaw, float pitch, class_1297 entity, float distance) {
+      return this.rayEntry(yaw, pitch, entity, distance) >= 0.0;
    }
 
    // ---------------------------------------------------------------- attack
 
    private void tryAttack() {
       if (target == null || !this.autoCrit() || !this.lookingAtHitbox) {
+         return;
+      }
+
+      if (this.bypass.getValue() && this.level.wallCheck && this.wallBlocked(this.rotationYaw, this.rotationPitch, this.getReach())) {
          return;
       }
 
@@ -445,6 +709,13 @@ public class AttackAura extends Module {
       mc.field_1761.method_2918(mc.field_1724, target);
       Criticals.cancelCrit = false;
       mc.field_1724.method_6104(class_1268.field_5808);
+      this.lastRealAttackMs = System.currentTimeMillis();
+      if (target instanceof class_1309 living && !living.method_6115()) {
+         this.pendingTarget = target;
+         this.pendingHealth = living.method_6032() + living.method_6067();
+         this.pendingTicks = 0;
+      }
+
       this.rollNextAttack();
       if (prevSlot != -1) {
          InventoryUtility.switchTo(prevSlot);
@@ -472,6 +743,10 @@ public class AttackAura extends Module {
       this.attackDelayMs = (long)rnd.nextDouble(450.0, 550.0);
       if (rnd.nextFloat() < 0.07F) {
          this.attackDelayMs += (long)rnd.nextDouble(150.0, 400.0);
+      }
+
+      if (this.bypass.getValue()) {
+         this.attackDelayMs += this.level.extraDelayMs;
       }
 
       this.cooldownGate = ATTACK_COOLDOWN + (float)rnd.nextDouble(-0.08, 0.08);

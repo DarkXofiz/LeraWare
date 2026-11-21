@@ -2,6 +2,7 @@ package neva.ware.features.modules.movement;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.class_1297;
 import net.minecraft.class_238;
@@ -51,6 +52,7 @@ public class ElytraFlight extends Module {
 
    /** Otomatik secilen bypass profilleri. Siralama siki -> gevsek. */
    private enum Profile {
+      SAFE(28.0F, 18.0F, 24.0F, 26.0F, 12, 3.5F, 16),
       STRICT(36.0F, 22.0F, 30.0F, 32.0F, 16, 5.0F, 14),
       NORMAL(52.0F, 28.0F, 36.0F, 38.0F, 22, 9.0F, 12),
       RELAXED(70.0F, 35.0F, 40.0F, 42.0F, 28, 14.0F, 12);
@@ -122,6 +124,13 @@ public class ElytraFlight extends Module {
    private long cleanSinceMs;
    private long relaxedAtMs;
 
+   // ---- [BYPASS+] sakin sure + desen kirici titresim ----
+   private long calmUntilMs;
+   private float jMax = 1.0F;
+   private float jMin = 1.0F;
+   private float jStep = 1.0F;
+   private int jitterTicks;
+
    public ElytraFlight() {
       super("ElytraFlight", Module.Category.MOVEMENT);
    }
@@ -160,6 +169,8 @@ public class ElytraFlight extends Module {
       this.windowStartMs = now;
       this.cleanSinceMs = now;
       this.relaxedAtMs = 0L;
+      this.calmUntilMs = 0L;
+      this.jitterTicks = 0;
    }
 
    /** Sunucu bizi geri cektiyse (rubberband) ucus sirasinda sayilir. */
@@ -173,6 +184,30 @@ public class ElytraFlight extends Module {
          this.setbackCount++;
          this.cleanSinceMs = now;
       }
+   }
+
+   /** AttackAura anticheat tepkisi gorurse ucus profilini de bir kademe sikilastirir. */
+   public void externalTighten() {
+      long now = System.currentTimeMillis();
+      if (this.profile.ordinal() > 0) {
+         this.profile = Profile.values()[this.profile.ordinal() - 1];
+         SERVER_PROFILE.put(this.serverKey, this.profile);
+         this.notifyProfile("Aura tepkisi algilandi, profil: " + this.profile.name());
+      }
+      this.calmUntilMs = now + 2500L;
+      this.cleanSinceMs = now;
+   }
+
+   /** Her 30-70 tickte hiz esikleri ve donus adimi %6-%15 oraninda yeniden secilir: sabit periyodik desen olusmaz. */
+   private void rollJitter() {
+      if (--this.jitterTicks > 0) {
+         return;
+      }
+      ThreadLocalRandom r = ThreadLocalRandom.current();
+      this.jitterTicks = 30 + r.nextInt(40);
+      this.jMax = 0.94F + r.nextFloat() * 0.12F;
+      this.jMin = 0.94F + r.nextFloat() * 0.12F;
+      this.jStep = 0.85F + r.nextFloat() * 0.30F;
    }
 
    private void notifyProfile(String text) {
@@ -196,11 +231,15 @@ public class ElytraFlight extends Module {
             this.ceiling = Profile.values()[Math.max(0, this.profile.ordinal() - 1)];
             SERVER_CEILING.put(this.serverKey, this.ceiling);
          }
-         if (this.profile.ordinal() > 0) {
-            this.profile = Profile.values()[this.profile.ordinal() - 1];
+         int drop = this.setbackCount >= 4 ? 2 : 1;
+         int idx = Math.max(0, this.profile.ordinal() - drop);
+         if (idx != this.profile.ordinal()) {
+            this.profile = Profile.values()[idx];
             SERVER_PROFILE.put(this.serverKey, this.profile);
             this.notifyProfile("Anticheat tepkisi algilandi, profil: " + this.profile.name());
          }
+         // geri cekmeden hemen sonra yon/pitch mudahalesini birakip vanilla fizige birkac saniye izin ver
+         this.calmUntilMs = now + 2500L;
          this.setbackCount = 0;
          this.windowStartMs = now;
          this.cleanSinceMs = now;
@@ -243,6 +282,13 @@ public class ElytraFlight extends Module {
 
       if (this.mode.is(Mode.Bypass)) {
          this.adaptProfile();
+         if (System.currentTimeMillis() < this.calmUntilMs) {
+            this.bypassActive = false;
+            this.steering = false;
+            this.trackedTarget = null;
+            return;
+         }
+         this.rollJitter();
          if (this.hitbox.getValue() && ModuleManager.aura.isEnabled() && AttackAura.target != null && AttackAura.target.method_5805()) {
             this.bypassActive = false;
             this.runEngage(AttackAura.target);
@@ -445,10 +491,10 @@ public class ElytraFlight extends Module {
          wantPitch = -p.climb;
       }
 
-      float yawStep = p.pitchStep * 2.5F;
+      float yawStep = p.pitchStep * 2.5F * this.jStep;
       float nextYaw = curYaw + class_3532.method_15363(class_3532.method_15393(wantYaw - curYaw), -yawStep, yawStep);
       float nextPitch = class_3532.method_15363(
-         curPitch + class_3532.method_15363(wantPitch - curPitch, -p.pitchStep, p.pitchStep), -90.0F, 90.0F
+         curPitch + class_3532.method_15363(wantPitch - curPitch, -p.pitchStep * this.jStep, p.pitchStep * this.jStep), -90.0F, 90.0F
       );
 
       // fare hassasiyet izgarasina oturt
@@ -493,8 +539,8 @@ public class ElytraFlight extends Module {
       double speed = Math.sqrt(vx * vx + vz * vz) * 20.0;
       double y = mc.field_1724.method_23318();
 
-      float maxS = p.maxSpeed;
-      float minS = Math.min(p.minSpeed, maxS - 5.0F);
+      float maxS = p.maxSpeed * this.jMax;
+      float minS = Math.min(p.minSpeed * this.jMin, maxS - 5.0F);
       double half = (double)p.band / 2.0;
 
       if (!this.bypassActive) {
@@ -525,7 +571,7 @@ public class ElytraFlight extends Module {
 
       float target = this.phase == Phase.DIVE ? p.dive : -p.climb;
       float cur = mc.field_1724.method_36455();
-      float next = class_3532.method_15363(cur + class_3532.method_15363(target - cur, -p.pitchStep, p.pitchStep), -90.0F, 90.0F);
+      float next = class_3532.method_15363(cur + class_3532.method_15363(target - cur, -p.pitchStep * this.jStep, p.pitchStep * this.jStep), -90.0F, 90.0F);
 
       // fare hassasiyet izgarasina oturt: rotasyon farki gercek fare girdisi gibi gorunur
       double gcd = Math.pow((Double)mc.field_1690.method_42495().method_41753() * 0.6 + 0.2, 3.0) * 1.2;
