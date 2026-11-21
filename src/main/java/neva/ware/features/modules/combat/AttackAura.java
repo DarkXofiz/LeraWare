@@ -125,6 +125,18 @@ public class AttackAura extends Module {
       return mc.field_1724.method_7261(0.0F);
    }
 
+   /**
+    * Elytra "ters bakis": AttackAura + (ElytraFlight LookBack veya ElytraTarget) acik, elytra ile ucuyoruz ve hedef var.
+    * Hedefin ilerisine gecince rotasyon aninda hedefe doner, vurus rotasyon paketinden hemen sonra yapilir.
+    */
+   public boolean elytraLook() {
+      return target != null
+         && mc.field_1724 != null
+         && mc.field_1724.method_6128()
+         && (ModuleManager.elytraFlight != null && ModuleManager.elytraFlight.isEnabled() && ModuleManager.elytraFlight.lookBack.getValue()
+            || ModuleManager.elytratarget != null && ModuleManager.elytratarget.isEnabled());
+   }
+
    @Override
    public void onEnable() {
       target = null;
@@ -327,6 +339,25 @@ public class AttackAura extends Module {
    }
 
    private void commitRotation() {
+      if (this.elytraLook()) {
+         float[] direct = this.anglesTo(this.closestPointOnBox(mc.field_1724.method_33571(), target.method_5829()));
+         this.applyRotation(
+            this.quantizer.yaw(mc.field_1724.method_36454(), direct[0]),
+            this.quantizer.pitch(mc.field_1724.method_36455(), direct[1])
+         );
+         this.lookingAtHitbox = this.isLookingAtHitbox(this.rotationYaw, this.rotationPitch, target, this.getRange());
+         if (!this.lookingAtHitbox) {
+            float[] snap = this.anglesTo(target.method_5829().method_1005());
+            this.applyRotation(
+               this.quantizer.yaw(mc.field_1724.method_36454(), snap[0]),
+               this.quantizer.pitch(mc.field_1724.method_36455(), snap[1])
+            );
+            this.lookingAtHitbox = this.isLookingAtHitbox(this.rotationYaw, this.rotationPitch, target, this.getRange());
+         }
+
+         return;
+      }
+
       this.updateDesiredRotation();
       double gcd = this.quantizer.getGcd();
       double noiseScale = Math.max(gcd * 0.6, 0.02);
@@ -475,7 +506,7 @@ public class AttackAura extends Module {
          || mc.field_1724.method_6059(class_1294.field_5919)
          || mc.field_1724.method_6059(class_1294.field_5906)
          || Managers.PLAYER.isInWeb();
-      if (System.currentTimeMillis() - this.lastAttackMs < this.attackDelayMs) {
+      if (!this.elytraLook() && System.currentTimeMillis() - this.lastAttackMs < this.attackDelayMs) {
          return false;
       }
 
