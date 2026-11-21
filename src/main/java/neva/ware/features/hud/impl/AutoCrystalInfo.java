@@ -1,0 +1,183 @@
+package neva.ware.features.hud.impl;
+
+import com.mojang.blaze3d.systems.RenderSystem;
+import java.awt.Color;
+import java.util.ArrayDeque;
+import java.util.Collections;
+import net.minecraft.class_124;
+import net.minecraft.class_287;
+import net.minecraft.class_289;
+import net.minecraft.class_290;
+import net.minecraft.class_332;
+import net.minecraft.class_757;
+import net.minecraft.class_293.class_5596;
+import neva.ware.core.manager.client.ModuleManager;
+import neva.ware.features.hud.HudElement;
+import neva.ware.features.hud.NwHud;
+import neva.ware.features.modules.client.HudEditor;
+import neva.ware.features.modules.combat.AutoCrystal;
+import neva.ware.gui.font.FontRenderers;
+import neva.ware.utility.math.MathUtility;
+import neva.ware.utility.render.Render2DEngine;
+
+public class AutoCrystalInfo extends HudElement {
+    private final ArrayDeque<Integer> speeds = new ArrayDeque(20);
+    private int max;
+    private int min;
+    private long time;
+
+    public AutoCrystalInfo() {
+        super("AutoCrystalInfo", 175, 80);
+    }
+
+    @Override
+    public void onRender2D(class_332 context) {
+        super.onRender2D(context);
+        NwHud.drawHudBase(context.method_51448(), this.getPosX(), this.getPosY(), this.getWidth(), this.getHeight(), HudEditor.hudRound.getValue());
+        Color c1 = HudEditor.getColor(0).darker().darker().darker();
+        Color c2 = HudEditor.getColor(0);
+        Render2DEngine.drawRect(
+            context.method_51448(), this.getPosX() + 2.0F, this.getPosY() + 14.0F, 96.0F, 64.0F, HudEditor.hudRound.getValue(), 0.4F, c1, c1, c1, c1
+        );
+        FontRenderers.sf_bold.drawGradientString(context.method_51448(), "AutoCrystal Info", this.getPosX() + 2.0F, this.getPosY() + 4.0F, 10);
+        RenderSystem.setShader(class_757::method_34540);
+        class_287 bufferBuilder = class_289.method_1348().method_60827(class_5596.field_29345, class_290.field_1576);
+        float offset = 0.0F;
+
+        for (Integer speed : this.speeds) {
+            bufferBuilder.method_22912(this.getPosX() + 2.0F + offset, this.getPosY() + 80.0F - 55.0F * ((float)speed.intValue() / this.max), 0.0F)
+                .method_39415(c2.getRGB());
+            offset += 4.8F;
+        }
+
+        Render2DEngine.endBuilding(bufferBuilder);
+        class_287 bufferBuilder2 = class_289.method_1348().method_60827(class_5596.field_27380, class_290.field_1576);
+        offset = 0.0F;
+
+        for (Integer speed : this.speeds) {
+            bufferBuilder2.method_22912(this.getPosX() + 2.0F + offset, this.getPosY() + 80.0F - 55.0F * ((float)speed.intValue() / this.max), 0.0F)
+                .method_39415(Render2DEngine.applyOpacity(c2.getRGB(), 0.3F));
+            bufferBuilder2.method_22912(this.getPosX() + 2.0F + offset, this.getPosY() + 80.0F, 0.0F)
+                .method_39415(Render2DEngine.applyOpacity(c2.darker().darker().getRGB(), 0.0F));
+            offset += 4.8F;
+        }
+
+        Render2DEngine.endBuilding(bufferBuilder2);
+        FontRenderers.sf_bold_mini
+            .drawString(context.method_51448(), this.max + "", this.getPosX() + 100.0F, this.getPosY() + 16.0F, HudEditor.textColor.getValue().getRawColor());
+        if (!this.speeds.isEmpty()) {
+            FontRenderers.sf_bold_mini
+                .drawString(
+                    context.method_51448(),
+                    this.speeds.getLast() + "",
+                    this.getPosX() + 100.0F,
+                    this.getPosY() + 80.0F - 55.0F * ((float)((Integer)this.speeds.getLast()).intValue() / this.max),
+                    HudEditor.textColor.getValue().getRawColor()
+                );
+        }
+
+        FontRenderers.sf_bold_mini
+            .drawString(context.method_51448(), this.min + "", this.getPosX() + 100.0F, this.getPosY() + 72.0F, HudEditor.textColor.getValue().getRawColor());
+        boolean isNull = ModuleManager.autoCrystal.getCurrentData() == null;
+        FontRenderers.sf_bold_mini
+            .drawString(
+                context.method_51448(),
+                "Target: " + class_124.field_1080 + (AutoCrystal.target == null ? "null" : AutoCrystal.target.method_5477().getString()),
+                this.getPosX() + 113.0F,
+                this.getPosY() + 16.0F,
+                HudEditor.textColor.getValue().getRawColor()
+            );
+        int calc = (int)ModuleManager.autoCrystal.getCalcTime();
+        float efficiency = isNull
+            ? 0.0F
+            : MathUtility.round2(ModuleManager.autoCrystal.getCurrentData().damage() / ModuleManager.autoCrystal.getCurrentData().selfDamage());
+        FontRenderers.sf_bold_mini
+            .drawString(
+                context.method_51448(),
+                "Calc delay: " + this.getCalcColor(calc) + calc + "ms",
+                this.getPosX() + 113.0F,
+                this.getPosY() + 24.0F,
+                HudEditor.textColor.getValue().getRawColor()
+            );
+        FontRenderers.sf_bold_mini
+            .drawString(
+                context.method_51448(),
+                "Side: " + class_124.field_1080 + (isNull ? "null" : ModuleManager.autoCrystal.getCurrentData().bhr().method_17780()),
+                this.getPosX() + 113.0F,
+                this.getPosY() + 32.0F,
+                HudEditor.textColor.getValue().getRawColor()
+            );
+        FontRenderers.sf_bold_mini
+            .drawString(
+                context.method_51448(),
+                "Damage: " + class_124.field_1080 + (isNull ? "null" : MathUtility.round2(ModuleManager.autoCrystal.getCurrentData().damage())),
+                this.getPosX() + 113.0F,
+                this.getPosY() + 40.0F,
+                HudEditor.textColor.getValue().getRawColor()
+            );
+        FontRenderers.sf_bold_mini
+            .drawString(
+                context.method_51448(),
+                "Self: " + class_124.field_1080 + (isNull ? "null" : MathUtility.round2(ModuleManager.autoCrystal.getCurrentData().selfDamage())),
+                this.getPosX() + 113.0F,
+                this.getPosY() + 48.0F,
+                HudEditor.textColor.getValue().getRawColor()
+            );
+        FontRenderers.sf_bold_mini
+            .drawString(
+                context.method_51448(),
+                "Overr. dmg: " + class_124.field_1080 + (isNull ? "null" : ModuleManager.autoCrystal.getCurrentData().overrideDamage()),
+                this.getPosX() + 113.0F,
+                this.getPosY() + 56.0F,
+                HudEditor.textColor.getValue().getRawColor()
+            );
+        FontRenderers.sf_bold_mini
+            .drawString(
+                context.method_51448(),
+                "Efficiency: " + this.getEfficiencyColor(efficiency) + efficiency,
+                this.getPosX() + 113.0F,
+                this.getPosY() + 64.0F,
+                HudEditor.textColor.getValue().getRawColor()
+            );
+        FontRenderers.sf_bold_mini
+            .drawString(
+                context.method_51448(),
+                "Pause: " + ModuleManager.autoCrystal.getPauseState(),
+                this.getPosX() + 113.0F,
+                this.getPosY() + 72.0F,
+                HudEditor.textColor.getValue().getRawColor()
+            );
+        Render2DEngine.drawRect(context.method_51448(), this.getPosX() + 110.5F, this.getPosY() + 12.0F, 0.5F, 65.0F, new Color(1157627903, true));
+        this.setBounds(this.getPosX(), this.getPosY(), this.getWidth(), this.getHeight());
+    }
+
+    public class_124 getCalcColor(float val) {
+        if (val > 20.0F) {
+            return class_124.field_1061;
+        } else {
+            return val > 10.0F ? class_124.field_1054 : class_124.field_1060;
+        }
+    }
+
+    public class_124 getEfficiencyColor(float val) {
+        if (val > 6.0F) {
+            return class_124.field_1060;
+        } else {
+            return val < 1.0F ? class_124.field_1061 : class_124.field_1054;
+        }
+    }
+
+    public void onSpawn() {
+        if (this.time != 0L) {
+            if (this.speeds.size() > 20) {
+                this.speeds.poll();
+            }
+
+            this.speeds.add((int)(1000.0F / (float)(System.currentTimeMillis() - this.time)));
+            this.max = (Integer)Collections.max(this.speeds);
+            this.min = (Integer)Collections.min(this.speeds);
+        }
+
+        this.time = System.currentTimeMillis();
+    }
+}

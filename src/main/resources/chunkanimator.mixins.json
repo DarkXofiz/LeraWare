@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "ru.donyka.chunkanimator.mixin",
+  "plugin": "ru.donyka.chunkanimator.mixin.ChunkAnimatorMixinPlugin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "BuiltChunkMixin",
+    "WorldRendererMixin",
+    "sodium.SodiumRenderSectionMixin",
+    "sodium.SodiumRenderRegionMixin",
+    "sodium.SodiumDefaultChunkRendererMixin",
+    "sodium.SodiumShaderLoaderMixin",
+    "sodium.legacy.LegacySodiumRenderSectionMixin",
+    "sodium.legacy.LegacySodiumRenderRegionMixin",
+    "sodium.legacy.LegacySodiumDefaultChunkRendererMixin",
+    "sodium.legacy.LegacySodiumShaderLoaderMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "chunkanimator-fabric-refmap.json"
+}

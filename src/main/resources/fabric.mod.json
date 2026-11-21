@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "nevaware",
+  "version": "1.7",
+  "icon": "icon.png",
+  "name": "LeraWare",
+  "description": "Minecraft Hack",
+  "authors": [
+    {
+      "name": "TrNeverMind",
+      "contact": {
+        "discord": "efx.inc"
+      }
+    }
+  ],
+  "license": "GNU General Public License v3.0",
+  "accessWidener": "nevaware.accesswidener",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "neva.ware.NevaWare"
+    ]
+  },
+  "contact": {
+    "sources": "LeraWare",
+    "homepage": "LeraWare",
+    "issues": "LeraWare"
+  },
+  "mixins": [
+    "nevaware.mixins.json",
+    "chunkanimator.mixins.json",
+    "chatanimation.mixins.json",
+    "inventoryanimation.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.11",
+    "minecraft": "~1.21",
+    "java": ">=21"
+  },
+  "suggests": {
+    "sodium": "*",
+    "exordium": "*",
+    "starlight": "*",
+    "ias": "*",
+    "viafabricplus": "*"
+  }
+}
