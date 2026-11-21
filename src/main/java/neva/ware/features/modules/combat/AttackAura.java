@@ -219,7 +219,10 @@ public class AttackAura extends Module {
       float prevPitch = mc.field_1724.method_36455();
       mc.field_1724.method_36456(this.rotationYaw);
       mc.field_1724.method_36457(this.rotationPitch);
-      ModuleManager.rotations.fixRotation = this.rotationYaw;
+      if (!this.elytraLook()) {
+         ModuleManager.rotations.fixRotation = this.rotationYaw;
+      }
+
       Runnable previous = e.getPostAction();
       e.addPostAction(() -> {
          try {

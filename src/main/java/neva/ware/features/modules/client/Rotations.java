@@ -49,6 +49,9 @@ public class Rotations extends Module {
             && AttackAura.target != null
             && ModuleManager.aura.rotationMode.not(null)
             && ModuleManager.aura.elytraTarget.getValue()
+            && !Float.isNaN(this.fixRotation)
+            && !ModuleManager.aura.elytraLook()
+            && !ModuleManager.elytraFlight.isEnabled()
             && Managers.PLAYER.ticksElytraFlying > 5) {
             if (e.isPre()) {
                 this.prevYaw = mc.field_1724.method_36454();
