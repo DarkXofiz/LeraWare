@@ -28,8 +28,8 @@ import neva.ware.utility.Timer;
  * Mode Bypass : istemci hicbir hiz/pozisyon uydurmaz, hareketi vanilla elytra fizigi uretir; modul sadece
  *               yaw/pitch'i secer. Ayar YOK: sunucunun geri cekme (rubberband) tepkisinden ogrenip kendini
  *               STRICT / NORMAL / RELAXED profilleri arasinda otomatik ayarlar.
- *               Aura hedefi varsa Hitbox sistemi devreye girer: rakibin onunda / arkasinda / kafasinda bir nokta
- *               otomatik secilir, o noktadan gecilir, Aura ters donup vurur (LookBack her zaman acik).
+ *               Hitbox acikken (varsayilan kapali) ve Aura hedefi varsa: rakibin onunda / arkasinda / kafasinda bir
+ *               nokta otomatik secilir, ucus o noktadan gecer. Yon sessiz uygulanir, kamera oynamaz.
  */
 public class ElytraFlight extends Module {
    public enum Mode {
@@ -82,8 +82,12 @@ public class ElytraFlight extends Module {
    public final Setting<Float> maxSpeed = new Setting<>("MaxSpeed", 1.6F, 0.5F, 3.0F, v -> this.mode.is(Mode.Boost));
    public final Setting<Boolean> onlySpace = new Setting<>("OnlyWhileSpace", false, v -> this.mode.is(Mode.Boost));
 
-   // ---- Boost mode: Aura entegre ters bakis (Bypass modunda her zaman otomatik acik) ----
-   public final Setting<Boolean> lookBack = new Setting<>("LookBack", true, v -> this.mode.is(Mode.Boost));
+   // ---- Sadece ac / kapat anahtarlari (ayar degeri yok) ----
+   public final Setting<Boolean> lookBack = new Setting<>("LookBack", true);
+   public final Setting<Boolean> hitbox = new Setting<>("Hitbox", true, v -> this.mode.is(Mode.Bypass));
+   public boolean steering;
+   public float flightYaw;
+   public float flightPitch;
    private float lastBypassPitch = Float.NaN;
    private long manualUntilMs;
 
@@ -98,6 +102,7 @@ public class ElytraFlight extends Module {
 
    private Anchor anchor = Anchor.FRONT;
    private int anchorLock;
+   private int passHold;
    private class_1297 trackedTarget;
    private double lastTx;
    private double lastTz;
@@ -132,6 +137,7 @@ public class ElytraFlight extends Module {
    @Override
    public void onDisable() {
       this.bypassActive = false;
+      this.steering = false;
       this.lastBypassPitch = Float.NaN;
    }
 
@@ -230,24 +236,32 @@ public class ElytraFlight extends Module {
 
       if (!mc.field_1724.method_6128()) {
          this.bypassActive = false;
+         this.steering = false;
          return;
       }
       this.lastFlyingMs = System.currentTimeMillis();
 
       if (this.mode.is(Mode.Bypass)) {
          this.adaptProfile();
-         if (ModuleManager.aura.isEnabled() && AttackAura.target != null && AttackAura.target.method_5805()) {
+         if (this.hitbox.getValue() && ModuleManager.aura.isEnabled() && AttackAura.target != null && AttackAura.target.method_5805()) {
             this.bypassActive = false;
             this.runEngage(AttackAura.target);
             return;
          }
          this.trackedTarget = null;
+         this.steering = false;
+         if (ModuleManager.aura.isEnabled() && AttackAura.target != null) {
+            // Hitbox kapaliyken hedefteyken rotasyonu Aura yonetir. Bypass pitch'e karismaz.
+            this.bypassActive = false;
+            return;
+         }
          this.runBypass();
          return;
       }
 
       this.bypassActive = false;
       this.trackedTarget = null;
+      this.steering = false;
       this.runBoost(speed);
    }
 
@@ -315,6 +329,7 @@ public class ElytraFlight extends Module {
       // rakibin yatay hizi (tick basina), yumusatilmis
       if (t != this.trackedTarget) {
          this.trackedTarget = t;
+         this.passHold = 0;
          this.lastTx = tx;
          this.lastTz = tz;
          this.tVelX = 0.0;
@@ -361,6 +376,10 @@ public class ElytraFlight extends Module {
             pick = dot < 0.0 ? Anchor.FRONT : Anchor.BEHIND;
          }
          if (pick != this.anchor) {
+            if (hDist < 8.0 && this.anchor != Anchor.HEAD && pick != Anchor.HEAD) {
+               // rakibin ilerisine gectik: hemen donme, ters donmeden once duz gidip mesafe ac
+               this.passHold = 8;
+            }
             this.anchor = pick;
             this.anchorLock = 12;
          }
@@ -397,10 +416,20 @@ public class ElytraFlight extends Module {
       double dy = ay - eye.field_1351;
       double dz = az - eye.field_1350;
       double hd = Math.sqrt(dx * dx + dz * dz);
-      float curYaw = mc.field_1724.method_36454();
-      float curPitch = mc.field_1724.method_36455();
+      float curYaw = this.steering ? this.flightYaw : mc.field_1724.method_36454();
+      float curPitch = this.steering ? this.flightPitch : mc.field_1724.method_36455();
       float wantYaw = (float)(Math.toDegrees(Math.atan2(dz, dx)) - 90.0);
       float wantPitch = (float)(-Math.toDegrees(Math.atan2(dy, Math.max(hd, 0.001))));
+
+      if (this.passHold > 0) {
+         this.passHold--;
+         double hv = Math.sqrt(mc.field_1724.method_18798().field_1352 * mc.field_1724.method_18798().field_1352
+            + mc.field_1724.method_18798().field_1350 * mc.field_1724.method_18798().field_1350);
+         if (hv > 0.2) {
+            wantYaw = (float)(Math.toDegrees(Math.atan2(mc.field_1724.method_18798().field_1350, mc.field_1724.method_18798().field_1352)) - 90.0);
+            wantPitch = curPitch;
+         }
+      }
 
       // hiz / yer korumasi: yavassak once dal, cok hizliysa tirmanma, yere yakinsa tirman
       double vx = mc.field_1724.method_18798().field_1352;
@@ -430,8 +459,15 @@ public class ElytraFlight extends Module {
       }
       nextPitch = class_3532.method_15363(nextPitch, -90.0F, 90.0F);
 
-      mc.field_1724.method_36456(nextYaw);
-      mc.field_1724.method_36457(nextPitch);
+      // sessiz: sadece ucus hesabinda uygulanir (Rotations), kamera oynamaz
+      this.flightYaw = nextYaw;
+      this.flightPitch = nextPitch;
+      this.steering = true;
+   }
+
+   /** Rotations modulu ucus hesabinda flightYaw / flightPitch kullanir. */
+   public boolean steerActive() {
+      return this.steering && this.isEnabled() && this.mode.is(Mode.Bypass) && this.hitbox.getValue();
    }
 
    /**

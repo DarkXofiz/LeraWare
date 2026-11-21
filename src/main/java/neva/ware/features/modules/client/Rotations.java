@@ -45,7 +45,17 @@ public class Rotations extends Module {
     }
 
     public void modifyVelocity(EventPlayerTravel e) {
-        if (ModuleManager.aura.isEnabled()
+        if (ModuleManager.elytraFlight.steerActive()) {
+            if (e.isPre()) {
+                this.prevYaw = mc.field_1724.method_36454();
+                this.prevPitch = mc.field_1724.method_36455();
+                mc.field_1724.method_36456(ModuleManager.elytraFlight.flightYaw);
+                mc.field_1724.method_36457(ModuleManager.elytraFlight.flightPitch);
+            } else {
+                mc.field_1724.method_36456(this.prevYaw);
+                mc.field_1724.method_36457(this.prevPitch);
+            }
+        } else if (ModuleManager.aura.isEnabled()
             && AttackAura.target != null
             && ModuleManager.aura.rotationMode.not(null)
             && ModuleManager.aura.elytraTarget.getValue()
