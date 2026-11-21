@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.class_1297;
+import net.minecraft.class_238;
 import net.minecraft.class_2338;
+import net.minecraft.class_243;
 import net.minecraft.class_2708;
 import net.minecraft.class_3532;
 import neva.ware.core.Managers;
@@ -20,19 +22,26 @@ import neva.ware.utility.Timer;
 /**
  * ElytraFlight
  *
- * Mode Boost  : elytra ile ucarken bakilan yone belirli araliklarla hiz verir.
+ * Mode Boost  : elytra ile ucarken bakilan yone belirli araliklarla hiz verir. Ayarlari vardir.
  *               Aura hedefi varsa hedefe dogru yaklasir, hedefi gectikten sonra ivmeyi korur.
+ *               LookBack acikken Aura hedefin ilerisine gecince ters donup vurur.
  * Mode Bypass : istemci hicbir hiz/pozisyon uydurmaz, hareketi vanilla elytra fizigi uretir; modul sadece
- *               pitch'i secer. Ayar YOK: sunucunun geri cekme (rubberband) tepkisinden ogrenip kendini
+ *               yaw/pitch'i secer. Ayar YOK: sunucunun geri cekme (rubberband) tepkisinden ogrenip kendini
  *               STRICT / NORMAL / RELAXED profilleri arasinda otomatik ayarlar.
- *
- * LookBack    : Aura'nin elytra "ters bakis" sistemini acar (hedefi gecince aninda hedefe donup vurur).
- *               Mantik Aura icinde, bu modul rotasyona dokunmaz.
+ *               Aura hedefi varsa Hitbox sistemi devreye girer: rakibin onunda / arkasinda / kafasinda bir nokta
+ *               otomatik secilir, o noktadan gecilir, Aura ters donup vurur (LookBack her zaman acik).
  */
 public class ElytraFlight extends Module {
    public enum Mode {
       Boost,
       Bypass
+   }
+
+   /** Bypass hitbox sistemi: rakibe gore otomatik secilen gecis noktasi. */
+   private enum Anchor {
+      FRONT,
+      BEHIND,
+      HEAD
    }
 
    private enum Phase {
@@ -73,9 +82,8 @@ public class ElytraFlight extends Module {
    public final Setting<Float> maxSpeed = new Setting<>("MaxSpeed", 1.6F, 0.5F, 3.0F, v -> this.mode.is(Mode.Boost));
    public final Setting<Boolean> onlySpace = new Setting<>("OnlyWhileSpace", false, v -> this.mode.is(Mode.Boost));
 
-   // ---- Her iki mod: Aura entegre ters bakis ----
-   public final Setting<Boolean> lookBack = new Setting<>("LookBack", true);
-   public final Setting<Boolean> autoPitch = new Setting<>("AutoPitch", true, v -> this.mode.is(Mode.Bypass));
+   // ---- Boost mode: Aura entegre ters bakis (Bypass modunda her zaman otomatik acik) ----
+   public final Setting<Boolean> lookBack = new Setting<>("LookBack", true, v -> this.mode.is(Mode.Boost));
    private float lastBypassPitch = Float.NaN;
    private long manualUntilMs;
 
@@ -87,6 +95,14 @@ public class ElytraFlight extends Module {
    private double lastY;
    private double lastZ;
    private boolean hasLast;
+
+   private Anchor anchor = Anchor.FRONT;
+   private int anchorLock;
+   private class_1297 trackedTarget;
+   private double lastTx;
+   private double lastTz;
+   private double tVelX;
+   private double tVelZ;
 
    private Phase phase = Phase.DIVE;
    private double holdY;
@@ -220,16 +236,18 @@ public class ElytraFlight extends Module {
 
       if (this.mode.is(Mode.Bypass)) {
          this.adaptProfile();
-         if (ModuleManager.aura.isEnabled() && AttackAura.target != null) {
-            // Hedefteyken rotasyonu Aura yonetir (hedefe yaklas, gec, ters don, vur). Bypass pitch'e karismaz.
+         if (ModuleManager.aura.isEnabled() && AttackAura.target != null && AttackAura.target.method_5805()) {
             this.bypassActive = false;
+            this.runEngage(AttackAura.target);
             return;
          }
+         this.trackedTarget = null;
          this.runBypass();
          return;
       }
 
       this.bypassActive = false;
+      this.trackedTarget = null;
       this.runBoost(speed);
    }
 
@@ -282,15 +300,145 @@ public class ElytraFlight extends Module {
    }
 
    /**
+    * Bypass + Aura: hitbox sistemi. Rakibin onunda, arkasinda veya kafasinda otomatik bir gecis noktasi secilir
+    * ve ucus o noktadan gecer (ilerisine gecip ters donerek tekrar gecer); vurusu Aura ters bakisla yapar.
+    * Hic bir zaman velocity/pozisyon yazmaz, sadece yaw/pitch secer.
+    */
+   private void runEngage(class_1297 t) {
+      Profile p = this.profile;
+      double tx = t.method_23317();
+      double ty = t.method_23318();
+      double tz = t.method_23321();
+      class_238 box = t.method_5829();
+      double height = box.field_1325 - box.field_1322;
+
+      // rakibin yatay hizi (tick basina), yumusatilmis
+      if (t != this.trackedTarget) {
+         this.trackedTarget = t;
+         this.lastTx = tx;
+         this.lastTz = tz;
+         this.tVelX = 0.0;
+         this.tVelZ = 0.0;
+         this.anchorLock = 0;
+      } else {
+         this.tVelX = this.tVelX * 0.6 + (tx - this.lastTx) * 0.4;
+         this.tVelZ = this.tVelZ * 0.6 + (tz - this.lastTz) * 0.4;
+         this.lastTx = tx;
+         this.lastTz = tz;
+      }
+
+      // rakibin "one" yonu: kacarken hareket yonu, dururken baktigi yon
+      double tSpeed = Math.sqrt(this.tVelX * this.tVelX + this.tVelZ * this.tVelZ);
+      boolean fleeing = tSpeed > 0.12;
+      double fx;
+      double fz;
+      if (tSpeed > 0.06) {
+         fx = this.tVelX / tSpeed;
+         fz = this.tVelZ / tSpeed;
+      } else {
+         double rad = Math.toRadians((double)t.method_36454());
+         fx = -Math.sin(rad);
+         fz = Math.cos(rad);
+      }
+
+      double myX = mc.field_1724.method_23317();
+      double myY = mc.field_1724.method_23318();
+      double myZ = mc.field_1724.method_23321();
+      double rx = myX - tx;
+      double rz = myZ - tz;
+      double hDist = Math.sqrt(rx * rx + rz * rz);
+      double dot = rx * fx + rz * fz;
+
+      // gecis noktasi secimi (kilitli, titremesin): yuksekteysek kafaya dal, rakibin gerisindeysek onune,
+      // onundeysek arkasina gec
+      if (this.anchorLock > 0) {
+         this.anchorLock--;
+      } else {
+         Anchor pick;
+         if (myY - ty > 7.0 && hDist < 14.0) {
+            pick = Anchor.HEAD;
+         } else {
+            pick = dot < 0.0 ? Anchor.FRONT : Anchor.BEHIND;
+         }
+         if (pick != this.anchor) {
+            this.anchor = pick;
+            this.anchorLock = 12;
+         }
+      }
+
+      double ax = tx;
+      double ay = ty + height * 0.5;
+      double az = tz;
+      switch (this.anchor) {
+         case FRONT:
+            ax += fx * 1.0;
+            az += fz * 1.0;
+            if (fleeing && hDist > 5.0) {
+               double vx0 = mc.field_1724.method_18798().field_1352;
+               double vz0 = mc.field_1724.method_18798().field_1350;
+               double mySpeed = Math.max(Math.sqrt(vx0 * vx0 + vz0 * vz0), 0.6);
+               double lead = class_3532.method_15350(hDist / mySpeed, 0.0, 12.0);
+               ax += this.tVelX * lead;
+               az += this.tVelZ * lead;
+            }
+            break;
+         case BEHIND:
+            ax -= fx * 1.0;
+            az -= fz * 1.0;
+            break;
+         default:
+            ay = ty + height;
+            break;
+      }
+
+      // acilar
+      class_243 eye = mc.field_1724.method_33571();
+      double dx = ax - eye.field_1352;
+      double dy = ay - eye.field_1351;
+      double dz = az - eye.field_1350;
+      double hd = Math.sqrt(dx * dx + dz * dz);
+      float curYaw = mc.field_1724.method_36454();
+      float curPitch = mc.field_1724.method_36455();
+      float wantYaw = (float)(Math.toDegrees(Math.atan2(dz, dx)) - 90.0);
+      float wantPitch = (float)(-Math.toDegrees(Math.atan2(dy, Math.max(hd, 0.001))));
+
+      // hiz / yer korumasi: yavassak once dal, cok hizliysa tirmanma, yere yakinsa tirman
+      double vx = mc.field_1724.method_18798().field_1352;
+      double vz = mc.field_1724.method_18798().field_1350;
+      double speed = Math.sqrt(vx * vx + vz * vz) * 20.0;
+      wantPitch = class_3532.method_15363(wantPitch, -p.climb, p.dive);
+      if (speed < (double)p.minSpeed && wantPitch < 0.0F) {
+         wantPitch = p.dive * 0.5F;
+      } else if (speed > (double)p.maxSpeed && wantPitch > 0.0F) {
+         wantPitch = 0.0F;
+      }
+      if (this.groundDistance(p.groundGuard) <= p.groundGuard) {
+         wantPitch = -p.climb;
+      }
+
+      float yawStep = p.pitchStep * 2.5F;
+      float nextYaw = curYaw + class_3532.method_15363(class_3532.method_15393(wantYaw - curYaw), -yawStep, yawStep);
+      float nextPitch = class_3532.method_15363(
+         curPitch + class_3532.method_15363(wantPitch - curPitch, -p.pitchStep, p.pitchStep), -90.0F, 90.0F
+      );
+
+      // fare hassasiyet izgarasina oturt
+      double gcd = Math.pow((Double)mc.field_1690.method_42495().method_41753() * 0.6 + 0.2, 3.0) * 1.2;
+      if (gcd > 1.0E-6) {
+         nextYaw = (float)((double)nextYaw - (double)(nextYaw - curYaw) % gcd);
+         nextPitch = (float)((double)nextPitch - (double)(nextPitch - curPitch) % gcd);
+      }
+      nextPitch = class_3532.method_15363(nextPitch, -90.0F, 90.0F);
+
+      mc.field_1724.method_36456(nextYaw);
+      mc.field_1724.method_36457(nextPitch);
+   }
+
+   /**
     * Vanilla-physics glide controller. Hic bir zaman velocity/pozisyon yazmaz, sadece bu tick'in pitch'ini secer.
     * DIVE = pitch asagi (irtifa -> hiz), CLIMB = pitch yukari (hiz -> irtifa). Parametreler aktif profilden gelir.
     */
    private void runBypass() {
-      if (!this.autoPitch.getValue()) {
-         this.bypassActive = false;
-         return;
-      }
-
       long nowMs = System.currentTimeMillis();
       if (!Float.isNaN(this.lastBypassPitch) && Math.abs(mc.field_1724.method_36455() - this.lastBypassPitch) > 0.01F) {
          // oyuncu fareyle pitch'i degistirdi: 1.5 saniye kontrolu birak

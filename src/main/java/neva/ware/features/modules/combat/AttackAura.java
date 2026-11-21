@@ -133,7 +133,8 @@ public class AttackAura extends Module {
       return target != null
          && mc.field_1724 != null
          && mc.field_1724.method_6128()
-         && (ModuleManager.elytraFlight != null && ModuleManager.elytraFlight.isEnabled() && ModuleManager.elytraFlight.lookBack.getValue()
+         && (ModuleManager.elytraFlight != null && ModuleManager.elytraFlight.isEnabled()
+               && (ModuleManager.elytraFlight.mode.is(neva.ware.features.modules.movement.ElytraFlight.Mode.Bypass) || ModuleManager.elytraFlight.lookBack.getValue())
             || ModuleManager.elytratarget != null && ModuleManager.elytratarget.isEnabled());
    }
 

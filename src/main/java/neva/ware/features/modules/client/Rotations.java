@@ -51,7 +51,7 @@ public class Rotations extends Module {
             && ModuleManager.aura.elytraTarget.getValue()
             && !Float.isNaN(this.fixRotation)
             && !ModuleManager.aura.elytraLook()
-            && !ModuleManager.elytraFlight.isEnabled()
+            && !(ModuleManager.elytraFlight.isEnabled() && ModuleManager.elytraFlight.mode.is(neva.ware.features.modules.movement.ElytraFlight.Mode.Bypass))
             && Managers.PLAYER.ticksElytraFlying > 5) {
             if (e.isPre()) {
                 this.prevYaw = mc.field_1724.method_36454();
