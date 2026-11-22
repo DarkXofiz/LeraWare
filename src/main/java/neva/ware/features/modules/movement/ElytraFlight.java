@@ -355,7 +355,23 @@ public class ElytraFlight extends Module {
       }
 
       double b = (double)this.boost.getValue();
-      mc.field_1724.method_5762(dirX * b, dirY * b, dirZ * b);
+      double newVx = mc.field_1724.method_18798().field_1352 + dirX * b;
+      double newVy = mc.field_1724.method_18798().field_1351 + dirY * b;
+      double newVz = mc.field_1724.method_18798().field_1350 + dirZ * b;
+
+      // RushAC "ElytraTargetS": yatay hiz, DALMIYORKEN (to.y >= from.y) 1.65 blok/tick'i gecerse flag atiyor.
+      // Dalista bu kontrol devre disi, o yuzden sadece tirmanirken/duzdeyken sinirliyoruz.
+      if (newVy >= 0.0) {
+         double horiz = Math.sqrt(newVx * newVx + newVz * newVz);
+         double cap = 1.55;
+         if (horiz > cap) {
+            double scale = cap / horiz;
+            newVx *= scale;
+            newVz *= scale;
+         }
+      }
+
+      mc.field_1724.method_18800(newVx, newVy, newVz);
       this.boostTimer.reset();
    }
 

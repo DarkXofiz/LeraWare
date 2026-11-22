@@ -113,6 +113,13 @@ public class AttackAura extends Module {
    private final MouseQuantizer quantizer = new MouseQuantizer();
    private final PitchTremor yawTremor = new PitchTremor();
    private final PitchTremor pitchTremor = new PitchTremor();
+   /**
+    * NavelyaAC ElytraTargetA (lock-error ~0.8-1.2, ayni zamanda GCD check) ve ElmasOyuncu AntiElytraTarget
+    * (AimLock err<=1.2, Melee strict<=1.0, ultra<=0.35) hedefe KUSURSUZ (hata ~0) kilitlenmeyi tespit ediyor.
+    * Daireye yakin, yavasca donen bir sapma ekleyerek aninlik hatayi genelde bu esiklerin USTUNDE tutar;
+    * genlik hitbox toleransinin (birkac derece) icinde kaldigi icin vurus oranini dusurmez.
+    */
+   private final OrbitJitter aimJitter = new OrbitJitter();
    private final long aimNoiseSeed = ThreadLocalRandom.current().nextLong();
 
    // ------------------------------------------------------------ bypass
@@ -608,16 +615,21 @@ public class AttackAura extends Module {
       this.rotationPitch = pitch;
    }
 
+   private float[] jittered(float[] angles) {
+      float[] off = this.aimJitter.next();
+      return new float[]{angles[0] + off[0], class_3532.method_15363(angles[1] + off[1], -90.0F, 90.0F)};
+   }
+
    private void commitRotation() {
       if (this.elytraLook()) {
-         float[] direct = this.anglesTo(this.closestPointOnBox(mc.field_1724.method_33571(), target.method_5829()));
+         float[] direct = this.jittered(this.anglesTo(this.closestPointOnBox(mc.field_1724.method_33571(), target.method_5829())));
          this.applyRotation(
             this.quantizer.yaw(mc.field_1724.method_36454(), this.capYaw(direct[0])),
             this.quantizer.pitch(mc.field_1724.method_36455(), this.capPitch(direct[1]))
          );
          this.lookingAtHitbox = this.isLookingAtHitbox(this.rotationYaw, this.rotationPitch, target, this.getReach());
          if (!this.lookingAtHitbox) {
-            float[] snap = this.anglesTo(target.method_5829().method_1005());
+            float[] snap = this.jittered(this.anglesTo(target.method_5829().method_1005()));
             this.applyRotation(
                this.quantizer.yaw(mc.field_1724.method_36454(), this.capYaw(snap[0])),
                this.quantizer.pitch(mc.field_1724.method_36455(), this.capPitch(snap[1]))
@@ -630,7 +642,7 @@ public class AttackAura extends Module {
 
       this.updateDesiredRotation();
       double gcd = this.quantizer.getGcd();
-      double noiseScale = Math.max(gcd * 0.6, 0.02);
+      double noiseScale = Math.max(gcd * 0.6, 0.55);
       float noisyYaw = (float)((double)this.desiredYaw + this.yawTremor.next(noiseScale));
       float noisyPitch = (float)((double)this.desiredPitch + this.pitchTremor.next(noiseScale * 0.6));
       this.applyRotation(
@@ -641,7 +653,7 @@ public class AttackAura extends Module {
 
       // elytra: the target moves too fast for the smoothed aim, snap onto its eye position
       if (!this.lookingAtHitbox && mc.field_1724.method_6128() && this.rotationMode.getValue() == AttackAura.Mode.HvH && this.autoCrit()) {
-         float[] snap = this.anglesTo(target.method_33571());
+         float[] snap = this.jittered(this.anglesTo(target.method_33571()));
          this.applyRotation(
             this.quantizer.yaw(mc.field_1724.method_36454(), this.capYaw(snap[0])),
             this.quantizer.pitch(mc.field_1724.method_36455(), this.capPitch(snap[1]))
@@ -1310,6 +1322,25 @@ public class AttackAura extends Module {
    }
 
    /** Smoothed gaussian hand tremor added on top of the aim. */
+   /** Yavasca donen sabit yaricapli sapma: aninlik hata nadiren 0'a yaklasir, ama hitbox toleransi icinde kalir. */
+   private static final class OrbitJitter {
+      private double phase = ThreadLocalRandom.current().nextDouble(0.0, Math.PI * 2.0);
+      private double amp = 1.4;
+      private long nextReroll;
+
+      float[] next() {
+         long now = System.currentTimeMillis();
+         if (now >= this.nextReroll) {
+            this.amp = ThreadLocalRandom.current().nextDouble(1.0, 2.2);
+            this.nextReroll = now + 400L + ThreadLocalRandom.current().nextLong(300L);
+         }
+
+         this.phase += ThreadLocalRandom.current().nextDouble(0.35, 0.65);
+         double jitterAmp = this.amp + ThreadLocalRandom.current().nextDouble(-0.15, 0.15);
+         return new float[]{(float)(Math.cos(this.phase) * jitterAmp), (float)(Math.sin(this.phase) * jitterAmp * 0.6)};
+      }
+   }
+
    private static final class PitchTremor {
       private double value;
       private double velocity;
