@@ -1,8 +1,8 @@
-# LeraWare
+# MiranWare
 
 Client-side Fabric mod for Minecraft 1.21.x (Java 21).
 
-LeraWare is the open-source source release of the **NevaWare 1.7** mod, originally created by **TrNeverMind**
+MiranWare is the open-source source release of the **NevaWare 1.7** mod, originally created by **TrNeverMind**
 and distributed as `NevaWare.jar`. The code in this repository is derived from that release; the internal
 package names (`neva.ware.*`), the mod id and the in-game name are intentionally left unchanged so that all
 original features keep working exactly as before.

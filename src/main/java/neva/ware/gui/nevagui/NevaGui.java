@@ -233,7 +233,7 @@ public class NevaGui extends class_437 {
       context.method_51448().method_22903();
       context.method_51448().method_22905(0.85F, 0.85F, 1.0F);
       context.method_51448().method_22904((double)(this.main_posX + 10) / 0.85, (double)(this.main_posY + 15) / 0.85, 0.0);
-      FontRenderers.thglitch.drawString(context.method_51448(), "LeraWare", 0.0, 0.0, NevaWareGui.getColorByTheme(2).getRGB());
+      FontRenderers.thglitch.drawString(context.method_51448(), "MiranWare", 0.0, 0.0, NevaWareGui.getColorByTheme(2).getRGB());
       context.method_51448().method_22904((double)(-(this.main_posX + 10)) / 0.85, (double)(-(this.main_posY + 15)) / 0.85, 0.0);
       context.method_51448().method_22905(1.0F, 1.0F, 1.0F);
       context.method_51448().method_22909();

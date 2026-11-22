@@ -3,7 +3,7 @@
   "id": "nevaware",
   "version": "1.7",
   "icon": "icon.png",
-  "name": "LeraWare",
+  "name": "MiranWare",
   "description": "Minecraft Hack",
   "authors": [
     {
@@ -22,9 +22,9 @@
     ]
   },
   "contact": {
-    "sources": "LeraWare",
-    "homepage": "LeraWare",
-    "issues": "LeraWare"
+    "sources": "MiranWare",
+    "homepage": "MiranWare",
+    "issues": "MiranWare"
   },
   "mixins": [
     "nevaware.mixins.json",

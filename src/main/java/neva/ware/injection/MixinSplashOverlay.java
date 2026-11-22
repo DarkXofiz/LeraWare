@@ -15,7 +15,7 @@ import neva.ware.core.manager.client.ModuleManager;
 import neva.ware.features.modules.Module;
 import neva.ware.features.modules.client.ClientSettings;
 import neva.ware.features.modules.client.HudEditor;
-import neva.ware.gui.mainmenu.LeraAssets;
+import neva.ware.gui.mainmenu.MiranAssets;
 import neva.ware.gui.mainmenu.PanoramaBackground;
 import neva.ware.utility.render.NwCursor;
 import neva.ware.utility.render.Render2DEngine;
@@ -125,7 +125,7 @@ public abstract class MixinSplashOverlay {
       Color var43 = HudEditor.getColor(90);
       int guiW = var1.method_51421();
       int guiH = var1.method_51443();
-      LeraAssets.Tex logo = LeraAssets.logo();
+      MiranAssets.Tex logo = MiranAssets.logo();
       int logoW = Math.min((int)((float)guiW * 0.5F), 420);
       int logoH = logo != null ? Math.max(1, Math.round((float)logoW * (float)logo.h / (float)logo.w)) : 0;
       int logoX = (guiW - logoW) / 2;

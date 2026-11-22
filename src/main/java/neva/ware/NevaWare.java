@@ -53,7 +53,7 @@ public class NevaWare implements ModInitializer {
       Managers.subscribe();
       Render2DEngine.initShaders();
       ModuleManager.rpc.startRpc();
-      LOGGER.info("[LeraWare] Init time: {} ms.", System.currentTimeMillis() - initTime);
+      LOGGER.info("[MiranWare] Init time: {} ms.", System.currentTimeMillis() - initTime);
       initTime = System.currentTimeMillis();
       RUNTIME.addShutdownHook(new ManagerShutdownHook());
       RUNTIME.addShutdownHook(new ModuleShutdownHook());

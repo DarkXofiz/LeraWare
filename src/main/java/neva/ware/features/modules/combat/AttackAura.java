@@ -52,7 +52,7 @@ import neva.ware.utility.player.MouseQuantizer;
 import neva.ware.utility.player.SearchInvResult;
 
 /**
- * AttackAura: the LeraWare Aura. It replaces the old Netsuki based Aura.
+ * AttackAura: the MiranWare Aura. It replaces the old Netsuki based Aura.
  * HvH / Smooth rotation, Smart / Only critical gate, sprint drop, shield breaker, pause and auto-disable rules,
  * target filters, randomized attack delay, GCD-quantized rotation with tremor noise and human-like yaw / pitch animation.
  *

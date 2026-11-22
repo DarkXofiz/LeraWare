@@ -8,12 +8,12 @@ import net.minecraft.class_2960;
 import neva.ware.features.modules.Module;
 
 /**
- * Loads the LeraWare background and logo straight from the mod jar and registers them
+ * Loads the MiranWare background and logo straight from the mod jar and registers them
  * as dynamic textures. Loading from the classpath (instead of by resource id) means the
  * images are available while the Mojang splash screen is still reloading resources.
  * Every accessor returns null on failure, callers must have a fallback.
  */
-public final class LeraAssets {
+public final class MiranAssets {
    public static final class Tex {
       public final class_2960 id;
       public final int w;
@@ -32,13 +32,13 @@ public final class LeraAssets {
    private static boolean backgroundTried;
    private static boolean logoTried;
 
-   private LeraAssets() {
+   private MiranAssets() {
    }
 
    public static Tex background() {
       if (!backgroundTried) {
          backgroundTried = true;
-         background = load("leraware_bg.png", "dynamic/leraware_bg");
+         background = load("miranware_bg.png", "dynamic/miranware_bg");
       }
 
       return background;
@@ -47,14 +47,14 @@ public final class LeraAssets {
    public static Tex logo() {
       if (!logoTried) {
          logoTried = true;
-         logo = load("leraware_logo.png", "dynamic/leraware_logo");
+         logo = load("miranware_logo.png", "dynamic/miranware_logo");
       }
 
       return logo;
    }
 
    private static Tex load(String file, String idPath) {
-      try (InputStream in = LeraAssets.class.getResourceAsStream(BASE + file)) {
+      try (InputStream in = MiranAssets.class.getResourceAsStream(BASE + file)) {
          if (in == null) {
             return null;
          }

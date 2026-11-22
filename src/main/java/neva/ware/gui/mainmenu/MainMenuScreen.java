@@ -171,14 +171,14 @@ public class MainMenuScreen extends class_437 {
       Color var19 = theme(270);
       new Color((var18.getRed() + var19.getRed()) / 2, (var18.getGreen() + var19.getGreen()) / 2, (var18.getBlue() + var19.getBlue()) / 2);
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-      LeraAssets.Tex lera = LeraAssets.logo();
-      if (lera != null) {
-         // LeraWare logo sits directly above the SINGLEPLAYER button (button frame top = centre - 53)
+      MiranAssets.Tex miran = MiranAssets.logo();
+      if (miran != null) {
+         // MiranWare logo sits directly above the SINGLEPLAYER button (button frame top = centre - 53)
          int logoW = Math.min(300, (int)(var5 * 0.8F));
-         int logoH = Math.max(1, Math.round((float)logoW * (float)lera.h / (float)lera.w));
+         int logoH = Math.max(1, Math.round((float)logoW * (float)miran.h / (float)miran.w));
          int logoX = ((int)var5 - logoW) / 2;
          int logoY = Math.max(4, (int)var8 - 53 - 14 - logoH);
-         var1.method_25293(lera.id, logoX, logoY, logoW, logoH, 0.0F, 0.0F, lera.w, lera.h, lera.w, lera.h);
+         var1.method_25293(miran.id, logoX, logoY, logoW, logoH, 0.0F, 0.0F, miran.w, miran.h, miran.w, miran.h);
       }
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
@@ -196,7 +196,7 @@ public class MainMenuScreen extends class_437 {
       } catch (Throwable var24) {
       }
 
-      String var23 = "LeraWare Client  |  online: " + var26;
+      String var23 = "MiranWare Client  |  online: " + var26;
    }
 
    public boolean method_25402(double var1, double var3, int var5) {
