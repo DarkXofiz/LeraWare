@@ -63,7 +63,8 @@ import neva.ware.utility.player.SearchInvResult;
  * and the Players / Mobs / Animals / Villagers / ignoreCreative / ignoreInvisible settings.
  */
 public class AttackAura extends Module {
-   private static final float ATTACK_COOLDOWN = 0.86F;
+   /** Sunucu kritik / tam hasar icin saldiri cooldown > 0.9 ister; 0.86 esigi vuruslarin yarisinda kritigi kaciriyordu. */
+   private static final float ATTACK_COOLDOWN = 0.95F;
 
    public final Setting<Float> attackRange = new Setting<>("Range", 3.1F, 1.0F, 6.0F);
    public final Setting<Float> aimRange = new Setting<>("AimRange", 3.1F, 0.0F, 6.0F);
@@ -73,6 +74,8 @@ public class AttackAura extends Module {
    public final Setting<Boolean> bypass = new Setting<>("Bypass", true);
    public final Setting<AttackAura.CritMode> crit = new Setting<>("Crit", AttackAura.CritMode.Smart);
    public final Setting<Boolean> dropSprint = new Setting<>("DropSprint", true);
+   /** Yerdeyken kritik icin otomatik zipla (gercek fizik kritigi, paket sahteciligi yok). */
+   public final Setting<Boolean> critJump = new Setting<>("CritJump", true);
    public final Setting<AttackAura.Switch> switchMode = new Setting<>("AutoWeapon", AttackAura.Switch.None);
    public final Setting<Boolean> shieldBreaker = new Setting<>("ShieldBreaker", true);
    public final Setting<Boolean> unpressShield = new Setting<>("UnpressShield", true);
@@ -100,6 +103,7 @@ public class AttackAura extends Module {
    private float cooldownGate = ATTACK_COOLDOWN;
    private float tickFallDistance;
    private boolean tickOnGround;
+   private boolean jumpedThisTick;
    private class_1297 notifiedKill;
    private float desiredYaw;
    private float desiredPitch;
@@ -360,7 +364,8 @@ public class AttackAura extends Module {
    }
 
    public float getAttackCooldown() {
-      return mc.field_1724.method_7261(0.0F);
+      // sunucu saldiriyi 0.5 tick ileriye bakarak hesaplar (PlayerEntity.attack: getAttackCooldownProgress(0.5F))
+      return mc.field_1724.method_7261(0.5F);
    }
 
    /**
@@ -417,6 +422,7 @@ public class AttackAura extends Module {
    @EventHandler
    public void onUpdate(PlayerUpdateEvent e) {
       this.rotationCommitted = false;
+      this.jumpedThisTick = false;
       this.prevCommitted = this.lastCommitted;
       this.lastCommitted = false;
       if (mc.field_1724 == null || mc.field_1687 == null || mc.field_1761 == null) {
@@ -462,6 +468,11 @@ public class AttackAura extends Module {
       this.lastCommitted = true;
       this.baseYaw = this.rotationYaw;
       this.basePitch = this.rotationPitch;
+      if (!this.elytraLook()) {
+         // Rotations hareket duzeltmesi (jump / klavye / travel) bu tick'in HAREKETINDEN ONCE bu degeri okur;
+         // sadece EventSync'te set etmek cok gecti ve duzeltme hic uygulanmiyordu (gonderilen rotasyon != hareket yonu).
+         ModuleManager.rotations.fixRotation = this.rotationYaw;
+      }
    }
 
    @EventHandler
@@ -749,7 +760,7 @@ public class AttackAura extends Module {
          this.attackDelayMs += this.level.extraDelayMs;
       }
 
-      this.cooldownGate = ATTACK_COOLDOWN + (float)rnd.nextDouble(-0.08, 0.08);
+      this.cooldownGate = 0.93F + rnd.nextFloat() * 0.05F;
    }
 
    public boolean isAboveWater() {
@@ -777,7 +788,6 @@ public class AttackAura extends Module {
 
    /** The critical / cooldown gate: true when a hit may be made this tick. */
    private boolean autoCrit() {
-      boolean onlyCrit = this.crit.getValue() == AttackAura.CritMode.Only;
       boolean skipCrit = this.crit.getValue() == AttackAura.CritMode.Off
          || mc.field_1724.method_31549().field_7479
          || mc.field_1724.method_6128()
@@ -796,25 +806,73 @@ public class AttackAura extends Module {
          return false;
       }
 
-      boolean jumpHeld = mc.field_1690.field_1903.method_1434();
-      boolean groundedOrFalling = this.tickOnGround || this.tickFallDistance > 0.0F;
-      if (!jumpHeld && groundedOrFalling && !onlyCrit) {
+      if (skipCrit) {
          return true;
       }
 
-      if (mc.field_1724.method_5771() || mc.field_1724.method_5869()) {
+      // kritik mumkun olmayan ortamlar: normal vurus
+      if (mc.field_1724.method_5771() || mc.field_1724.method_5869() || this.isAboveWater()) {
          return true;
       }
 
-      if (!jumpHeld && this.isAboveWater()) {
+      // havada ve dusuyoruz: gercek kritik
+      if (this.willCrit()) {
          return true;
       }
 
-      if (!skipCrit) {
-         return !this.tickOnGround && this.tickFallDistance > 0.0F;
+      if (this.waitingForCrit()) {
+         return false;
       }
 
+      return this.crit.getValue() != AttackAura.CritMode.Only;
+   }
+
+   /** Kritik penceresini beklerken true: havada yukseliyoruz ya da kritik icin simdi zipladik. */
+   private boolean waitingForCrit() {
+      if (mc.field_1724.method_6128()) {
+         return false;
+      }
+
+      if (!this.tickOnGround) {
+         // yukseliyorsak dusmeyi bekle; dusuyoruz ama kritik baska nedenle engelliyse bekleme
+         return mc.field_1724.method_18798().field_1351 > 0.0;
+      }
+
+      if (mc.field_1690.field_1903.method_1434()) {
+         return true;
+      }
+
+      if (this.jumpedThisTick) {
+         return true;
+      }
+
+      if (!this.critJump.getValue() || !this.canCritJump()) {
+         return false;
+      }
+
+      mc.field_1724.method_6043();
+      this.jumpedThisTick = true;
       return true;
+   }
+
+   /** Yerdeyiz, hedef yakin ve zipalmaya engel yok: kritik icin ziplanabilir. */
+   private boolean canCritJump() {
+      if (target == null || !mc.field_1724.method_24828() || mc.field_1724.method_5765() || mc.field_1724.method_6101()) {
+         return false;
+      }
+
+      if (mc.field_1724.method_5799() || mc.field_1724.method_5771() || mc.field_1724.method_5869()) {
+         return false;
+      }
+
+      class_2338 bp = mc.field_1724.method_24515();
+      if (!mc.field_1687.method_8320(new class_2338(bp.method_10263(), bp.method_10264() + 2, bp.method_10260())).method_26215()) {
+         return false;
+      }
+
+      class_243 eye = mc.field_1724.method_33571();
+      class_243 point = this.closestPointOnBox(eye, target.method_5829());
+      return Math.sqrt(eye.method_1025(point)) <= (double)(Math.min(this.getReach(), 6.0F) + 1.0F);
    }
 
    // ---------------------------------------------------------- sprint / shield

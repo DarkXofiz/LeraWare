@@ -23,8 +23,26 @@ public class Rotations extends Module {
         super("Rotations", Module.Category.CLIENT);
     }
 
+    /**
+     * Aura (Bypass acik) hedefe kilitliyken gonderilen rotasyon ile hareket yonu ayrismasin diye MoveFix Off ise Free gibi davranir.
+     * Elytra ile ucarken dokunmaz.
+     */
+    private Rotations.MoveFix fixMode() {
+        Rotations.MoveFix v = this.moveFix.getValue();
+        if (v == Rotations.MoveFix.Off
+            && mc.field_1724 != null
+            && !mc.field_1724.method_6128()
+            && ModuleManager.aura.isEnabled()
+            && ModuleManager.aura.bypass.getValue()
+            && AttackAura.target != null) {
+            return Rotations.MoveFix.Free;
+        }
+
+        return v;
+    }
+
     public void onJump(EventPlayerJump e) {
-        if (!Float.isNaN(this.fixRotation) && this.moveFix.getValue() != Rotations.MoveFix.Off && !mc.field_1724.method_3144()) {
+        if (!Float.isNaN(this.fixRotation) && this.fixMode() != Rotations.MoveFix.Off && !mc.field_1724.method_3144()) {
             if (e.isPre()) {
                 this.prevYaw = mc.field_1724.method_36454();
                 mc.field_1724.method_36456(this.fixRotation);
@@ -35,7 +53,7 @@ public class Rotations extends Module {
     }
 
     public void onPlayerMove(EventFixVelocity event) {
-        if (this.moveFix.getValue() == Rotations.MoveFix.Free) {
+        if (this.fixMode() == Rotations.MoveFix.Free) {
             if (Float.isNaN(this.fixRotation) || mc.field_1724.method_3144()) {
                 return;
             }
@@ -73,7 +91,7 @@ public class Rotations extends Module {
                 mc.field_1724.method_36457(this.prevPitch);
             }
         } else {
-            if (this.moveFix.getValue() == Rotations.MoveFix.Focused && !Float.isNaN(this.fixRotation) && !mc.field_1724.method_3144()) {
+            if (this.fixMode() == Rotations.MoveFix.Focused && !Float.isNaN(this.fixRotation) && !mc.field_1724.method_3144()) {
                 if (e.isPre()) {
                     this.prevYaw = mc.field_1724.method_36454();
                     mc.field_1724.method_36456(this.fixRotation);
@@ -85,7 +103,7 @@ public class Rotations extends Module {
     }
 
     public void onKeyInput(EventKeyboardInput e) {
-        if (this.moveFix.getValue() == Rotations.MoveFix.Free) {
+        if (this.fixMode() == Rotations.MoveFix.Free) {
             if (Float.isNaN(this.fixRotation) || mc.field_1724.method_3144()) {
                 return;
             }
